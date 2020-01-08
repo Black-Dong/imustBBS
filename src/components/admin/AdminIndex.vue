@@ -1,78 +1,159 @@
 <template>
-  <el-container>
-    <el-header>
-      <el-row >
-        <el-col :span="4">左</el-col>
-        <el-col :span="16">中</el-col>
-        <el-col :span="4">
-          <div>
-            <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
-          </div>
-        </el-col>
-      </el-row>
-    </el-header>
+  <div id="admin">
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-main>Main</el-main>
+      <el-header>
+        <el-row >
+          <el-col :span="4">左</el-col>
+          <el-col :span="16">中</el-col>
+          <el-col :span="4">
+            <div>
+              <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+            </div>
+          </el-col>
+        </el-row>
+      </el-header>
+      <el-container>
+        <el-aside width="15%">
+          <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @open="handleOpen"
+            @close="handleClose"
+            background-color="#545c64"
+            text-color="#fff"
+            active-text-color="#ffd04b">
+            <el-submenu index="1">
+              <template slot="title">
+                <i class="el-icon-location"></i>
+                <span>导航一</span>
+              </template>
+              <el-menu-item-group>
+                <template slot="title">分组一</template>
+                <el-menu-item index="1-1">选项1</el-menu-item>
+                <el-menu-item index="1-2">选项2</el-menu-item>
+              </el-menu-item-group>
+              <el-menu-item-group title="分组2">
+                <el-menu-item index="1-3">选项3</el-menu-item>
+              </el-menu-item-group>
+              <el-submenu index="1-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="1-4-1">选项1</el-menu-item>
+              </el-submenu>
+            </el-submenu>
+            <el-menu-item index="2">
+              <i class="el-icon-menu"></i>
+              <span slot="title">导航二</span>
+            </el-menu-item>
+            <el-menu-item index="3" disabled>
+              <i class="el-icon-document"></i>
+              <span slot="title">导航三</span>
+            </el-menu-item>
+            <el-menu-item index="4">
+              <i class="el-icon-setting"></i>
+              <span slot="title">导航四</span>
+            </el-menu-item>
+          </el-menu>
+        </el-aside>
+
+
+        <el-main width="75%">
+          <el-table
+            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+            style="width: 100%">
+            <el-table-column
+              label="Date"
+              prop="date">
+            </el-table-column>
+            <el-table-column
+              label="Name"
+              prop="name">
+            </el-table-column>
+            <el-table-column
+              align="right">
+              <template slot="header" slot-scope="scope">
+                <el-input
+                  v-model="search"
+                  size="mini"
+                  placeholder="输入关键字搜索"/>
+              </template>
+              <template slot-scope="scope">
+                <el-button
+                  size="mini"
+                  @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
+                <el-button
+                  size="mini"
+                  type="danger"
+                  @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
-
-
-
-
-
-
 <style>
-/*
-	找到html标签、body标签，和挂载的标签
-	都给他们统一设置样式
-*/
-html,
-body,
-#app,
-.el-container {
-  /*设置内部填充为0，几个布局元素之间没有间距*/
-  padding: 0px;
-  /*外部间距也是如此设置*/
-  margin: 0px;
-  /*统一设置高度为100%*/
-  height: 100%;
-}
+  /*
+      找到html标签、body标签，和挂载的标签
+      都给他们统一设置样式
+  */
+  html,
+  body,
+  #app,
+  .el-container {
+    /*设置内部填充为0，几个布局元素之间没有间距*/
+    padding: 0px;
+    /*外部间距也是如此设置*/
+    margin: 0px;
+    /*统一设置高度为100%*/
+    height: 100%;
+  }
+  .el-main{
+    padding: 0;
+  }
 
-.el-header,
-.el-footer {
-  background-color: #b3c0d1;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
-}
-
-.el-aside {
-  background-color: #d3dce6;
-  color: #333;
-  text-align: center;
-  line-height: 200px;
-}
-
-.el-main {
-  background-color: #e9eef3;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
-
-body > .el-container {
-  margin-bottom: 40px;
-}
-
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
 </style>
+<script>
+
+  export default {
+    data() {
+      return {
+        tableData: [{
+          date: '2016-05-02',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1518 弄'
+        }, {
+          date: '2016-05-04',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1517 弄'
+        }, {
+          date: '2016-05-01',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1519 弄'
+        }, {
+          date: '2016-05-03',
+          name: '王小虎',
+          address: '上海市普陀区金沙江路 1516 弄'
+        }],
+        search: ''
+      }
+    },
+
+    methods: {
+      handleOpen(key, keyPath) {
+        console.log(key, keyPath);
+      },
+      handleClose(key, keyPath) {
+        console.log(key, keyPath);
+      },
+
+      handleEdit(index, row) {
+        console.log(index, row);
+      },
+      handleDelete(index, row) {
+        console.log(index, row);
+      }
+    }
+  }
+</script>
