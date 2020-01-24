@@ -9,7 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.dto.GithubOAuthDto;
 import top.codingdong.imustbbs.dto.GithubUser;
+import top.codingdong.imustbbs.mapper.UserMapper;
+import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.utils.GithubOAuthUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @author Dong
@@ -23,6 +28,9 @@ public class AuthorizeController {
     @Autowired
     GithubOAuthUtil githubOAuthUtil;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Value("${github.client_id}")
     private String clientId;
     @Value("${github.client_secret}")
@@ -33,7 +41,8 @@ public class AuthorizeController {
     @GetMapping("/callback")
     @ApiOperation(value = "授权登录申请后的操作")
     public String callback(@RequestParam(name = "code") String code,
-                           @RequestParam(name = "state") String state) {
+                           @RequestParam(name = "state") String state,
+                           HttpServletRequest request) {
         GithubOAuthDto githubOAuthDto = new GithubOAuthDto();
         githubOAuthDto.setClient_id(clientId);
         githubOAuthDto.setClient_secret(clientSecret);
@@ -43,7 +52,22 @@ public class AuthorizeController {
         String accessToken = githubOAuthUtil.getAccessToken(githubOAuthDto);
         GithubUser userInfo = githubOAuthUtil.getUserInfo(accessToken);
 
-        System.err.println(userInfo.getName());
-        return "index";
+        if (userInfo != null) {
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(userInfo.getName());
+            user.setAccountId(String.valueOf(userInfo.getId()));
+            user.setCreateTime(System.currentTimeMillis());
+            user.setUpdateTime(System.currentTimeMillis());
+            userMapper.insertUser(user);
+            // todo: 写入cookie
+            // 登录成功，写入session与cookie
+            request.getSession().setAttribute("user", userInfo);
+
+            return "redirect:/";
+        } else {
+            // 登录失败，重新登录
+            return "redirect:/";
+        }
     }
 }

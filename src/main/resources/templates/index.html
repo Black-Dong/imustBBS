@@ -13,7 +13,7 @@
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-<p th:text="'Hello, ' + ${name} + '!'"/>
+<p th:if="${session.user}" th:text="'Hello, ' + ${session.user.getName()} + '!'"/>
 
 
 <nav class="navbar navbar-default">
@@ -46,10 +46,10 @@
             </ul>-->
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login/github">登录</a></li>
-                <li class="dropdown">
+                <li><a href="/login/github" th:unless="${session.user}">登录</a></li>
+                <li class="dropdown" th:if="${session.user}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">我<span class="caret"></span></a>
+                       aria-expanded="false"><span th:text="${session.user.getName()}">我</span><span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#">消息中心</a></li>
                         <li><a href="#">个人资料</a></li>
