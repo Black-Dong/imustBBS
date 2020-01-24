@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import top.codingdong.imustbbs.model.User;
 
 /**
@@ -13,4 +14,7 @@ public interface UserMapper {
 
     @Insert("insert into user (name,account_id,token,create_time,update_time) values (#{name},#{accountId},#{token},#{createTime},#{updateTime})")
     void insertUser(User user);
+
+    @Select("select * from user where token = #{token} limit 1")
+    User findByToken(String token);
 }

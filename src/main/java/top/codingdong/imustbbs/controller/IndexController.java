@@ -2,8 +2,14 @@ package top.codingdong.imustbbs.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import top.codingdong.imustbbs.mapper.UserMapper;
+import top.codingdong.imustbbs.model.User;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Dong
@@ -13,9 +19,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Api(description = "首页")
 public class IndexController {
 
+    @Autowired
+    UserMapper userMapper;
+
     @GetMapping("/")
     @ApiOperation("跳转首页")
-    public String index() {
+    public String index(HttpServletRequest request) {
+
+        // 获取cookie，自动登录
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null){
+            for (Cookie cookie : cookies) {
+                if ("token".equals(cookie.getName())){
+                    String token = cookie.getValue();
+                    User user = userMapper.findByToken(token);
+                    if (user != null){
+                        request.getSession().setAttribute("user",user);
+                    }
+                    break;
+                }
+            }
+        }
+
         return "index";
     }
 

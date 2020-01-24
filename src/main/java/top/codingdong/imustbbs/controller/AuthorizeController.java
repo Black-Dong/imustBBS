@@ -13,7 +13,9 @@ import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.utils.GithubOAuthUtil;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -42,7 +44,8 @@ public class AuthorizeController {
     @ApiOperation(value = "授权登录申请后的操作")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
-                           HttpServletRequest request) {
+                           HttpServletRequest request,
+                           HttpServletResponse response) {
         GithubOAuthDto githubOAuthDto = new GithubOAuthDto();
         githubOAuthDto.setClient_id(clientId);
         githubOAuthDto.setClient_secret(clientSecret);
@@ -54,14 +57,16 @@ public class AuthorizeController {
 
         if (userInfo != null) {
             User user = new User();
-            user.setToken(UUID.randomUUID().toString());
+            String token = UUID.randomUUID().toString();
+            user.setToken(token);
             user.setName(userInfo.getName());
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
             userMapper.insertUser(user);
-            // todo: 写入cookie
-            // 登录成功，写入session与cookie
+
+            // 登录成功，写入session（或redis中）与cookie
+            response.addCookie(new Cookie("token", token));
             request.getSession().setAttribute("user", userInfo);
 
             return "redirect:/";
