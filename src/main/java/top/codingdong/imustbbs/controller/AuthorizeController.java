@@ -1,5 +1,7 @@
 package top.codingdong.imustbbs.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import top.codingdong.imustbbs.utils.GithubOAuthUtil;
  * @date 2020/1/24 10:46
  */
 @Controller
+@Api(description = "授权登录管理")
 public class AuthorizeController {
 
 
@@ -28,6 +31,7 @@ public class AuthorizeController {
     private String redirectUri;
 
     @GetMapping("/callback")
+    @ApiOperation(value = "授权登录申请后的操作")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state) {
         GithubOAuthDto githubOAuthDto = new GithubOAuthDto();

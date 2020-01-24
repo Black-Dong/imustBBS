@@ -10,11 +10,12 @@ import top.codingdong.imustbbs.dto.GithubUser;
 import java.io.IOException;
 
 /**
+ *  Github授权登录工具类
  * @author Dong
  * @date 2020/1/24 9:42
  */
 @Component
-public class GithubOAuthUtil implements BaseOAuthUtil {
+public class GithubOAuthUtil implements BaseOAuthUtil<GithubOAuthDto> {
 
     @Value("${github.client_id}")
     private String clientId;
@@ -24,6 +25,11 @@ public class GithubOAuthUtil implements BaseOAuthUtil {
     private String redirectUri;
 
 
+    /**
+     * 返回申请授权管理链接
+     *  访问后会重定向到redirectURI
+     * @return
+     */
     @Override
     public String authorize() {
         return "https://github.com/login/oauth/authorize?client_id=" + clientId
@@ -31,6 +37,12 @@ public class GithubOAuthUtil implements BaseOAuthUtil {
                 + "&scope=user&state=1";
     }
 
+
+    /**
+     * 获取AccessToken，需要post访问，所以使用了okhttp
+     * @param githubOAuthDto（内涵code等信息）
+     * @return
+     */
     @Override
     public String getAccessToken(GithubOAuthDto githubOAuthDto) {
 
@@ -52,6 +64,11 @@ public class GithubOAuthUtil implements BaseOAuthUtil {
         return null;
     }
 
+    /**
+     * 获取UserInfo，需要Get请求，仍然使用okhttp
+     * @param accessToken token
+     * @return
+     */
     @Override
     public GithubUser getUserInfo(String accessToken) {
 

@@ -7,7 +7,7 @@ import top.codingdong.imustbbs.dto.GithubUser;
  * @author Dong
  * @date 2020/1/24 9:37
  */
-public interface BaseOAuthUtil {
+public interface BaseOAuthUtil<T> {
 
     /**
      * 授权地址
@@ -19,10 +19,10 @@ public interface BaseOAuthUtil {
     /**
      * 获取accessToken
      *
-     * @param code 请求编码
+     * @param t 至少含有请求编码 code
      * @return accessToken
      */
-    public String getAccessToken(GithubOAuthDto githubOAuthDto);
+    public String getAccessToken(T t);
 
     /**
      * 获取用户信息
@@ -30,6 +30,6 @@ public interface BaseOAuthUtil {
      * @param accessToken token
      * @return user
      */
-    public <T> T getUserInfo(String accessToken);
+    public <E> E getUserInfo(String accessToken);
 
 }
