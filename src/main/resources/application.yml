@@ -1,2 +1,7 @@
 server:
   port: 9000
+
+github:
+  client_id: e7341630e86488e64e11
+  client_secret: 3d87ba58ec8201d8672358bcfa44dbf17f2fa48d
+  redirect_uri: http://localhost:9000/callback
