@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.codingdong.imustbbs.dto.GithubOAuthDto;
 import top.codingdong.imustbbs.dto.GithubUser;
-import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.service.AuthorizeService;
 import top.codingdong.imustbbs.utils.GithubOAuthUtil;
 
