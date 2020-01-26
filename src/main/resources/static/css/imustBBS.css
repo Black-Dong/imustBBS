@@ -1,0 +1,11 @@
+body{
+    background-image: url("../images/bg.jpg");
+}
+.container-fluid.main{
+    margin: 30px ;
+    background: rgba(255,255,255,0.5);
+}
+.btn-publish{
+    float: right;
+    margin-bottom: 15px;
+}

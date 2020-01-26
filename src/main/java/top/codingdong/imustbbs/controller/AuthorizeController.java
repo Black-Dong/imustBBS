@@ -11,6 +11,8 @@ import top.codingdong.imustbbs.dto.GithubOAuthDto;
 import top.codingdong.imustbbs.dto.GithubUser;
 import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.model.User;
+import top.codingdong.imustbbs.service.AuthorizeService;
+import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.utils.GithubOAuthUtil;
 
 import javax.servlet.http.Cookie;
@@ -26,19 +28,11 @@ import java.util.UUID;
 @Api(description = "授权登录管理")
 public class AuthorizeController {
 
+    @Autowired
+    private AuthorizeService authorizeService;
 
     @Autowired
-    GithubOAuthUtil githubOAuthUtil;
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Value("${github.client_id}")
-    private String clientId;
-    @Value("${github.client_secret}")
-    private String clientSecret;
-    @Value("${github.redirect_uri}")
-    private String redirectUri;
+    private UserService userService;
 
     @GetMapping("/callback")
     @ApiOperation(value = "授权登录申请后的操作")
@@ -46,14 +40,8 @@ public class AuthorizeController {
                            @RequestParam(name = "state") String state,
                            HttpServletRequest request,
                            HttpServletResponse response) {
-        GithubOAuthDto githubOAuthDto = new GithubOAuthDto();
-        githubOAuthDto.setClient_id(clientId);
-        githubOAuthDto.setClient_secret(clientSecret);
-        githubOAuthDto.setRedirect_uri(redirectUri);
-        githubOAuthDto.setCode(code);
-        githubOAuthDto.setState(state);
-        String accessToken = githubOAuthUtil.getAccessToken(githubOAuthDto);
-        GithubUser userInfo = githubOAuthUtil.getUserInfo(accessToken);
+
+        GithubUser userInfo = authorizeService.getGithubUser(code, state);
 
         if (userInfo != null) {
             User user = new User();
@@ -63,11 +51,12 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
-            userMapper.insertUser(user);
+
+            userService.insertUser(user);
 
             // 登录成功，写入session（或redis中）与cookie
             response.addCookie(new Cookie("token", token));
-            request.getSession().setAttribute("user", userInfo);
+            request.getSession().setAttribute("user", user);
 
             return "redirect:/";
         } else {

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.model.User;
+import top.codingdong.imustbbs.service.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
 
     @Autowired
-    UserMapper userMapper;
+    private UserService userService;
 
     @GetMapping("/")
     @ApiOperation("跳转首页")
@@ -32,7 +33,7 @@ public class IndexController {
             for (Cookie cookie : cookies) {
                 if ("token".equals(cookie.getName())){
                     String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
+                    User user = userService.findByToken(token);
                     if (user != null){
                         request.getSession().setAttribute("user",user);
                     }
