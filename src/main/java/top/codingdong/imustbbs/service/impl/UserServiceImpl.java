@@ -20,7 +20,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void insertUser(User user) {
-        userMapper.insertUser(user);
+        User newUser = userMapper.getUserByAccountAndSource(user.getAccountId(),user.getSource());
+        if (newUser != null){
+            newUser.setUpdateTime(user.getUpdateTime());
+            newUser.setName(user.getName());
+            newUser.setToken(user.getToken());
+            userMapper.updateUserSource(newUser.getToken(),newUser.getUpdateTime(),newUser.getId());
+        }else {
+            userMapper.insertUser(user);
+        }
     }
 
     @Override

@@ -3,17 +3,13 @@ package top.codingdong.imustbbs.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.codingdong.imustbbs.dto.GithubOAuthDto;
 import top.codingdong.imustbbs.dto.GithubUser;
-import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.AuthorizeService;
 import top.codingdong.imustbbs.service.UserService;
-import top.codingdong.imustbbs.utils.GithubOAuthUtil;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -49,6 +45,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(userInfo.getName());
             user.setAccountId(String.valueOf(userInfo.getId()));
+            user.setSource("github");
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
 

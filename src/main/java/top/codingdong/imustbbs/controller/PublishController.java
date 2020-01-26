@@ -11,6 +11,7 @@ import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Dong
@@ -24,13 +25,14 @@ public class PublishController {
     private PostService postService;
 
     @GetMapping("/publish")
-    public String publish(){
+    public String publish() {
         return "publish";
     }
 
     /**
      * post 中已包含 title、description、tag，
-     *      commentCount、viewCount、likeCount默认为0
+     * commentCount、viewCount、likeCount默认为0
+     *
      * @param post
      * @param request
      * @return
@@ -38,14 +40,24 @@ public class PublishController {
     @PostMapping("/publish")
     public String doPulish(Post post,
                            HttpServletRequest request,
-                           Model model){
+                           Model model) {
         User user = (User) request.getSession().getAttribute("user");
-        try{
+        try {
             post.setCreator(user.getId());
-        }catch (NullPointerException e){
-            model.addAttribute("error","用户未登录！");
+        } catch (NullPointerException e) {
+            model.addAttribute("error", "用户未登录！");
             return "publish";
         }
+        if ("".equals(post.getTitle())) {
+            model.addAttribute("error", "标题不能为空");
+            model.addAttribute("post",post);
+            return "publish";
+        }else if ("".equals(post.getDescription())){
+            model.addAttribute("error", "描述不能为空");
+            model.addAttribute("post",post);
+            return "publish";
+        }
+
         post.setCreateTime(System.currentTimeMillis());
         post.setUpdateTime(System.currentTimeMillis());
 

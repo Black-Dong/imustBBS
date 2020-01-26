@@ -9,6 +9,7 @@ public class User {
     private Integer id;
     private String name;
     private String accountId;
+    private String source;
     private String token;
     private Long createTime;
     private Long updateTime;
@@ -37,6 +38,14 @@ public class User {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public String getToken() {
