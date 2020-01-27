@@ -1,21 +1,25 @@
-package top.codingdong.imustbbs.utils;
+package top.codingdong.imustbbs.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.codingdong.imustbbs.dto.GithubOAuthDto;
 import top.codingdong.imustbbs.dto.GithubUser;
+import top.codingdong.imustbbs.service.AuthorizeService;
 
 import java.io.IOException;
 
 /**
- *  Github授权登录工具类
  * @author Dong
- * @date 2020/1/24 9:42
+ * @date 2020/1/26 13:52
  */
-@Component
-public class GithubOAuthUtil implements BaseOAuthUtil<GithubOAuthDto> {
+@Service
+@Transactional
+public class GithubAuthorizeServiceImpl implements AuthorizeService<GithubOAuthDto> {
+
 
     @Value("${github.client_id}")
     private String clientId;
@@ -24,6 +28,17 @@ public class GithubOAuthUtil implements BaseOAuthUtil<GithubOAuthDto> {
     @Value("${github.redirect_uri}")
     private String redirectUri;
 
+    public GithubUser getGithubUser(String code,String state) {
+        GithubOAuthDto githubOAuthDto = new GithubOAuthDto();
+        githubOAuthDto.setClient_id(clientId);
+        githubOAuthDto.setClient_secret(clientSecret);
+        githubOAuthDto.setRedirect_uri(redirectUri);
+        githubOAuthDto.setCode(code);
+        githubOAuthDto.setState(state);
+        String accessToken = getAccessToken(githubOAuthDto);
+        GithubUser userInfo = getUserInfo(accessToken);
+        return userInfo;
+    }
 
     /**
      * 返回申请授权管理链接
@@ -79,11 +94,11 @@ public class GithubOAuthUtil implements BaseOAuthUtil<GithubOAuthDto> {
         try(Response response = client.newCall(request).execute()) {
             String string = response.body().string();
             GithubUser githubUser = JSON.parseObject(string, GithubUser.class);
+//            System.out.println(githubUser);
             return githubUser;
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 }

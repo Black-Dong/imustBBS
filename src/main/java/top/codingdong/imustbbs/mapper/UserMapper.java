@@ -13,7 +13,7 @@ import top.codingdong.imustbbs.model.User;
 @Mapper
 public interface UserMapper {
 
-    @Insert("insert into user (name,account_id,source,token,create_time,update_time) values (#{name},#{accountId},#{source},#{token},#{createTime},#{updateTime})")
+    @Insert("insert into user (name,account_id,source,avatar_url,token,create_time,update_time) values (#{name},#{accountId},#{source},#{avatarUrl},#{token},#{createTime},#{updateTime})")
     void insertUser(User user);
 
     @Select("select * from user where token = #{token} limit 1")
@@ -22,8 +22,8 @@ public interface UserMapper {
     @Select("select * from user where account_id = #{accountId} and source = #{source} limit 1")
     User getUserByAccountAndSource(String accountId, String source);
 
-    @Update("update user set token = #{token}, update_time = #{updateTime} where id = #{id}")
-    void updateUserSource(String token, Long updateTime, Integer id);
+    @Update("update user set avatar_url = #{avatarUrl}, token = #{token}, update_time = #{updateTime} where id = #{id}")
+    void updateUserSource(User user);
 
 
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import top.codingdong.imustbbs.utils.GithubOAuthUtil;
+import top.codingdong.imustbbs.service.impl.GithubAuthorizeServiceImpl;
 
 /**
  * @author Dong
@@ -18,12 +18,12 @@ import top.codingdong.imustbbs.utils.GithubOAuthUtil;
 public class LoginController {
 
     @Autowired
-    GithubOAuthUtil githubOauth;
+    GithubAuthorizeServiceImpl githubAuthorizeService;
 
     @GetMapping("/github")
     @ApiOperation(value = "github第三方登录")
     public String githubLogin() {
-        String authorize = githubOauth.authorize();
+        String authorize = githubAuthorizeService.authorize();
         return "redirect:" + authorize;
     }
 }

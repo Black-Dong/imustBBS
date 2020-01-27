@@ -24,8 +24,9 @@ public class UserServiceImpl implements UserService {
         if (newUser != null){
             newUser.setUpdateTime(user.getUpdateTime());
             newUser.setName(user.getName());
+            newUser.setAvatarUrl(user.getAvatarUrl());
             newUser.setToken(user.getToken());
-            userMapper.updateUserSource(newUser.getToken(),newUser.getUpdateTime(),newUser.getId());
+            userMapper.updateUserSource(newUser);
         }else {
             userMapper.insertUser(user);
         }

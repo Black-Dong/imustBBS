@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.dto.GithubUser;
 import top.codingdong.imustbbs.model.User;
-import top.codingdong.imustbbs.service.AuthorizeService;
 import top.codingdong.imustbbs.service.UserService;
+import top.codingdong.imustbbs.service.impl.GithubAuthorizeServiceImpl;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +25,7 @@ import java.util.UUID;
 public class AuthorizeController {
 
     @Autowired
-    private AuthorizeService authorizeService;
+    private GithubAuthorizeServiceImpl githubAuthorizeServiceImpl;
 
     @Autowired
     private UserService userService;
@@ -37,7 +37,7 @@ public class AuthorizeController {
                            HttpServletRequest request,
                            HttpServletResponse response) {
 
-        GithubUser userInfo = authorizeService.getGithubUser(code, state);
+        GithubUser userInfo = githubAuthorizeServiceImpl.getGithubUser(code, state);
 
         if (userInfo != null) {
             User user = new User();
@@ -48,7 +48,9 @@ public class AuthorizeController {
             user.setSource("github");
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
+            user.setAvatarUrl(userInfo.getAvatarUrl());
 
+//            System.out.println(user);
             userService.insertUser(user);
 
             // 登录成功，写入session（或redis中）与cookie
