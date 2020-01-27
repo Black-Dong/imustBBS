@@ -7,7 +7,7 @@ import lombok.Data;
  * @date 2020/1/24 11:09
  */
 @Data
-public class GithubOAuthDto {
+public class GithubAccessTokenDto {
 
     private String client_id;
     private String client_secret;

@@ -2,11 +2,10 @@ package top.codingdong.imustbbs.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import okhttp3.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.codingdong.imustbbs.dto.GithubOAuthDto;
+import top.codingdong.imustbbs.dto.GithubAccessTokenDto;
 import top.codingdong.imustbbs.dto.GithubUser;
 import top.codingdong.imustbbs.service.AuthorizeService;
 
@@ -18,7 +17,7 @@ import java.io.IOException;
  */
 @Service
 @Transactional
-public class GithubAuthorizeServiceImpl implements AuthorizeService<GithubOAuthDto> {
+public class GithubAuthorizeServiceImpl implements AuthorizeService<GithubAccessTokenDto> {
 
 
     @Value("${github.client_id}")
@@ -29,13 +28,13 @@ public class GithubAuthorizeServiceImpl implements AuthorizeService<GithubOAuthD
     private String redirectUri;
 
     public GithubUser getGithubUser(String code,String state) {
-        GithubOAuthDto githubOAuthDto = new GithubOAuthDto();
-        githubOAuthDto.setClient_id(clientId);
-        githubOAuthDto.setClient_secret(clientSecret);
-        githubOAuthDto.setRedirect_uri(redirectUri);
-        githubOAuthDto.setCode(code);
-        githubOAuthDto.setState(state);
-        String accessToken = getAccessToken(githubOAuthDto);
+        GithubAccessTokenDto githubAccessTokenDto = new GithubAccessTokenDto();
+        githubAccessTokenDto.setClient_id(clientId);
+        githubAccessTokenDto.setClient_secret(clientSecret);
+        githubAccessTokenDto.setRedirect_uri(redirectUri);
+        githubAccessTokenDto.setCode(code);
+        githubAccessTokenDto.setState(state);
+        String accessToken = getAccessToken(githubAccessTokenDto);
         GithubUser userInfo = getUserInfo(accessToken);
         return userInfo;
     }
@@ -55,16 +54,16 @@ public class GithubAuthorizeServiceImpl implements AuthorizeService<GithubOAuthD
 
     /**
      * 获取AccessToken，需要post访问，所以使用了okhttp
-     * @param githubOAuthDto（内涵code等信息）
+     * @param githubAccessTokenDto（内涵code等信息）
      * @return
      */
     @Override
-    public String getAccessToken(GithubOAuthDto githubOAuthDto) {
+    public String getAccessToken(GithubAccessTokenDto githubAccessTokenDto) {
 
         MediaType mediaType = MediaType.get("application/json; charset=utf-8");
         OkHttpClient client = new OkHttpClient();
 
-        RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(githubOAuthDto));
+        RequestBody body = RequestBody.create(mediaType, JSON.toJSONString(githubAccessTokenDto));
         Request request = new Request.Builder()
                 .url("https://github.com/login/oauth/access_token")
                 .post(body)
