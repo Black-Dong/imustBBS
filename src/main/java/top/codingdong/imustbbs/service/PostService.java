@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service;
 
+import com.github.pagehelper.PageInfo;
 import top.codingdong.imustbbs.model.Post;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface PostService {
 
     void create(Post post);
 
-    List<Post> listPost();
+    PageInfo<Post> listPost(Integer pageSize, Integer size);
 }

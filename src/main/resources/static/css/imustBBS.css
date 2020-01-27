@@ -18,3 +18,12 @@ body{
     float: right;
     margin-bottom: 10px;
 }
+
+.pagination{
+    float: right;
+    margin-right: 10px !important;
+}
+
+.left-container{
+    border-right: 1px solid darkblue;
+}
