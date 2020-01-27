@@ -1,8 +1,10 @@
 package top.codingdong.imustbbs.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 import top.codingdong.imustbbs.model.Post;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -13,4 +15,11 @@ public interface PostMapper {
 
     @Insert("insert into post(title,description,create_time,update_time,creator,tag) values(#{title}, #{description}, #{createTime}, #{updateTime}, #{creator}, #{tag})")
     void create(Post post);
+
+    @Select("select * from post")
+    @Results(id = "selectPostAndUser",value = {
+            @Result(id = true,column = "id",property = "id"),
+            @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.findById",fetchType = FetchType.LAZY)),
+    })
+    List<Post> listPost();
 }
