@@ -11,8 +11,8 @@ import top.codingdong.imustbbs.interceptor.LoginInterceptor;
  * @author Dong
  * @date 2020/1/28 14:53
  */
-@Configuration
 //@EnableWebMvc
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired

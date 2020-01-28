@@ -2,6 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="nav">
+
+    <p th:if="${session.user}" style="background-color: dodgerblue;margin: 0px;color: #fff;" th:text="'Hello, ' + ${session.user.getName()} + '!   论坛使用过程会使用cookie，请确保您已启用cookie。'"></p>
+
     <nav th:fragment="nav" class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
