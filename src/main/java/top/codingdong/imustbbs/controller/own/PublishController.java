@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
  * @author Dong
  * @date 2020/1/25 10:24
  */
-// todo: 需要再做一个权限控制，未登录不显示发布
 @Controller
 @Api(description = "发布控制")
 @RequestMapping("/own")
@@ -29,7 +28,11 @@ public class PublishController {
 
     @GetMapping("/publish")
     @ApiOperation(value = "跳转发布页")
-    public String publish() {
+    public String publish(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
         return "publish";
     }
 

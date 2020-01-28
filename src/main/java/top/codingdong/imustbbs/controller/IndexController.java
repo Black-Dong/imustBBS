@@ -9,12 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.model.Post;
-import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
-import top.codingdong.imustbbs.service.UserService;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Dong
@@ -25,33 +20,15 @@ import javax.servlet.http.HttpServletRequest;
 public class IndexController {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
     private PostService postService;
 
     @GetMapping("/")
     @ApiOperation("跳转首页")
-    public String index(HttpServletRequest request,
-                        Model model,
+    public String index(Model model,
                         @RequestParam(name = "pageNumber",defaultValue = "1")Integer pageSize,
                         @RequestParam(name = "size",defaultValue = "3")Integer size
                         ) {
 
-        // 获取cookie，自动登录
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null && cookies.length > 0){
-            for (Cookie cookie : cookies) {
-                if ("token".equals(cookie.getName())){
-                    String token = cookie.getValue();
-                    User user = userService.findByToken(token);
-                    if (user != null){
-                        request.getSession().setAttribute("user",user);
-                    }
-                    break;
-                }
-            }
-        }
         PageInfo<Post> pageInfo = postService.listPost(pageSize, size);
         model.addAttribute("pageInfo",pageInfo);
 
