@@ -26,4 +26,8 @@ public interface PostMapper {
     @Select("select * from post where creator = #{userId}")
 //    @ResultMap(value = "selectPostAndUser")
     List<Post> listByUserId(Integer userId);
+
+    @Select("select * from post where id = #{id} limit 1")
+    @ResultMap(value = "selectPostAndUser")
+    Post getById(Integer id);
 }

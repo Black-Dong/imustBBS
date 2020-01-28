@@ -25,17 +25,18 @@
             <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 发现</h2>
             <hr>
             <div th:if="${pageInfo != null}">
-                <div class="media" th:each="post : ${pageInfo.getList()}">
+                <div class="media borderBottom paddingBottom-5" th:each="post : ${pageInfo.getList()}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded" th:src="${post.getUser().getAvatarUrl()}"
+                            <img class="media-object img-rounded avatar-size" th:src="${post.getUser().getAvatarUrl()}"
                                  src="https://avatars3.githubusercontent.com/u/42092762?v=4" alt="...">
                         </a>
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading" th:text="${post.getTitle()}">使用Spring Boot搭建论坛</h4>
-                        <!--                    使用Bootstrap 点击查看详细内容<br>-->
-                        <span class="about"><span th:text="${post.getCommentCount()}">2</span> 个回复 · <span
+                        <h4 class="media-heading">
+                            <a th:href="@{/post/{id}(id=${post.getId()})}" th:text="${post.getTitle()}" target="_blank"></a>
+                        </h4>
+                        <span class="post-about"><span th:text="${post.getCommentCount()}">2</span> 个回复 · <span
                                 th:text="${post.getViewCount()}">2</span> 次浏览 · <span
                                 th:text="${#dates.format(post.getUpdateTime(),'yyyy-MM-dd HH:mm')}">2</span> 更新</span>
                     </div>

@@ -39,10 +39,10 @@ public class LoginInterceptor implements HandlerInterceptor {
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
                     }
-                    break;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
@@ -28,10 +29,15 @@ public class PublishController {
 
     @GetMapping("/publish")
     @ApiOperation(value = "跳转发布页")
-    public String publish(HttpServletRequest request) {
+    public String publish(@RequestParam(required = false) Post post,
+                          Model model,
+                          HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             return "redirect:/";
+        }
+        if (post!=null){
+            model.addAttribute("post",post);
         }
         return "publish";
     }

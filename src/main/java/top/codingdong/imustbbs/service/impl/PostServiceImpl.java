@@ -39,4 +39,9 @@ public class PostServiceImpl implements PostService {
         PageInfo<Post> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
         return pageInfo;
     }
+
+    @Override
+    public Post getById(Integer id) {
+        return postMapper.getById(id);
+    }
 }

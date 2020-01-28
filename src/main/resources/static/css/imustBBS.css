@@ -5,15 +5,11 @@ body{
     margin: 30px ;
     background: rgba(255,255,255,1);
 }
-.media-object.img-rounded{
+.avatar-size{
     width: 38px;
     height: 38px;
 }
-.media{
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e6e6e6;
-}
-.media-body .about{
+.post-about{
     font-size: 12px;
     font-weight: normal;
     color: #999;
@@ -34,4 +30,25 @@ body{
 /* ownPosts.html */
 .own{
     margin-top: 20px;
+}
+.color-999{
+    color: #999;
+}
+.fontSize-13{
+    font-size: 13px;
+}
+.marginLeft-10{
+    margin-left: 10px;
+}
+.padding-0{
+    padding: 0px;
+}
+.paddingBottom-5{
+    padding-bottom: 5px;
+}
+.paddingBottom-10{
+    padding-bottom: 10px;
+}
+.borderBottom{
+    border-bottom: 1px solid #e6e6e6;
 }
