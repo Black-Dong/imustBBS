@@ -26,10 +26,17 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageInfo<Post> listPost(Integer pageSize,Integer size) {
+    public PageInfo<Post> listPost(Integer pageNum,Integer size) {
 
-        PageHelper.startPage(pageSize, size);
+        PageHelper.startPage(pageNum, size);
         PageInfo<Post> pageInfo = PageInfo.of(postMapper.listPost());
+        return pageInfo;
+    }
+
+    @Override
+    public PageInfo<Post> listByUserId(Integer userId, Integer pageNumber, Integer size) {
+        PageHelper.startPage(pageNumber, size);
+        PageInfo<Post> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
         return pageInfo;
     }
 }

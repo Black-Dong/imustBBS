@@ -3,11 +3,15 @@ body{
 }
 .container-fluid.main{
     margin: 30px ;
-    background: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,1);
 }
 .media-object.img-rounded{
     width: 38px;
     height: 38px;
+}
+.media{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e6e6e6;
 }
 .media-body .about{
     font-size: 12px;
@@ -25,5 +29,9 @@ body{
 }
 
 .left-container{
-    border-right: 1px solid darkblue;
+    border-right: 1px solid #e6e6e6;
+}
+/* ownPosts.html */
+.own{
+    margin-top: 20px;
 }

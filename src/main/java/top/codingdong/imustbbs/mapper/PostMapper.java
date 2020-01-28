@@ -22,4 +22,8 @@ public interface PostMapper {
             @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.findById",fetchType = FetchType.LAZY)),
     })
     List<Post> listPost();
+
+    @Select("select * from post where creator = #{userId}")
+//    @ResultMap(value = "selectPostAndUser")
+    List<Post> listByUserId(Integer userId);
 }

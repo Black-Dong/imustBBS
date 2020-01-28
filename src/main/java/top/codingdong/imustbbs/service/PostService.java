@@ -11,5 +11,7 @@ public interface PostService {
 
     void create(Post post);
 
-    PageInfo<Post> listPost(Integer pageSize, Integer size);
+    PageInfo<Post> listPost(Integer pageNum, Integer size);
+
+    PageInfo<Post> listByUserId(Integer userId, Integer pageNumber, Integer size);
 }
