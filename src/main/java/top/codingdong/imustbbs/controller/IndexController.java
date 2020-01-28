@@ -1,7 +1,5 @@
 package top.codingdong.imustbbs.controller;
 
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +15,6 @@ import top.codingdong.imustbbs.service.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author Dong
@@ -38,7 +35,7 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "pageNumber",defaultValue = "1")Integer pageSize,
-                        @RequestParam(name = "size",defaultValue = "1")Integer size
+                        @RequestParam(name = "size",defaultValue = "3")Integer size
                         ) {
 
         // 获取cookie，自动登录

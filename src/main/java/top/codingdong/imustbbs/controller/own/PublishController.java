@@ -1,4 +1,4 @@
-package top.codingdong.imustbbs.controller;
+package top.codingdong.imustbbs.controller.own;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 // todo: 需要再做一个权限控制，未登录不显示发布
 @Controller
 @Api(description = "发布控制")
+@RequestMapping("/own")
 public class PublishController {
 
     @Autowired

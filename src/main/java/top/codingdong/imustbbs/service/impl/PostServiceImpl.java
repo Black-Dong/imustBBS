@@ -9,8 +9,6 @@ import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.service.PostService;
 
-import java.util.List;
-
 /**
  * @author Dong
  * @date 2020/1/26 14:05
