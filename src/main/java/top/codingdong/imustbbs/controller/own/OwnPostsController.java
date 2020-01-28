@@ -43,7 +43,7 @@ public class OwnPostsController {
                            Model model,
                            HttpServletRequest request,
                            @RequestParam(name = "pageNumber",defaultValue = "1")Integer pageNumber,
-                           @RequestParam(name = "size",defaultValue = "1")Integer size) {
+                           @RequestParam(name = "size",defaultValue = "5")Integer size) {
 
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {

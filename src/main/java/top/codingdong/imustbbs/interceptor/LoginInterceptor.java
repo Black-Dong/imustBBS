@@ -23,9 +23,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         User user =  (User) request.getSession().getAttribute("user");
-        if (user != null){
+        if (user != null && user.getId() != null){
             request.getSession().setAttribute("user", user);
-            System.out.println(user);
             return true;
         }
 
@@ -43,6 +42,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                 }
             }
         }
+        response.sendRedirect("/");
         return false;
     }
 }

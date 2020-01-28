@@ -46,10 +46,7 @@ public class AuthorizeController {
             user.setName(userInfo.getName());
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setSource("github");
-            user.setCreateTime(System.currentTimeMillis());
-            user.setUpdateTime(System.currentTimeMillis());
             user.setAvatarUrl(userInfo.getAvatarUrl());
-
 //            System.out.println(user);
             userService.insertUser(user);
 
@@ -62,5 +59,18 @@ public class AuthorizeController {
             // 登录失败，重新登录
             return "redirect:/";
         }
+    }
+
+
+
+    @GetMapping("/logout")
+    @ApiOperation(value = "退出登录")
+    public String logout(HttpServletRequest request,
+                         HttpServletResponse response){
+        request.getSession().invalidate();
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return "redirect:/";
     }
 }

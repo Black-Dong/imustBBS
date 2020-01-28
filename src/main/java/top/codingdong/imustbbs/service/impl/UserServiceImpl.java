@@ -28,6 +28,8 @@ public class UserServiceImpl implements UserService {
             newUser.setToken(user.getToken());
             userMapper.updateUserSource(newUser);
         }else {
+            user.setCreateTime(System.currentTimeMillis());
+            user.setUpdateTime(System.currentTimeMillis());
             userMapper.insertUser(user);
         }
     }
