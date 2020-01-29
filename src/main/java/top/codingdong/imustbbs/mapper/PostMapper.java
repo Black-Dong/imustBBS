@@ -30,4 +30,7 @@ public interface PostMapper {
     @Select("select * from post where id = #{id} limit 1")
     @ResultMap(value = "selectPostAndUser")
     Post getById(Integer id);
+
+    @Update("update post set title=#{title},description=#{description}, update_time=#{updateTime}, creator=#{creator},tag=#{tag} where id =#{id}")
+    void update(Post post);
 }

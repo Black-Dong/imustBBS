@@ -5,10 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
@@ -27,18 +24,17 @@ public class PublishController {
     @Autowired
     private PostService postService;
 
+    @GetMapping("/editPost/{id}")
+    public String edit(@PathVariable(name = "id")Integer id,
+                       Model model){
+        Post post = postService.getById(id);
+        model.addAttribute("post",post);
+        return "publish";
+    }
+
     @GetMapping("/publish")
     @ApiOperation(value = "跳转发布页")
-    public String publish(@RequestParam(required = false) Post post,
-                          Model model,
-                          HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            return "redirect:/";
-        }
-        if (post!=null){
-            model.addAttribute("post",post);
-        }
+    public String publish() {
         return "publish";
     }
 
@@ -47,7 +43,6 @@ public class PublishController {
      * commentCount、viewCount、likeCount默认为0
      *
      * @param post
-     * @param request
      * @return
      */
     @PostMapping("/publish")
@@ -55,13 +50,6 @@ public class PublishController {
     public String doPulish(Post post,
                            HttpServletRequest request,
                            Model model) {
-        try {
-            User user = (User) request.getSession().getAttribute("user");
-            post.setCreator(user.getId());
-        } catch (NullPointerException e) {
-            model.addAttribute("error", "用户未登录！");
-            return "publish";
-        }
         // 后端验证 前端不输入传入为 ''
         if ("".equals(post.getTitle()) || "".equals(post.getDescription()) || "".equals(post.getTag())){
             if ("".equals(post.getTitle())) {
@@ -75,10 +63,8 @@ public class PublishController {
             return "publish";
         }
 
-        post.setCreateTime(System.currentTimeMillis());
-        post.setUpdateTime(System.currentTimeMillis());
-
-        postService.create(post);
+        post.setCreator(((User)request.getSession().getAttribute("user")).getId());
+        postService.createOrUpdate(post);
         return "redirect:/";
     }
 }

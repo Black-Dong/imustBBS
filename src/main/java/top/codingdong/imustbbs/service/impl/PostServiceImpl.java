@@ -21,8 +21,15 @@ public class PostServiceImpl implements PostService {
     private PostMapper postMapper;
 
     @Override
-    public void create(Post post) {
-        postMapper.create(post);
+    public void createOrUpdate(Post post) {
+        if (post.getId() == null){
+            post.setCreateTime(System.currentTimeMillis());
+            post.setUpdateTime(System.currentTimeMillis());
+            postMapper.create(post);
+        }else {
+            post.setUpdateTime(System.currentTimeMillis());
+            postMapper.update(post);
+        }
     }
 
     @Override

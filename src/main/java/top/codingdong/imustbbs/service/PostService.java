@@ -9,7 +9,7 @@ import top.codingdong.imustbbs.model.Post;
  */
 public interface PostService {
 
-    void create(Post post);
+    void createOrUpdate(Post post);
 
     PageInfo<Post> listPost(Integer pageNum, Integer size);
 

@@ -30,8 +30,8 @@ public class AuthorizeController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/callback")
-    @ApiOperation(value = "授权登录申请后的操作")
+    @GetMapping("/github/callback")
+    @ApiOperation(value = "github授权登录申请后的操作")
     public String callback(@RequestParam(name = "code") String code,
                            @RequestParam(name = "state") String state,
                            HttpServletRequest request,
@@ -47,9 +47,9 @@ public class AuthorizeController {
             user.setAccountId(String.valueOf(userInfo.getId()));
             user.setSource("github");
             user.setAvatarUrl(userInfo.getAvatarUrl());
-//            System.out.println(user);
-            userService.insertUser(user);
-
+            // 向user表中插入或修改用户
+            user = userService.createUser(user);
+            System.out.println(user.getId());
             // 登录成功，写入session（或redis中）与cookie
             response.addCookie(new Cookie("token", token));
             request.getSession().setAttribute("user", user);

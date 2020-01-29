@@ -25,6 +25,7 @@
             <div th:if="!${#strings.isEmpty(error)}" class="alert alert-danger" th:text="${error}"></div>
 
             <form action="/own/publish" method="post">
+                <input type="hidden" name="id" th:value="${(post!= null && post.getId() != null) ? post.getId(): null}">
                 <div class="form-group">
                     <label for="title">标题 : </label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题"

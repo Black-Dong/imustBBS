@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public void insertUser(User user) {
+    public User createUser(User user) {
         User newUser = userMapper.getUserByAccountAndSource(user.getAccountId(),user.getSource());
         if (newUser != null){
             newUser.setUpdateTime(user.getUpdateTime());
@@ -27,10 +27,12 @@ public class UserServiceImpl implements UserService {
             newUser.setAvatarUrl(user.getAvatarUrl());
             newUser.setToken(user.getToken());
             userMapper.updateUserSource(newUser);
+            return newUser;
         }else {
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
             userMapper.insertUser(user);
+            return user;
         }
     }
 

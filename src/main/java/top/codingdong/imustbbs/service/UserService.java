@@ -8,7 +8,7 @@ import top.codingdong.imustbbs.model.User;
  */
 public interface UserService {
 
-    void insertUser(User user);
+    User createUser(User user);
 
     User findByToken(String token);
 }

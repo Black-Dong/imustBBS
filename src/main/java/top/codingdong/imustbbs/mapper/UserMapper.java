@@ -10,6 +10,7 @@ import top.codingdong.imustbbs.model.User;
 @Mapper
 public interface UserMapper {
 
+    @Options(useGeneratedKeys = true,keyColumn = "id",keyProperty = "user.id")
     @Insert("insert into user (name,account_id,source,avatar_url,token,create_time,update_time) values (#{name},#{accountId},#{source},#{avatarUrl},#{token},#{createTime},#{updateTime})")
     void insertUser(User user);
 
