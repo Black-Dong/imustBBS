@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.codingdong.imustbbs.exception.ImustBBSErrorCodeEnum;
+import top.codingdong.imustbbs.exception.ImustBBSException;
 import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.service.PostService;
@@ -28,7 +30,10 @@ public class PostServiceImpl implements PostService {
             postMapper.create(post);
         }else {
             post.setUpdateTime(System.currentTimeMillis());
-            postMapper.update(post);
+            int updated = postMapper.update(post);
+            if (updated != 1){
+                throw new ImustBBSException("更新错误！！！");
+            }
         }
     }
 
@@ -49,6 +54,10 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getById(Integer id) {
-        return postMapper.getById(id);
+        Post post = postMapper.getById(id);
+        if (post == null){
+            throw new ImustBBSException(ImustBBSErrorCodeEnum.POST_NOT_FOUND);
+        }
+        return post;
     }
 }

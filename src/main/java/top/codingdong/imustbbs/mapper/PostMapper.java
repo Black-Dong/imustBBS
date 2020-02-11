@@ -14,7 +14,7 @@ import java.util.List;
 public interface PostMapper {
 
     @Insert("insert into post(title,description,create_time,update_time,creator,tag) values(#{title}, #{description}, #{createTime}, #{updateTime}, #{creator}, #{tag})")
-    void create(Post post);
+    int create(Post post);
 
     @Select("select * from post")
     @Results(id = "selectPostAndUser",value = {
@@ -32,5 +32,5 @@ public interface PostMapper {
     Post getById(Integer id);
 
     @Update("update post set title=#{title},description=#{description}, update_time=#{updateTime}, creator=#{creator},tag=#{tag} where id =#{id}")
-    void update(Post post);
+    int update(Post post);
 }

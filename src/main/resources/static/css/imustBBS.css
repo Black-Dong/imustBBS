@@ -27,6 +27,10 @@ body{
 .left-container{
     border-right: 1px solid #e6e6e6;
 }
+/* error */
+.background-null{
+    background: rgba(255,255,255,0) !important;
+}
 /* ownPosts.html */
 .own{
     margin-top: 20px;
