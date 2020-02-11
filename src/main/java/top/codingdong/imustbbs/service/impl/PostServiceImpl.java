@@ -60,4 +60,13 @@ public class PostServiceImpl implements PostService {
         }
         return post;
     }
+
+    @Override
+    public Post viewPostById(Integer id) {
+        Post post = getById(id);
+        // 阅读 +1
+        postMapper.updateViewById(id);
+        return post;
+
+    }
 }

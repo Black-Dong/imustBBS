@@ -33,4 +33,7 @@ public interface PostMapper {
 
     @Update("update post set title=#{title},description=#{description}, update_time=#{updateTime}, creator=#{creator},tag=#{tag} where id =#{id}")
     int update(Post post);
+
+    @Update("update post set view_count = view_count + 1 where id = #{id}")
+    int updateViewById(Integer id);
 }

@@ -16,4 +16,6 @@ public interface PostService {
     PageInfo<Post> listByUserId(Integer userId, Integer pageNumber, Integer size);
 
     Post getById(Integer id);
+
+    Post viewPostById(Integer id);
 }

@@ -26,7 +26,7 @@ public class PostController {
     public String post(@PathVariable(name = "id")Integer id,
                        Model model){
 
-        Post post = postService.getById(id);
+        Post post = postService.viewPostById(id);
         post.setCreator(post.getUser().getId());
         model.addAttribute("post",post);
         return "post";
