@@ -37,7 +37,7 @@
                 </a>
             </div>
 
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop-10">
+            <div id="comment_section" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop-10">
                 <div class="media">
                     <div class="media-left">
                         <a href="#">
@@ -51,7 +51,8 @@
                         </h5>
                     </div>
                 </div>
-                <input id="post_id" type="hidden" th:value="${post.getId()}">
+                <input id="post_id" type="hidden" value="666">
+<!--                <input id="post_id" type="hidden" th:value="${post.getId()}">-->
                 <textarea id="comment_content" class="form-control marginTop-10 marginBottom-10" rows="6"></textarea>
                 <button type="button" class="btn btn-success marginBottom-10 float-right" onclick="comment()">回复</button>
             </div>

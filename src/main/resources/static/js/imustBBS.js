@@ -14,7 +14,11 @@ function comment() {
             }
         ),
         success: function (response) {
-            console.log(response)
+            if (response.code == 200){
+                $("#comment_section").hide();
+            } else {
+                alert(response.message);
+            }
         },
         dataType: "json"
     });
