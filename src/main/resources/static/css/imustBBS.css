@@ -27,11 +27,13 @@ body{
 .left-container{
     border-right: 1px solid #e6e6e6;
 }
+
 /* error */
 .background-null{
     background: rgba(255,255,255,0) !important;
 }
-/* ownPosts.html */
+
+
 .own{
     margin-top: 20px;
 }
@@ -41,11 +43,20 @@ body{
 .fontSize-13{
     font-size: 13px;
 }
+.marginTop-10{
+    margin-top: 10px;
+}
+.marginBottom-10{
+    margin-bottom: 10px !important;
+}
 .marginLeft-10{
     margin-left: 10px;
 }
 .padding-0{
     padding: 0px;
+}
+.paddingTop-10{
+    padding-top: 10px;
 }
 .paddingBottom-5{
     padding-bottom: 5px;
@@ -55,4 +66,7 @@ body{
 }
 .borderBottom{
     border-bottom: 1px solid #e6e6e6;
+}
+.float-right{
+    float: right;
 }
