@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.codingdong.imustbbs.mapper.CommentMapper;
+import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.service.CommentService;
 
@@ -18,8 +19,20 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
 
+    @Autowired
+    private PostMapper postMapper;
+
     @Override
     public int insert(Comment comment) {
+
+        comment.setCreateTime(System.currentTimeMillis());
+        comment.setUpdateTime(System.currentTimeMillis());
+
         return commentMapper.insert(comment);
+    }
+
+    @Override
+    public Comment getById(Long id) {
+        return commentMapper.getById(id);
     }
 }

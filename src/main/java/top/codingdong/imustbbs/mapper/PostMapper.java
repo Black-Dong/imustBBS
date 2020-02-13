@@ -25,15 +25,18 @@ public interface PostMapper {
 
     @Select("select * from post where creator = #{userId}")
 //    @ResultMap(value = "selectPostAndUser")
-    List<Post> listByUserId(Integer userId);
+    List<Post> listByUserId(Long userId);
 
     @Select("select * from post where id = #{id} limit 1")
     @ResultMap(value = "selectPostAndUser")
-    Post getById(Integer id);
+    Post getById(Long id);
 
     @Update("update post set title=#{title},description=#{description}, update_time=#{updateTime}, creator=#{creator},tag=#{tag} where id =#{id}")
     int update(Post post);
 
-    @Update("update post set view_count = view_count + 1 where id = #{id}")
-    int updateViewById(Integer id);
+    @Update("update post set view_count = view_count + #{viewCount,jdbcType=INTEGER} where id = #{id}")
+    int incViewCount(Post post);
+
+    @Update("update post set comment_count = comment_count + #{commentCount,jdbcType=INTEGER} where id = #{id}")
+    int incCommentCount(Post post);
 }

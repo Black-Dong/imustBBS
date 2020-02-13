@@ -25,7 +25,7 @@ public class PublishController {
     private PostService postService;
 
     @GetMapping("/editPost/{id}")
-    public String edit(@PathVariable(name = "id")Integer id,
+    public String edit(@PathVariable(name = "id")Long id,
                        Model model){
         Post post = postService.getById(id);
         model.addAttribute("post",post);

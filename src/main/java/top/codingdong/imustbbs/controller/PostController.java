@@ -23,7 +23,7 @@ public class PostController {
 
     @GetMapping("/post/{id}")
     @ApiOperation(value = "帖子详情页")
-    public String post(@PathVariable(name = "id")Integer id,
+    public String post(@PathVariable(name = "id")Long id,
                        Model model){
 
         Post post = postService.viewPostById(id);

@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import top.codingdong.imustbbs.model.Comment;
 
 /**
@@ -13,4 +14,7 @@ public interface CommentMapper {
 
     @Insert("insert into comment(parent_id, type, commentator, create_time, update_time,content) value(#{parentId}, #{type}, #{commentator}, #{createTime}, #{updateTime}, #{content})")
     int insert(Comment comment);
+
+    @Select("select * from comment where id = #{id} limit 1")
+    Comment getById(Long id);
 }

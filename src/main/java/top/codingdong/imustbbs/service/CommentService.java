@@ -9,4 +9,6 @@ import top.codingdong.imustbbs.model.Comment;
 public interface CommentService {
 
     int insert(Comment comment);
+
+    Comment getById(Long id);
 }

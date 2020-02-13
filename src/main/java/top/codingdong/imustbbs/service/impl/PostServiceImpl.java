@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.codingdong.imustbbs.exception.ImustBBSErrorCodeEnum;
+import top.codingdong.imustbbs.enums.ImustBBSErrorEnum;
 import top.codingdong.imustbbs.exception.ImustBBSException;
 import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.model.Post;
@@ -27,12 +27,15 @@ public class PostServiceImpl implements PostService {
         if (post.getId() == null){
             post.setCreateTime(System.currentTimeMillis());
             post.setUpdateTime(System.currentTimeMillis());
+            post.setCommentCount(0L);
+            post.setLikeCount(0L);
+            post.setViewCount(0L);
             postMapper.create(post);
         }else {
             post.setUpdateTime(System.currentTimeMillis());
             int updated = postMapper.update(post);
             if (updated != 1){
-                throw new ImustBBSException("更新错误！！！");
+                throw new ImustBBSException(ImustBBSErrorEnum.POST_UPDATE_ERROR);
             }
         }
     }
@@ -46,27 +49,34 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageInfo<Post> listByUserId(Integer userId, Integer pageNumber, Integer size) {
+    public PageInfo<Post> listByUserId(Long userId, Integer pageNumber, Integer size) {
         PageHelper.startPage(pageNumber, size, "update_time desc");
         PageInfo<Post> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
         return pageInfo;
     }
 
     @Override
-    public Post getById(Integer id) {
+    public Post getById(Long id) {
         Post post = postMapper.getById(id);
         if (post == null){
-            throw new ImustBBSException(ImustBBSErrorCodeEnum.POST_NOT_FOUND);
+            throw new ImustBBSException(ImustBBSErrorEnum.POST_NOT_FOUND);
         }
         return post;
     }
 
     @Override
-    public Post viewPostById(Integer id) {
+    public Post viewPostById(Long id) {
         Post post = getById(id);
         // 阅读 +1
-        postMapper.updateViewById(id);
+        post.setViewCount(1L);
+        postMapper.incViewCount(post);
         return post;
 
+    }
+
+    @Override
+    public void incCommentCount(Post post) {
+        post.setCommentCount(1L);
+        postMapper.incCommentCount(post);
     }
 }

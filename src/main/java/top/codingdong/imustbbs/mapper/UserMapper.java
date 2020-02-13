@@ -24,5 +24,5 @@ public interface UserMapper {
     void updateUserSource(User user);
 
     @Select("select * from user where id = #{id} limit 1")
-    User findById(Integer id);
+    User findById(Long id);
 }

@@ -11,7 +11,7 @@ public class Comment {
 
     private Long id;
     private Long parentId;
-    private int type;
+    private Integer type;
     private Long commentator;
     private Long createTime;
     private Long updateTime;

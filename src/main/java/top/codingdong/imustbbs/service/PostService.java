@@ -13,9 +13,11 @@ public interface PostService {
 
     PageInfo<Post> listPost(Integer pageNum, Integer size);
 
-    PageInfo<Post> listByUserId(Integer userId, Integer pageNumber, Integer size);
+    PageInfo<Post> listByUserId(Long userId, Integer pageNumber, Integer size);
 
-    Post getById(Integer id);
+    Post getById(Long id);
 
-    Post viewPostById(Integer id);
+    Post viewPostById(Long id);
+
+    void incCommentCount(Post parent_post);
 }
