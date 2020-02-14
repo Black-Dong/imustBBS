@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.codingdong.imustbbs.enums.ImustBBSErrorEnum;
 import top.codingdong.imustbbs.exception.ImustBBSException;
-import top.codingdong.imustbbs.mapper.PostMapper;
-import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.mapper.PostMapperExt;
+import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.service.PostService;
 
 /**
@@ -20,10 +20,10 @@ import top.codingdong.imustbbs.service.PostService;
 public class PostServiceImpl implements PostService {
 
     @Autowired
-    private PostMapper postMapper;
+    private PostMapperExt postMapper;
 
     @Override
-    public void createOrUpdate(Post post) {
+    public void createOrUpdate(PostDto post) {
         if (post.getId() == null){
             post.setCreateTime(System.currentTimeMillis());
             post.setUpdateTime(System.currentTimeMillis());
@@ -41,23 +41,23 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PageInfo<Post> listPost(Integer pageNum, Integer size) {
+    public PageInfo<PostDto> listPost(Integer pageNum, Integer size) {
 
         PageHelper.startPage(pageNum, size, "update_time desc");
-        PageInfo<Post> pageInfo = PageInfo.of(postMapper.listPost());
+        PageInfo<PostDto> pageInfo = PageInfo.of(postMapper.listPost());
         return pageInfo;
     }
 
     @Override
-    public PageInfo<Post> listByUserId(Long userId, Integer pageNumber, Integer size) {
+    public PageInfo<PostDto> listByUserId(Long userId, Integer pageNumber, Integer size) {
         PageHelper.startPage(pageNumber, size, "update_time desc");
-        PageInfo<Post> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
+        PageInfo<PostDto> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
         return pageInfo;
     }
 
     @Override
-    public Post getById(Long id) {
-        Post post = postMapper.getById(id);
+    public PostDto getById(Long id) {
+        PostDto post = postMapper.getById(id);
         if (post == null){
             throw new ImustBBSException(ImustBBSErrorEnum.POST_NOT_FOUND);
         }
@@ -65,8 +65,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post viewPostById(Long id) {
-        Post post = getById(id);
+    public PostDto viewPostById(Long id) {
+        PostDto post = getById(id);
         // 阅读 +1
         post.setViewCount(1L);
         postMapper.incViewCount(post);
@@ -75,7 +75,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void incCommentCount(Post post) {
+    public void incCommentCount(PostDto post) {
         post.setCommentCount(1L);
         postMapper.incCommentCount(post);
     }

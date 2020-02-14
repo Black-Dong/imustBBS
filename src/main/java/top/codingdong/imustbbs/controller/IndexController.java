@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.service.PostService;
 
 /**
@@ -29,7 +29,7 @@ public class IndexController {
                         @RequestParam(name = "size",defaultValue = "3")Integer size
                         ) {
 
-        PageInfo<Post> pageInfo = postService.listPost(pageSize, size);
+        PageInfo<PostDto> pageInfo = postService.listPost(pageSize, size);
         model.addAttribute("pageInfo",pageInfo);
 
         return "index";

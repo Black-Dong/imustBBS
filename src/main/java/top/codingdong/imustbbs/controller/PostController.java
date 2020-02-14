@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import top.codingdong.imustbbs.model.Comment;
-import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.dto.CommentDto;
+import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.service.CommentService;
 import top.codingdong.imustbbs.service.PostService;
 
@@ -33,10 +33,10 @@ public class PostController {
     public String post(@PathVariable(name = "id")Long id,
                        Model model){
 
-        Post post = postService.viewPostById(id);
+        PostDto post = postService.viewPostById(id);
         post.setCreator(post.getUser().getId());
 
-        List<Comment> comments = commentService.listByPostId(post.getId());
+        List<CommentDto> comments = commentService.listByPostId(post.getId());
 
         model.addAttribute("post",post);
         return "post";

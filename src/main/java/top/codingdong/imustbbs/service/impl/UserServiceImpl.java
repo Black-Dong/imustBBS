@@ -3,7 +3,7 @@ package top.codingdong.imustbbs.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import top.codingdong.imustbbs.mapper.UserMapper;
+import top.codingdong.imustbbs.mapper.UserMapperExt;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.UserService;
 
@@ -16,28 +16,28 @@ import top.codingdong.imustbbs.service.UserService;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapperExt userMapperExt;
 
     @Override
     public User createUser(User user) {
-        User newUser = userMapper.getUserByAccountAndSource(user.getAccountId(),user.getSource());
+        User newUser = userMapperExt.getUserByAccountAndSource(user.getAccountId(),user.getSource());
         if (newUser != null){
             newUser.setUpdateTime(user.getUpdateTime());
             newUser.setName(user.getName());
             newUser.setAvatarUrl(user.getAvatarUrl());
             newUser.setToken(user.getToken());
-            userMapper.updateUserSource(newUser);
+            userMapperExt.updateUserSource(newUser);
             return newUser;
         }else {
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
-            userMapper.insertUser(user);
+            userMapperExt.insertUser(user);
             return user;
         }
     }
 
     @Override
     public User findByToken(String token) {
-        return userMapper.findByToken(token);
+        return userMapperExt.findByToken(token);
     }
 }

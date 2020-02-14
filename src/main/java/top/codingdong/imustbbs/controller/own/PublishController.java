@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
 
@@ -27,7 +27,7 @@ public class PublishController {
     @GetMapping("/editPost/{id}")
     public String edit(@PathVariable(name = "id")Long id,
                        Model model){
-        Post post = postService.getById(id);
+        PostDto post = postService.getById(id);
         model.addAttribute("post",post);
         return "publish";
     }
@@ -47,7 +47,7 @@ public class PublishController {
      */
     @PostMapping("/publish")
     @ApiOperation(value = "提交发布")
-    public String doPulish(Post post,
+    public String doPulish(PostDto post,
                            HttpServletRequest request,
                            Model model) {
         // 后端验证 前端不输入传入为 ''

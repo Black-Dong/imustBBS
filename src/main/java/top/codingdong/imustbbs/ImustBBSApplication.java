@@ -10,9 +10,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 @MapperScan(basePackages = "top.codingdong.imustbbs.mapper")
-public class ImustBbsApplication {
+public class ImustBBSApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ImustBbsApplication.class, args);
+        SpringApplication.run(ImustBBSApplication.class, args);
     }
 }

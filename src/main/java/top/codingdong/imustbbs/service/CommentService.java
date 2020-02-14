@@ -1,6 +1,6 @@
 package top.codingdong.imustbbs.service;
 
-import top.codingdong.imustbbs.model.Comment;
+import top.codingdong.imustbbs.dto.CommentDto;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import java.util.List;
  */
 public interface CommentService {
 
-    int insert(Comment comment);
+    int insert(CommentDto comment);
 
-    Comment getById(Long id);
+    CommentDto getById(Long id);
 
-    List<Comment> listByPostId(Long id);
+    List<CommentDto> listByPostId(Long id);
 }

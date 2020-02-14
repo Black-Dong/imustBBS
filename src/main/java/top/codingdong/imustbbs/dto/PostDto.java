@@ -1,13 +1,14 @@
-package top.codingdong.imustbbs.model;
+package top.codingdong.imustbbs.dto;
 
 import lombok.Data;
+import top.codingdong.imustbbs.model.User;
 
 /**
  * @author Dong
  * @date 2020/1/25 14:13
  */
 @Data
-public class Post {
+public class PostDto {
 
     private Long id;
     private String title;
