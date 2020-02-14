@@ -14,10 +14,18 @@ function comment() {
             }
         ),
         success: function (response) {
-            if (response.code == 200){
+            if (response.code == 200) {
                 $("#comment_section").hide();
             } else {
-                alert(response.message);
+                if (response.code == 2000) {
+                    let isAccepted = confirm(response.message);
+                    if (isAccepted) {
+                        window.open("/login/github");
+                        window.localStorage.setItem("closeable", true);
+                    }
+                } else {
+                    alert(response.message);
+                }
             }
         },
         dataType: "json"
