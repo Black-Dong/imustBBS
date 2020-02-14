@@ -21,6 +21,7 @@
 <div class="main container-fluid">
     <div class="row">
         <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 left-container">
+            <!-- 正文 -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10 borderBottom marginBottom-10">
                 <h4><span th:text="${post.getTitle()}"></span></h4>
                 <span class="post-about">
@@ -37,6 +38,38 @@
                 </a>
             </div>
 
+            <!-- 回复数量 -->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10 borderBottom marginBottom-10">
+                <h4 class="borderBottom paddingBottom-10">
+                    <span th:text="${post.getCommentCount()}"></span>
+                    <span> 个回复</span>
+                </h4>
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                            <img class="media-object img-rounded avatar-size" th:src="${post.getUser().getAvatarUrl()}"
+                                 src="https://avatars3.githubusercontent.com/u/42092762?v=4" alt="...">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading paddingTop-5">
+                            <span th:text="${post.getUser().getName()}" class="color-999"></span>
+                        </h5>
+                        <div class="marginTop-10">回复内容</div>
+
+                        <!-- 社交操作 -->
+                        <div class="social color-999 marginTop-10">
+                            <span class=" glyphicon glyphicon-thumbs-up"></span>
+                            <span class=" glyphicon glyphicon-comment marginLeft-10"></span>
+                            <span class="pull-right" th:text="${#dates.format(post.getUpdateTime(),'yyyy-MM-dd')}"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 回复输入框 -->
             <div id="comment_section" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop-10">
                 <div class="media">
                     <div class="media-left">
@@ -47,7 +80,7 @@
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading paddingTop-10">
-                            <span th:text="${post.getUser().getName()}"></span>
+                            <span th:text="${post.getUser().getName()}" class="color-999"></span>
                         </h5>
                     </div>
                 </div>
@@ -58,6 +91,7 @@
             </div>
         </div>
 
+        <!-- 右 -->
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h4>发起人</h4>
@@ -70,7 +104,7 @@
                     </div>
                     <div class="media-body">
                         <h5 class="media-heading paddingTop-10">
-                            <span th:text="${post.getUser().getName()}"></span>
+                            <span th:text="${post.getUser().getName()}" class="color-999"></span>
                         </h5>
                         <p>我是个不爱说话的程序员我是个不爱说话的程序员我是个不爱说话的程序员我是个不爱说话的程序员我是个不爱说话的程序员我是个不爱说话的程序员</p>
                     </div>

@@ -8,6 +8,8 @@ import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.service.CommentService;
 
+import java.util.List;
+
 /**
  * @author Dong
  * @date 2020/2/11 23:16
@@ -34,5 +36,11 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getById(Long id) {
         return commentMapper.getById(id);
+    }
+
+    @Override
+    public List<Comment> listByPostId(Long id) {
+        List<Comment> comments = commentMapper.listByPostId(id);
+        return null;
     }
 }

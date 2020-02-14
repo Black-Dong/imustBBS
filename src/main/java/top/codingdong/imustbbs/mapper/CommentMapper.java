@@ -1,9 +1,10 @@
 package top.codingdong.imustbbs.mapper;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.mapping.FetchType;
 import top.codingdong.imustbbs.model.Comment;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -17,4 +18,11 @@ public interface CommentMapper {
 
     @Select("select * from comment where id = #{id} limit 1")
     Comment getById(Long id);
+
+    @Select("select * from comment where type = 1 and parent_id = #{id}")
+    @Results(id = "selectCommentAndUser",value = {
+            @Result(id = true, column = "id", property = "id"),
+            @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.findById", fetchType = FetchType.LAZY)),
+    })
+    List<Comment> listByPostId(Long id);
 }

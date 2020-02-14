@@ -21,6 +21,7 @@ function comment() {
                     let isAccepted = confirm(response.message);
                     if (isAccepted) {
                         window.open("/login/github");
+
                         window.localStorage.setItem("closeable", true);
                     }
                 } else {

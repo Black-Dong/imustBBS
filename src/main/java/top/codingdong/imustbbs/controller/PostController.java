@@ -7,8 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.service.CommentService;
 import top.codingdong.imustbbs.service.PostService;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -21,6 +25,9 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @Autowired
+    private CommentService commentService;
+
     @GetMapping("/post/{id}")
     @ApiOperation(value = "帖子详情页")
     public String post(@PathVariable(name = "id")Long id,
@@ -28,7 +35,12 @@ public class PostController {
 
         Post post = postService.viewPostById(id);
         post.setCreator(post.getUser().getId());
+
+        List<Comment> comments = commentService.listByPostId(post.getId());
+
         model.addAttribute("post",post);
         return "post";
     }
+
+
 }

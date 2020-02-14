@@ -17,4 +17,6 @@ public class Comment {
     private Long updateTime;
     private Long likeCount;
     private String content;
+
+    private User user;
 }
