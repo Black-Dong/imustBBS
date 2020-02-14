@@ -19,7 +19,7 @@ public interface PostMapperExt {
     @Select("select * from post")
     @Results(id = "selectPostAndUser",value = {
             @Result(id = true,column = "id",property = "id"),
-            @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapperExt.findById",fetchType = FetchType.LAZY)),
+            @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey",fetchType = FetchType.LAZY)),
     })
     List<PostDto> listPost();
 

@@ -25,8 +25,5 @@ public interface UserMapperExt {
 
     @Update("update user set avatar_url = #{avatarUrl}, token = #{token}, update_time = #{updateTime} where id = #{id}")
     void updateUserSource(User user);
-
-    @Select("select * from user where id = #{id} limit 1")
-    User findById(Long id);
 }
 

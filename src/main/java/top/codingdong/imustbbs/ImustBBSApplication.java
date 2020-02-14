@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @date 2020/1/8 17:54
  */
 @SpringBootApplication
-@MapperScan(basePackages = "top.codingdong.imustbbs.mapper")
+@MapperScan("top.codingdong.imustbbs.mapper")
 public class ImustBBSApplication {
 
     public static void main(String[] args) {

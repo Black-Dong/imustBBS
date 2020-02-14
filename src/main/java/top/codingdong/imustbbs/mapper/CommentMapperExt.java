@@ -22,7 +22,7 @@ public interface CommentMapperExt {
     @Select("select * from comment where type = 1 and parent_id = #{id}")
     @Results(id = "selectCommentAndUser",value = {
             @Result(id = true, column = "id", property = "id"),
-            @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapperExt.findById", fetchType = FetchType.LAZY)),
+            @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey", fetchType = FetchType.LAZY)),
     })
     List<CommentDto> listByPostId(Long id);
 }
