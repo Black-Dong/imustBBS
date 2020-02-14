@@ -15,5 +15,5 @@ public interface CommentService {
 
     Comment getById(Long id);
 
-    List<CommentDto> listByPostId(Long id);
+    List<CommentDto> listReplyPostByPostId(Long id);
 }

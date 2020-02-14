@@ -36,9 +36,10 @@ public class PostController {
         PostDto post = postService.viewPostById(id);
         post.setCreator(post.getUser().getId());
 
-        List<CommentDto> comments = commentService.listByPostId(post.getId());
+        List<CommentDto> comments = commentService.listReplyPostByPostId(post.getId());
 
         model.addAttribute("post",post);
+        model.addAttribute("comments",comments);
         return "post";
     }
 

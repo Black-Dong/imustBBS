@@ -70,6 +70,9 @@ body{
 .paddingBottom-10{
     padding-bottom: 10px;
 }
+.borderTop{
+    border-top: 1px solid #e6e6e6;
+}
 .borderBottom{
     border-bottom: 1px solid #e6e6e6;
 }

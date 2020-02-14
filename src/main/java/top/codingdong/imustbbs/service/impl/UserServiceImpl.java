@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     public User createUser(User user) {
         User newUser = userMapperExt.getUserByAccountAndSource(user.getAccountId(),user.getSource());
         if (newUser != null){
-            newUser.setUpdateTime(user.getUpdateTime());
+            newUser.setUpdateTime(System.currentTimeMillis());
             newUser.setName(user.getName());
             newUser.setAvatarUrl(user.getAvatarUrl());
             newUser.setToken(user.getToken());
