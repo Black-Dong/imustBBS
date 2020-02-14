@@ -16,13 +16,11 @@ public interface CommentMapperExt {
     @Insert("insert into comment(parent_id, type, commentator, create_time, update_time,content) value(#{parentId}, #{type}, #{commentator}, #{createTime}, #{updateTime}, #{content})")
     int insert(CommentDto comment);
 
-    @Select("select * from comment where id = #{id} limit 1")
-    CommentDto getById(Long id);
 
-    @Select("select * from comment where type = 1 and parent_id = #{id}")
-    @Results(id = "selectCommentAndUser",value = {
+    @Select("select * from comment where type = #{type} and parent_id = #{id}")
+    @Results(id = "selectCommentAndUser", value = {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey", fetchType = FetchType.LAZY)),
     })
-    List<CommentDto> listByPostId(Long id);
+    List<CommentDto> listByPostId(Long id, Integer type);
 }

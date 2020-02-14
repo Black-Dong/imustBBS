@@ -3,6 +3,7 @@ package top.codingdong.imustbbs.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.mapper.UserMapperExt;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.UserService;
@@ -17,6 +18,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapperExt userMapperExt;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public User createUser(User user) {
@@ -31,7 +34,7 @@ public class UserServiceImpl implements UserService {
         }else {
             user.setCreateTime(System.currentTimeMillis());
             user.setUpdateTime(System.currentTimeMillis());
-            userMapperExt.insertUser(user);
+            userMapper.insert(user);
             return user;
         }
     }

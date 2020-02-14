@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.PostService;
 
@@ -53,7 +54,7 @@ public class OwnPostsController {
         if ("ownPosts".equals(action)) {
             model.addAttribute("section", "ownPosts");
             model.addAttribute("sectionName", "我的帖子");
-            PageInfo<PostDto> pageInfo = postService.listByUserId(user.getId(), pageNumber, size);
+            PageInfo<Post> pageInfo = postService.listByUserId(user.getId(), pageNumber, size);
             model.addAttribute("pageInfo", pageInfo);
         } else if ("replies".equals(action)) {
             model.addAttribute("section", "replies");

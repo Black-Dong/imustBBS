@@ -3,9 +3,13 @@ package top.codingdong.imustbbs.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import top.codingdong.imustbbs.enums.CommentEnum;
+import top.codingdong.imustbbs.mapper.CommentMapper;
 import top.codingdong.imustbbs.mapper.CommentMapperExt;
 import top.codingdong.imustbbs.mapper.PostMapperExt;
 import top.codingdong.imustbbs.dto.CommentDto;
+import top.codingdong.imustbbs.model.Comment;
+import top.codingdong.imustbbs.model.CommentExample;
 import top.codingdong.imustbbs.service.CommentService;
 
 import java.util.List;
@@ -19,13 +23,15 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    private CommentMapperExt commentMapper;
+    private CommentMapper commentMapper;
+    @Autowired
+    private CommentMapperExt commentMapperExt;
 
     @Autowired
     private PostMapperExt postMapper;
 
     @Override
-    public int insert(CommentDto comment) {
+    public int insert(Comment comment) {
 
         comment.setCreateTime(System.currentTimeMillis());
         comment.setUpdateTime(System.currentTimeMillis());
@@ -34,13 +40,14 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public CommentDto getById(Long id) {
-        return commentMapper.getById(id);
+    public Comment getById(Long id) {
+        return commentMapper.selectByPrimaryKey(id);
     }
 
     @Override
     public List<CommentDto> listByPostId(Long id) {
-        List<CommentDto> comments = commentMapper.listByPostId(id);
-        return null;
+
+        List<CommentDto> commentDtos = commentMapperExt.listByPostId(id,CommentEnum.REPLY_POST.getType());
+        return commentDtos;
     }
 }

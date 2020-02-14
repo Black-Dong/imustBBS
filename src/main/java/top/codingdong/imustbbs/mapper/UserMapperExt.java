@@ -12,11 +12,6 @@ import top.codingdong.imustbbs.model.User;
  */
 public interface UserMapperExt {
 
-
-    @Options(useGeneratedKeys = true,keyColumn = "id",keyProperty = "user.id")
-    @Insert("insert into user (name,account_id,source,avatar_url,token,create_time,update_time) values (#{name},#{accountId},#{source},#{avatarUrl},#{token},#{createTime},#{updateTime})")
-    void insertUser(User user);
-
     @Select("select * from user where token = #{token} limit 1")
     User findByToken(String token);
 

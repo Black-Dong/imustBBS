@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.service;
 
 import com.github.pagehelper.PageInfo;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.model.Post;
 
 /**
  * @author Dong
@@ -9,11 +10,11 @@ import top.codingdong.imustbbs.dto.PostDto;
  */
 public interface PostService {
 
-    void createOrUpdate(PostDto post);
+    void createOrUpdate(Post post);
 
     PageInfo<PostDto> listPost(Integer pageNum, Integer size);
 
-    PageInfo<PostDto> listByUserId(Long userId, Integer pageNumber, Integer size);
+    PageInfo<Post> listByUserId(Long userId, Integer pageNumber, Integer size);
 
     PostDto getById(Long id);
 

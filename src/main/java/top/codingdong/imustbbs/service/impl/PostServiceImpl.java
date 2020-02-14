@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.codingdong.imustbbs.enums.ImustBBSErrorEnum;
 import top.codingdong.imustbbs.exception.ImustBBSException;
+import top.codingdong.imustbbs.mapper.PostMapper;
 import top.codingdong.imustbbs.mapper.PostMapperExt;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.model.Post;
+import top.codingdong.imustbbs.model.PostExample;
 import top.codingdong.imustbbs.service.PostService;
 
 /**
@@ -20,20 +23,22 @@ import top.codingdong.imustbbs.service.PostService;
 public class PostServiceImpl implements PostService {
 
     @Autowired
-    private PostMapperExt postMapper;
+    private PostMapperExt postMapperExt;
+    @Autowired
+    private PostMapper postMapper;
 
     @Override
-    public void createOrUpdate(PostDto post) {
+    public void createOrUpdate(Post post) {
         if (post.getId() == null){
             post.setCreateTime(System.currentTimeMillis());
             post.setUpdateTime(System.currentTimeMillis());
             post.setCommentCount(0L);
             post.setLikeCount(0L);
             post.setViewCount(0L);
-            postMapper.create(post);
+            postMapper.insert(post);
         }else {
             post.setUpdateTime(System.currentTimeMillis());
-            int updated = postMapper.update(post);
+            int updated = postMapper.updateByPrimaryKeySelective(post);
             if (updated != 1){
                 throw new ImustBBSException(ImustBBSErrorEnum.POST_UPDATE_ERROR);
             }
@@ -44,20 +49,27 @@ public class PostServiceImpl implements PostService {
     public PageInfo<PostDto> listPost(Integer pageNum, Integer size) {
 
         PageHelper.startPage(pageNum, size, "update_time desc");
-        PageInfo<PostDto> pageInfo = PageInfo.of(postMapper.listPost());
+        PageInfo<PostDto> pageInfo = PageInfo.of(postMapperExt.listPostAndUser());
         return pageInfo;
     }
 
     @Override
-    public PageInfo<PostDto> listByUserId(Long userId, Integer pageNumber, Integer size) {
+    public PageInfo<Post> listByUserId(Long userId, Integer pageNumber, Integer size) {
+
+        PostExample postExample = new PostExample();
+        postExample.createCriteria()
+                .andCreatorEqualTo(userId);
+
         PageHelper.startPage(pageNumber, size, "update_time desc");
-        PageInfo<PostDto> pageInfo = PageInfo.of(postMapper.listByUserId(userId));
+        PageInfo<Post> pageInfo = PageInfo.of(postMapper.selectByExample(postExample));
+
+
         return pageInfo;
     }
 
     @Override
     public PostDto getById(Long id) {
-        PostDto post = postMapper.getById(id);
+        PostDto post = postMapperExt.getPostAndUserById(id);
         if (post == null){
             throw new ImustBBSException(ImustBBSErrorEnum.POST_NOT_FOUND);
         }
@@ -69,7 +81,7 @@ public class PostServiceImpl implements PostService {
         PostDto post = getById(id);
         // 阅读 +1
         post.setViewCount(1L);
-        postMapper.incViewCount(post);
+        postMapperExt.incViewCount(post);
         return post;
 
     }
@@ -77,6 +89,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public void incCommentCount(PostDto post) {
         post.setCommentCount(1L);
-        postMapper.incCommentCount(post);
+        postMapperExt.incCommentCount(post);
     }
 }

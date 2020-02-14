@@ -10,6 +10,7 @@ import top.codingdong.imustbbs.dto.CommentResultDto;
 import top.codingdong.imustbbs.enums.CommentEnum;
 import top.codingdong.imustbbs.dto.CommentDto;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.CommentService;
 import top.codingdong.imustbbs.service.PostService;
@@ -32,7 +33,7 @@ public class CommentController {
 
     @PostMapping("/comment")
     @ResponseBody
-    public Object comment(@RequestBody CommentDto comment,
+    public Object comment(@RequestBody Comment comment,
                           HttpServletRequest request) {
 
         User user = (User) request.getSession().getAttribute("user");
@@ -54,7 +55,7 @@ public class CommentController {
             // 查看评论所回复的父 是否还存在
             if (CommentEnum.REPLY_COMMENT.getType().equals(comment.getType())) {
                 // 回复评论，查看父评论是否存在
-                CommentDto parent_comment = commentService.getById(comment.getParentId());
+                Comment parent_comment = commentService.getById(comment.getParentId());
                 if (parent_comment == null) {
                     return CommentResultDto.resultOf(CommentEnum.PARENT_ID_WRONG);
                 }
