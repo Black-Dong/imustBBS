@@ -17,7 +17,7 @@ public interface CommentMapperExt {
     int insert(CommentDto comment);
 
 
-    @Select("select * from comment where type = #{type} and parent_id = #{id}")
+    @Select("select * from comment where type = #{type} and parent_id = #{id} order by create_time desc")
     @Results(id = "selectCommentAndUser", value = {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey", fetchType = FetchType.LAZY)),

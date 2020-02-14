@@ -44,7 +44,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDto> listReplyPostByPostId(Long id) {
 
+
         List<CommentDto> commentDtos = commentMapperExt.listByPostId(id,CommentEnum.REPLY_POST.getType());
+
 
         return commentDtos;
     }

@@ -15,6 +15,7 @@ public enum CommentEnum {
     NOT_LOGIN(2000,"未登录用户不能进行评论，请登录后重试"),
     PARENT_ID_WRONG(20001,"未选择任何贴或评论进行回复，或原帖或评论已不存在"),
     TYPE_WRONG(20002,"回复类型不存在"),
+    CONTENT_IS_EMPTY(20003,"回复内容不能为空"),
 
     ;
 

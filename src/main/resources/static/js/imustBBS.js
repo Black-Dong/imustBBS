@@ -2,7 +2,7 @@ function comment() {
     let postId = $("#post_id").val();
     let content = $("#comment_content").val();
 
-    if ($('#comment_content').val().trim().length == 0){
+    if (content.trim().length == 0){
         alert("评论不能为空");
     }else {
         $.ajax({
@@ -21,7 +21,7 @@ function comment() {
             },
             success: function (response) {
                 if (response.code == 200) {
-                    $("#comment_section").hide();
+                    window.location.reload();
                 } else {
                     if (response.code == 2000) {
                         let isAccepted = confirm(response.message);

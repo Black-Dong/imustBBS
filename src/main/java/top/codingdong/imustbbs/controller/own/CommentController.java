@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.controller.own;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -7,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.dto.CommentResultDto;
-import top.codingdong.imustbbs.enums.CommentEnum;
-import top.codingdong.imustbbs.dto.CommentDto;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.enums.CommentEnum;
 import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.CommentService;
@@ -40,6 +40,10 @@ public class CommentController {
         // 判断用户是否登录
         if (user == null) {
             return CommentResultDto.resultOf(CommentEnum.NOT_LOGIN);
+        }
+        // 判断评论是否为空
+        if (comment == null || StringUtils.isEmpty(comment.getContent().trim())){
+            return CommentResultDto.resultOf(CommentEnum.CONTENT_IS_EMPTY);
         }
 
         // 判断评论是否有父类
@@ -77,15 +81,4 @@ public class CommentController {
         return CommentResultDto.resultOf(CommentEnum.SUCCESS);
     }
 
-/*    public void comment(){
-        // 判断类型是否存在
-        if (CommentEnum.REPLY_COMMENT.getType().equals(comment.getType())){
-            //回复评论
-        }else if (CommentEnum.REPLY_POST.getType().equals(comment.getType())){
-            //回复帖子
-
-        }else {
-            // 回复类型不存在
-        }
-    }*/
 }
