@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.*;
 import top.codingdong.imustbbs.dto.CommentDto;
+import top.codingdong.imustbbs.model.Comment;
 
 import java.util.List;
 
@@ -22,4 +23,8 @@ public interface CommentMapperExt {
             @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey")),
     })
     List<CommentDto> listByIdAndType(Long id, Integer type);
+
+
+    @Update("update comment set comment_count = comment_count + #{commentCount, jdbcType=INTEGER} where id = #{id}")
+    Integer incCommentCount(Comment comment);
 }

@@ -18,4 +18,5 @@ public interface CommentService {
 
     List<CommentDto> listReplyByIdAndType(Long id, CommentEnum commentType);
 
+    void incCommentCount(Comment parent_comment);
 }

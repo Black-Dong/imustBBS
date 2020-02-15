@@ -33,7 +33,8 @@
                 阅读数：<span th:text="${post.getViewCount()}"></span>
             </span>
                 <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10" th:text="${post.getDescription()}"></div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10"
+                     th:text="${post.getDescription()}"></div>
                 <a th:href="@{/own/editPost/{id}(id=${post.getId()})}" class="color-999 fontSize-13 marginLeft-10"
                    th:if="${session.user != null && session.user.id == post.getUser().getId()}">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
@@ -51,11 +52,13 @@
                 <div class="media borderBottom paddingBottom-5" th:each="comment : ${comments}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object img-rounded avatar-size" th:src="${comment.getUser().getAvatarUrl()}"
+                            <img class="media-object img-rounded avatar-size"
+                                 th:src="${comment.getUser().getAvatarUrl()}"
                                  src="https://avatars3.githubusercontent.com/u/42092762?v=4" alt="...">
                         </a>
                     </div>
-                    <div class="media-body">
+                    <!-- 顶级评论内容 -->
+                    <div class="media-body" th:id="${'comment-body-'+comment.getId()}">
                         <h5 class="media-heading paddingTop-5">
                             <span th:text="${comment.getUser().getName()}" class="color-999"></span>
                         </h5>
@@ -64,38 +67,43 @@
                         <!-- 社交操作 -->
                         <div class="social color-999 marginTop-10">
                             <span class=" glyphicon glyphicon-thumbs-up"></span>
-                            <span class=" glyphicon glyphicon-comment marginLeft-10" th:data-id="${comment.getId()}"
-                                  onclick="collapseComments(this)"></span>
+
+                            <span th:data-id="${comment.getId()}" onclick="collapseComments(this)">
+                                <span class=" glyphicon glyphicon-comment marginLeft-10"></span>
+                                <span th:text=" ${comment.commentCount}"></span>
+                            </span>
                             <span class="pull-right"
                                   th:text="${#dates.format(comment.getUpdateTime(),'yyyy-MM-dd')}"></span>
                         </div>
                         <!-- 二级评论 -->
-                        <div class="collapse" th:id="${'comment-' + comment.getId()}">
-                            <div class="well">
-                                <div class="media borderBottom-black" th:each="comment : ${comments}">
-                                    <div class="media-left">
-                                        <a href="#">
-                                            <img class="media-object img-rounded avatar-size"
-                                                 th:src="${comment.getUser().getAvatarUrl()}"
-                                                 src="https://avatars3.githubusercontent.com/u/42092762?v=4" alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        <h5 class="media-heading paddingTop-5">
-                                            <span th:text="${comment.getUser().getName()}" class="color-999"></span>
-                                        </h5>
-                                        <div class="marginTop-10" th:text="${comment.getContent()}">回复内容</div>
-                                        <div class="color-999 marginTop-5">
+                        <div class="collapse well" th:id="${'comment-' + comment.getId()}">
+
+                            <!--二级评论列表-->
+                            <!--<div class="media borderBottom-black" th:each="comment : ${comments}">
+                                <div class="media-left">
+                                    <img class="media-object img-rounded avatar-size"
+                                        th:src="${comment.getUser().getAvatarUrl()}"
+                                        src="https://avatars3.githubusercontent.com/u/42092762?v=4" alt="...">
+                                </div>
+                                <div class="media-body">
+                                    <h5 class="media-heading paddingTop-5 color-999" th:text="${comment.getUser().getName()}"></h5>
+                                    <div class="marginTop-10" th:text="${comment.getContent()}">回复内容</div>
+                                    <div class="color-999 marginTop-5">
                                             <span class="pull-right"
                                                   th:text="${#dates.format(comment.getUpdateTime(),'yyyy-MM-dd')}"></span>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="media">
-                                    <input type="text" class="form-control" placeholder="评论一下..." th:id="${'reply-' + comment.getId()}">
-                                    <button type="button" class="btn btn-success pull-right marginTop-5" onclick="reply(this)" th:data-id="${comment.getId()}">评论</button>
-                                </div>
+                            </div>-->
+
+                            <!--回复部分-->
+                            <div class="media">
+                                <input type="text" class="form-control" placeholder="评论一下..."
+                                       th:id="${'reply-' + comment.getId()}">
+                                <button type="button" class="btn btn-success pull-right marginTop-5"
+                                        onclick="reply(this)" th:data-id="${comment.getId()}">回复
+                                </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -119,10 +127,11 @@
                         </h5>
                     </div>
                 </div>
-<!--                <input id="post_id" type="hidden" value="666">-->
+                <!--                <input id="post_id" type="hidden" value="666">-->
                 <input id="post_id" type="hidden" th:value="${post.getId()}">
                 <textarea id="comment_content" class="form-control marginTop-10 marginBottom-10" rows="6"></textarea>
-                <button type="button" class="btn btn-success marginBottom-10 float-right" onclick="comment()">评论</button>
+                <button type="button" class="btn btn-success marginBottom-10 float-right" onclick="comment()">评论
+                </button>
             </div>
 
         </div>
@@ -154,6 +163,7 @@
 </div>
 
 <script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/js/moment.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/imustBBS.js"></script>

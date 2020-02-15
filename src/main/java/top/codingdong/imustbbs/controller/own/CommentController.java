@@ -67,6 +67,7 @@ public class CommentController {
                 if (parent_comment == null) {
                     return ResultDto.statusOf(CommentEnum.PARENT_ID_WRONG);
                 }
+                commentService.incCommentCount(parent_comment);
             } else {
                 // 回复帖子，查看原帖子是否存在
                 PostDto parent_post = postService.getById(comment.getParentId());

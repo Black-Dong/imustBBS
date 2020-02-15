@@ -44,4 +44,10 @@ public class CommentServiceImpl implements CommentService {
         List<CommentDto> commentDtos = commentMapperExt.listByIdAndType(id, commentType.getType());
         return commentDtos;
     }
+
+    @Override
+    public void incCommentCount(Comment comment) {
+        comment.setCommentCount(1);
+        commentMapperExt.incCommentCount(comment);
+    }
 }

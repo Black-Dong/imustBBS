@@ -59,12 +59,59 @@ function comment2target(targetId, type, content) {
 function collapseComments(c) {
     let social_comment = $(c);
     let comment_id = social_comment.data("id");
+    /*二级评论外框*/
     let comments = $("#comment-" + comment_id);
     if (comments.hasClass("in")) {
+        /*关闭二级评论*/
         comments.removeClass("in");
         social_comment.removeClass("color-active");
     } else {
-        comments.addClass("in");
-        social_comment.addClass("color-active");
+
+        if (comments.children().length > 1) {
+            /*展开二级评论*/
+            comments.addClass("in");
+            social_comment.addClass("color-active");
+        } else {
+            /*展开二级评论准备*/
+            $.getJSON("/own/comment/" + comment_id, function (data) {
+
+                $.each(data.data.reverse(), function (index, comment) {
+
+
+                    let mediaLeftElement = $("<div/>", {
+                        "class": "media-left"
+                    }).append($("<img/>", {
+                        "class": "media-object img-rounded avatar-size",
+                        "src": comment.user.avatarUrl
+                    }));
+
+
+                    let mediaBodyElement = $("<div/>",{
+                        "class": "media-body",
+                    }).append($("<h5/>",{
+                        "class": "media-heading paddingTop-5 color-999",
+                        "html": comment.user.name
+                    })).append($("<div/>",{
+                        "class": "marginTop-10",
+                        "html": comment.content
+                    })).append($("<div/>",{
+                        "class": "color-999 marginTop-5",
+                    }).append($("<span/>",{
+                        "class": "pull-right",
+                        "html": moment(comment.createTime).format('YYYY-MM-DD'),
+                    })));
+
+
+                    let mediaElement = $("<div/>", {
+                        "class": "media borderBottom-black",
+                    }).append(mediaLeftElement).append(mediaBodyElement);
+
+                    comments.prepend(mediaElement);
+                });
+            });
+            /*展开二级评论*/
+            comments.addClass("in");
+            social_comment.addClass("color-active");
+        }
     }
 }
