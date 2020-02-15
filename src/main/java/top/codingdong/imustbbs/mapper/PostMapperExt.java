@@ -1,7 +1,6 @@
 package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.FetchType;
 import top.codingdong.imustbbs.dto.PostDto;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface PostMapperExt {
     @Select("select * from post")
     @Results(id = "selectPostAndUser",value = {
             @Result(id = true,column = "id",property = "id"),
-            @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey",fetchType = FetchType.LAZY)),
+            @Result(column = "creator",property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey")),
     })
     List<PostDto> listPostAndUser();
 

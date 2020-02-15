@@ -1,7 +1,6 @@
 package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.FetchType;
 import top.codingdong.imustbbs.dto.CommentDto;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface CommentMapperExt {
     @Select("select * from comment where type = #{type} and parent_id = #{id} order by create_time desc")
     @Results(id = "selectCommentAndUser", value = {
             @Result(id = true, column = "id", property = "id"),
-            @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey", fetchType = FetchType.LAZY)),
+            @Result(column = "commentator", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey")),
     })
-    List<CommentDto> listByPostId(Long id, Integer type);
+    List<CommentDto> listByIdAndType(Long id, Integer type);
 }

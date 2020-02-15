@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.service;
 
 import top.codingdong.imustbbs.dto.CommentDto;
+import top.codingdong.imustbbs.enums.CommentEnum;
 import top.codingdong.imustbbs.model.Comment;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface CommentService {
 
     Comment getById(Long id);
 
-    List<CommentDto> listReplyPostByPostId(Long id);
+    List<CommentDto> listReplyByIdAndType(Long id, CommentEnum commentType);
+
 }

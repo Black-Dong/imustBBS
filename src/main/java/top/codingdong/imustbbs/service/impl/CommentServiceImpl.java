@@ -7,12 +7,10 @@ import top.codingdong.imustbbs.dto.CommentDto;
 import top.codingdong.imustbbs.enums.CommentEnum;
 import top.codingdong.imustbbs.mapper.CommentMapper;
 import top.codingdong.imustbbs.mapper.CommentMapperExt;
-import top.codingdong.imustbbs.mapper.PostMapperExt;
 import top.codingdong.imustbbs.model.Comment;
 import top.codingdong.imustbbs.service.CommentService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Dong
@@ -42,12 +40,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentDto> listReplyPostByPostId(Long id) {
-
-
-        List<CommentDto> commentDtos = commentMapperExt.listByPostId(id,CommentEnum.REPLY_POST.getType());
-
-
+    public List<CommentDto> listReplyByIdAndType(Long id, CommentEnum commentType) {
+        List<CommentDto> commentDtos = commentMapperExt.listByIdAndType(id, commentType.getType());
         return commentDtos;
     }
 }

@@ -1,10 +1,12 @@
 package top.codingdong.imustbbs.enums;
 
+import top.codingdong.imustbbs.exception.ImustBBSError;
+
 /**
  * @author Dong
  * @date 2020/2/13 10:00
  */
-public enum CommentEnum {
+public enum CommentEnum implements ImustBBSError {
 
     // 评论父类
     REPLY_POST(1),
@@ -21,29 +23,43 @@ public enum CommentEnum {
 
     private Integer type;
 
-    CommentEnum(Integer type) {
-        this.type = type;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-
     private String message;
 
     private Integer code;
+
+    CommentEnum(Integer type) {
+        this.type = type;
+    }
 
     CommentEnum(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
+    public Integer getType() {
+        return type;
+    }
+
+    @Override
     public String getMessage() {
         return message;
     }
 
+    @Override
     public Integer getCode() {
         return code;
+    }
+
+
+    public static boolean isExistType(Integer type){
+
+        for (CommentEnum commentEnum : CommentEnum.values()) {
+            if (type != null && type.equals(commentEnum.getType())){
+                return true;
+            }
+
+        }
+
+        return false;
     }
 }
