@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.*;
 import top.codingdong.imustbbs.dto.PostDto;
+import top.codingdong.imustbbs.model.Post;
 
 import java.util.List;
 
@@ -28,4 +29,7 @@ public interface PostMapperExt {
 
     @Update("update post set comment_count = comment_count + #{commentCount,jdbcType=INTEGER} where id = #{id}")
     int incCommentCount(PostDto post);
+
+    @Select("select * from post where id != #{id} and tag regexp #{tag} order by create_time desc limit 10")
+    List<Post> selectRelated(Post post);
 }

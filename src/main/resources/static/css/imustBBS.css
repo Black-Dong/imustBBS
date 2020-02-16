@@ -1,6 +1,9 @@
 body{
     background-image: url("../images/bg.jpg");
 }
+li{
+    list-style-type: none;
+}
 .container-fluid.main{
     margin: 30px ;
     background: rgba(255,255,255,1);
@@ -49,6 +52,9 @@ body{
 .fontSize-13{
     font-size: 13px;
 }
+.lineHeight-20{
+    line-height: 20px;
+}
 .marginTop-5{
     margin-top: 5px;
 }
@@ -60,6 +66,9 @@ body{
 }
 .marginLeft-10{
     margin-left: 10px;
+}
+.marginRight-10{
+    margin-right: 10px;
 }
 .padding-0{
     padding: 0px;
@@ -78,6 +87,9 @@ body{
 }
 .paddingBottom-10{
     padding-bottom: 10px;
+}
+.paddingLeft-5{
+    padding-left: 5px;
 }
 .border-all{
     border-radius: 5px;

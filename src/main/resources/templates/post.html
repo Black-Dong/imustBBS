@@ -31,14 +31,26 @@
                 作者：<span th:text="${post.getUser().getName()}"></span> |
                 最后修改时间：<span th:text="${#dates.format(post.getUpdateTime(),'yyyy-MM-dd HH:mm')}"></span> |
                 阅读数：<span th:text="${post.getViewCount()}"></span>
-            </span>
+                </span>
                 <hr>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10"
+                <!--内容-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingBottom-10 borderBottom"
                      th:text="${post.getDescription()}"></div>
-                <a th:href="@{/own/editPost/{id}(id=${post.getId()})}" class="color-999 fontSize-13 marginLeft-10"
-                   th:if="${session.user != null && session.user.id == post.getUser().getId()}">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
-                </a>
+                <!--标签-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 paddingTop-5 borderBottom paddingBottom-5">
+                    <span class="label label-info marginRight-10" th:each="tag : ${post.getTag().split(',')}">
+                        <span class="glyphicon glyphicon-tags "></span>
+                        <span th:text="${tag}">Info</span>
+                    </span>
+                </div>
+                <!--编辑-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marginTop-10">
+                    <a th:href="@{/own/editPost/{id}(id=${post.getId()})}" class="color-999 fontSize-13"
+                       th:if="${session.user != null && session.user.id == post.getUser().getId()}">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true">编辑</span>
+                    </a>
+                </div>
+
             </div>
 
             <!-- 评论列表 -->
@@ -157,6 +169,11 @@
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <h3>相关问题</h3>
+                <ul class="paddingLeft-5 fontSize-13 lineHeight-20">
+                    <li th:each="related : ${relatedPost}">
+                        <a th:href="@{'/post/' + ${related.getId()}}" th:text="${related.title}"></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

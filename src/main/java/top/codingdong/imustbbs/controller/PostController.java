@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import top.codingdong.imustbbs.dto.CommentDto;
 import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.enums.CommentEnum;
+import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.service.CommentService;
 import top.codingdong.imustbbs.service.PostService;
 
@@ -34,13 +35,17 @@ public class PostController {
     public String post(@PathVariable(name = "id")Long id,
                        Model model){
 
-        PostDto post = postService.viewPostById(id);
-        post.setCreator(post.getUser().getId());
+        PostDto postDto = postService.viewPostById(id);
+        postDto.setCreator(postDto.getUser().getId());
 
-        List<CommentDto> comments = commentService.listReplyByIdAndType(post.getId(), CommentEnum.REPLY_POST);
+        List<Post> relatedPost = postService.selectRelated(postDto);
 
-        model.addAttribute("post",post);
+        // 评论列表
+        List<CommentDto> comments = commentService.listReplyByIdAndType(postDto.getId(), CommentEnum.REPLY_POST);
+
+        model.addAttribute("post",postDto);
         model.addAttribute("comments",comments);
+        model.addAttribute("relatedPost",relatedPost);
         return "post";
     }
 

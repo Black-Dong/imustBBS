@@ -2,6 +2,7 @@ package top.codingdong.imustbbs.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,11 @@ import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.model.Post;
 import top.codingdong.imustbbs.model.PostExample;
 import top.codingdong.imustbbs.service.PostService;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Dong
@@ -90,5 +96,21 @@ public class PostServiceImpl implements PostService {
     public void incCommentCount(PostDto post) {
         post.setCommentCount(1L);
         postMapperExt.incCommentCount(post);
+    }
+
+    @Override
+    public List<Post> selectRelated(PostDto postDto) {
+        if (StringUtils.isBlank(postDto.getTag())){
+            return new ArrayList<>();
+        }
+        String[] tags = StringUtils.split(postDto.getTag(), ",");
+        String regexpTag = Arrays.stream(tags).collect(Collectors.joining("|"));
+
+        Post post = new Post();
+        post.setId(postDto.getId());
+        post.setTag(regexpTag);
+        List<Post> posts = postMapperExt.selectRelated(post);
+
+        return posts;
     }
 }

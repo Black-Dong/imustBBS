@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import top.codingdong.imustbbs.dto.PostDto;
 import top.codingdong.imustbbs.model.Post;
 
+import java.util.List;
+
 /**
  * @author Dong
  * @date 2020/1/26 14:05
@@ -21,4 +23,6 @@ public interface PostService {
     PostDto viewPostById(Long id);
 
     void incCommentCount(PostDto parent_post);
+
+    List<Post> selectRelated(PostDto postDto);
 }
