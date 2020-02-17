@@ -34,10 +34,16 @@ public class ResultDTO <T> {
     public static ResultDTO warnOf(StatusEnum statusEnum){
         return new ResultDTO(statusEnum.getCode(),statusEnum.getMessage());
     }
+    public static <T> ResultDTO warnOf(StatusEnum statusEnum, T data){
+        ResultDTO resultDTO = new ResultDTO(statusEnum.getCode(), statusEnum.getMessage());
+        resultDTO.setData(data);
+        return resultDTO;
+    }
 
     public static ResultDTO success(){
         return new ResultDTO(200,"操作成功");
     }
+
     public static <T> ResultDTO successOf(T t){
         return new ResultDTO(200,"操作成功",t);
     }

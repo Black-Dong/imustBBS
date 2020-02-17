@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service;
 
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.model.User;
 
 /**
@@ -9,4 +10,10 @@ import top.codingdong.imustbbs.model.User;
 public interface UserService {
 
     User checkUser(String account, String password);
+
+    ResultDTO<User> checkEmailExist(User user);
+
+    User registerUser(User user);
+
+    User selectUserByUserName(String username);
 }
