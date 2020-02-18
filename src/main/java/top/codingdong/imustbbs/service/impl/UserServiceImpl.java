@@ -57,13 +57,20 @@ public class UserServiceImpl implements UserService {
         user.setUpdateTime(System.currentTimeMillis());
         user.setType(UserTypeEnum.VIEWER.getType());
         userMapper.insertSelective(user);
-        return selectUserByUserName(user.getUsername());
+        return selectUserByEmail(user.getEmail());
     }
 
     @Override
     public User selectUserByUserName(String username) {
         Example example = new Example(User.class);
         example.createCriteria().andEqualTo("username",username);
+        return userMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public User selectUserByEmail(String email) {
+        Example example = new Example(User.class);
+        example.createCriteria().andEqualTo("email",email);
         return userMapper.selectOneByExample(example);
     }
 }

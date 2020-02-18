@@ -10,6 +10,7 @@ public enum UserTypeEnum {
     STUDENT(2),
     TEACHER(3),
     COMMUNITY(4),
+    ADMINISTRATOR(101),
     ;
 
     Integer type;

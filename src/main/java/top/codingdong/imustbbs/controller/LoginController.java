@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.enums.StatusEnum;
+import top.codingdong.imustbbs.enums.UserTypeEnum;
 import top.codingdong.imustbbs.model.User;
 import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.CheckUtils;
@@ -58,8 +59,13 @@ public class LoginController {
             // 删除密码存入session
             user.setPassword("");
             request.getSession().setAttribute("loginUser", user);
-            // 操作成功
             model.addAttribute("resultDTO", ResultDTO.success());
+            // 判断管理员身份
+            if (UserTypeEnum.ADMINISTRATOR.getType().equals(user.getType())){
+                // 管理员跳转管理后台页面
+                return "admin/adminIndex";
+            }
+            // 操作成功
             return "index";
         } else {
             // 账号或密码错误，用户未找到
