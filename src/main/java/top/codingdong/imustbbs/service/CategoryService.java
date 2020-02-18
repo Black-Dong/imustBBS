@@ -11,7 +11,13 @@ import java.util.List;
  */
 public interface CategoryService {
 
-    ResultDTO<Category> addCategory(Category category);
+    ResultDTO<Category> createCategory(Category category);
 
     List<Category> listCategory(Integer pageNumber,Integer pageSize);
+
+    Category findCategoryByName(String name);
+
+    Category findCategoryById(Integer id);
+
+    ResultDTO<Category> updateCategoryById(Category category);
 }

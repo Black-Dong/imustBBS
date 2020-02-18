@@ -25,15 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public ResultDTO<Category> addCategory(Category category) {
+    public ResultDTO<Category> createCategory(Category category) {
 
-        Example example = new Example(Category.class);
-        example.createCriteria().andEqualTo("name",category.getName());
-        Category dbCategory = categoryMapper.selectOneByExample(example);
+        Category dbCategory = this.findCategoryByName(category.getName());
 
-        if (dbCategory != null){
+        if (dbCategory != null) {
             return ResultDTO.warnOf(StatusEnum.CATEGORY_EXIST);
-        }else {
+        } else {
             category.setId(null);
             category.setCreateTime(System.currentTimeMillis());
             category.setUpdateTime(System.currentTimeMillis());
@@ -43,10 +41,38 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> listCategory(Integer pageNumber,Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize,"update_time desc");
+    public List<Category> listCategory(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize, "update_time desc");
         List<Category> categories = categoryMapper.selectAll();
         return categories;
+    }
+
+    @Override
+    public Category findCategoryByName(String name) {
+        Example example = new Example(Category.class);
+        example.createCriteria().andEqualTo("name", name);
+        return categoryMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public Category findCategoryById(Integer id) {
+        Example example = new Example(Category.class);
+        example.createCriteria().andEqualTo("id", id);
+        return categoryMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public ResultDTO<Category> updateCategoryById(Category category) {
+
+        Category dbCategory = this.findCategoryByName(category.getName());
+
+        if (dbCategory != null) {
+            return ResultDTO.warnOf(StatusEnum.CATEGORY_EXIST);
+        } else {
+            category.setUpdateTime(System.currentTimeMillis());
+            categoryMapper.updateByPrimaryKeySelective(category);
+            return ResultDTO.success();
+        }
     }
 
 }

@@ -17,7 +17,11 @@
     </div>
     <div>
         <ul th:if="${pageInfo != null}">
-            <li th:each="category : ${pageInfo.list}" th:text="${category.name}"></li>
+            <li th:text="'共'+${pageInfo.total}+'个分类'"></li>
+            <li th:each="category : ${pageInfo.list}">
+                <span th:text="${category.name}"></span>
+                <span><a th:href="@{'/admin/category/'+${category.id}}">编辑</a></span>
+            </li>
         </ul>
     </div>
 </div>

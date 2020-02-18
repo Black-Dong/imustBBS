@@ -1,6 +1,5 @@
 package top.codingdong.imustbbs.controller.admin;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,9 +13,6 @@ import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.enums.StatusEnum;
 import top.codingdong.imustbbs.model.Category;
 import top.codingdong.imustbbs.service.CategoryService;
-
-import javax.jws.WebParam;
-import java.util.List;
 
 /**
  * @author Dong
@@ -32,11 +28,11 @@ public class CategoryController {
 
     @GetMapping("/categories.html")
     @ApiOperation("跳转分类管理页")
-    public String jumpType(@RequestParam(name = "pageNumber",defaultValue = "1") Integer pageNumber,
-                           @RequestParam(name = "pageSize",defaultValue = "10") Integer pageSize,
+    public String jumpType(@RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
+                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                            Model model) {
-        PageInfo pageInfo = PageInfo.of(categoryService.listCategory(pageNumber,pageSize));
-        model.addAttribute("pageInfo",pageInfo);
+        PageInfo pageInfo = PageInfo.of(categoryService.listCategory(pageNumber, pageSize));
+        model.addAttribute("pageInfo", pageInfo);
         return "admin/categories";
     }
 
@@ -48,13 +44,14 @@ public class CategoryController {
 
     /**
      * 新增分类，返回状态
-     *  成功状态跳转categories，失败状态提示状态信息
+     * 成功状态跳转categories，失败状态提示状态信息
+     *
      * @param category
      * @param model
      * @return
      */
     @PostMapping("/category")
-    @ApiOperation("新增分类")
+    @ApiOperation("新增或修改分类")
     public String category(Category category,
                            RedirectAttributes redirectAttributes,
                            Model model) {
@@ -65,24 +62,42 @@ public class CategoryController {
             return "admin/category";
         }
 
-        ResultDTO<Category> resultDTO = categoryService.addCategory(category);
+        ResultDTO<Category> resultDTO = null;
+
+        // 判断有没有传递id
+        if (category.getId() != null) {
+            resultDTO = categoryService.updateCategoryById(category);
+            model.addAttribute("category", category);
+        } else {
+            resultDTO = categoryService.createCategory(category);
+            model.addAttribute("category", null);
+        }
         model.addAttribute("resultDTO", resultDTO);
         if (!(StatusEnum.SUCCESS.getCode()).equals(resultDTO.getCode())) {
             return "admin/category";
         }
-        redirectAttributes.addFlashAttribute("resultDTO",resultDTO);
+        redirectAttributes.addFlashAttribute("resultDTO", resultDTO);
         return "redirect:/admin/categories.html";
     }
-/*
-    @PostMapping("/category/{id}")
-    public String editCategory(Category category,
+
+
+    @GetMapping("/category/{id}")
+    @ApiOperation("跳转修改分类页")
+    public String editCategory(@PathVariable(name = "id") Integer id,
+                               RedirectAttributes redirectAttributes,
                                Model model) {
 
-        // 判断分类名称是否为空
-        if (StringUtils.isBlank(category.getName())) {
-            model.addAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.NAME_IS_EMPTY));
-            return "admin/category";
+        Category category = categoryService.findCategoryById(id);
+
+        if (category == null) {
+            redirectAttributes
+                    .addFlashAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.CATEGORY_NOT_EXIST));
+            return "redirect:/admin/categories.html";
         }
-    }*/
+
+        model.addAttribute("category", category);
+        return "admin/category";
+
+    }
 
 }
