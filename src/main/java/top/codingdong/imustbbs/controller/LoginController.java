@@ -16,7 +16,6 @@ import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.CheckUtils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.regex.Pattern;
 
 /**
  * @author Dong
@@ -47,7 +46,7 @@ public class LoginController {
             return "login";
         } else if (StringUtils.isBlank(password)) {
             // 密码为空时
-            model.addAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.PASSWORD_IS_EMPTY,account));
+            model.addAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.PASSWORD_IS_EMPTY, account));
             return "login";
         }
 
@@ -61,7 +60,7 @@ public class LoginController {
             request.getSession().setAttribute("loginUser", user);
             model.addAttribute("resultDTO", ResultDTO.success());
             // 判断管理员身份
-            if (UserTypeEnum.ADMINISTRATOR.getType().equals(user.getType())){
+            if (UserTypeEnum.ADMINISTRATOR.getType().equals(user.getType())) {
                 // 管理员跳转管理后台页面
                 return "admin/adminIndex";
             }
@@ -95,7 +94,7 @@ public class LoginController {
         }
 
         // 判断邮箱格式是否正确
-        if (!CheckUtils.checkEmail(user.getEmail())){
+        if (!CheckUtils.checkEmail(user.getEmail())) {
             user.setPassword("");
             model.addAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.EMAIL_FORMAT_ERROR, user));
             return "register";
@@ -111,7 +110,7 @@ public class LoginController {
         // 判断邮箱是否已经存在，返回状态
         ResultDTO<User> resultDTO = userService.checkEmailExist(user);
         // 查看状态是否为成功
-        if (resultDTO.getCode() != 200) {
+        if (!(StatusEnum.SUCCESS.getCode()).equals(resultDTO.getCode())) {
             // 该邮箱已有用户注册，密码置空返回注册页
             user.setPassword("");
             resultDTO.setData(user);

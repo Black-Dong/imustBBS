@@ -9,6 +9,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -19,32 +20,43 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @EnableSwagger2
-@PropertySource(value = "classpath:/config/swagger.property",encoding = "utf-8")
+@PropertySource(value = "classpath:/config/swagger.property", encoding = "utf-8")
 public class SwaggerConfig {
 
     @Value("${swagger.title}")
     private String title;
 
-    @Value("${swagger.author}")
-    private String author;
+    @Value("${swagger.author.name}")
+    private String authorName;
 
     @Value("${swagger.description}")
     private String description;
 
     @Bean
-    public Docket api(){
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(getApiInfo())
+                .tags(new Tag("login", "登录注册相关接口"), getTags())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("top.codingdong.imustbbs.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
-    private ApiInfo getApiInfo(){
+
+    private Tag[] getTags() {
+        Tag[] tags = {
+                new Tag("category", "分类接口"),
+                new Tag("admin_category", "分类管理接口"),
+                new Tag("api_product", "产品内部接口")
+        };
+        return tags;
+    }
+
+    private ApiInfo getApiInfo() {
         return new ApiInfoBuilder()
                 .title(title)
-                .contact(new Contact(author,"",""))
+                .contact(new Contact(authorName, "", ""))
                 .description(description)
                 .build();
     }

@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>imustBBS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="/css/imustBBS.css">
+</head>
+<body>
+<div>
+    分类管理页面
+    <div th:if="${resultDTO!=null}" th:text="${resultDTO.message}"></div>
+</div>
+</body>
+</html>
