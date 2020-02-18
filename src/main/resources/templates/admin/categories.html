@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>imustBBS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link rel="stylesheet" href="/css/imustBBS.css">
+</head>
+<body>
+<div>
+    <div>
+        <span>分类管理页面</span>
+        <span><a href="/admin/category.html">新增</a></span>
+    </div>
+    <div>
+        <span th:if="${resultDTO}" th:text="${resultDTO.message}"></span>
+    </div>
+    <div>
+        <ul th:if="${pageInfo != null}">
+            <li th:each="category : ${pageInfo.list}" th:text="${category.name}"></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
