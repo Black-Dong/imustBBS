@@ -6,10 +6,15 @@ package top.codingdong.imustbbs.enums;
  */
 public enum UserTypeEnum {
 
+    /*注册状态*/
     VIEWER(1),
+
+    /*认证状态*/
     STUDENT(2),
     TEACHER(3),
     COMMUNITY(4),
+
+    /*管理页状态*/
     ADMINISTRATOR(101),
     ;
 

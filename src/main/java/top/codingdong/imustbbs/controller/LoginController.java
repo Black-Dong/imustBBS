@@ -62,7 +62,7 @@ public class LoginController {
             // 判断管理员身份
             if (UserTypeEnum.ADMINISTRATOR.getType().equals(user.getType())) {
                 // 管理员跳转管理后台页面
-                return "admin/adminIndex";
+                return "index-admin";
             }
             // 操作成功
             return "index";

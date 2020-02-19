@@ -28,9 +28,9 @@ public class CategoryController {
 
     @GetMapping("/categories.html")
     @ApiOperation("跳转分类管理页")
-    public String jumpType(@RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
-                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
-                           Model model) {
+    public String jumpCategory(@RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
+                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                               Model model) {
         PageInfo pageInfo = PageInfo.of(categoryService.listCategory(pageNumber, pageSize));
         model.addAttribute("pageInfo", pageInfo);
         return "admin/categories";
@@ -38,8 +38,8 @@ public class CategoryController {
 
     @GetMapping("/category.html")
     @ApiOperation("跳转分类新增页")
-    public String jumpAddType() {
-        return "admin/category";
+    public String jumpAddCategory() {
+        return "admin/category-input";
     }
 
     /**
@@ -59,7 +59,7 @@ public class CategoryController {
         // 判断分类名称是否为空
         if (StringUtils.isBlank(category.getName())) {
             model.addAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.NAME_IS_EMPTY));
-            return "admin/category";
+            return "admin/category-input";
         }
 
         ResultDTO<Category> resultDTO = null;
@@ -74,7 +74,7 @@ public class CategoryController {
         }
         model.addAttribute("resultDTO", resultDTO);
         if (!(StatusEnum.SUCCESS.getCode()).equals(resultDTO.getCode())) {
-            return "admin/category";
+            return "admin/category-input";
         }
         redirectAttributes.addFlashAttribute("resultDTO", resultDTO);
         return "redirect:/admin/categories.html";
@@ -83,9 +83,9 @@ public class CategoryController {
 
     @GetMapping("/category/{id}")
     @ApiOperation("跳转修改分类页")
-    public String editCategory(@PathVariable(name = "id") Integer id,
-                               RedirectAttributes redirectAttributes,
-                               Model model) {
+    public String jumpEditCategory(@PathVariable(name = "id") Integer id,
+                                   RedirectAttributes redirectAttributes,
+                                   Model model) {
 
         Category category = categoryService.findCategoryById(id);
 
@@ -96,7 +96,7 @@ public class CategoryController {
         }
 
         model.addAttribute("category", category);
-        return "admin/category";
+        return "admin/category-input";
 
     }
 
