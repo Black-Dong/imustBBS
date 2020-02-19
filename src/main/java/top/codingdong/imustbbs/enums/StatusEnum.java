@@ -7,6 +7,7 @@ package top.codingdong.imustbbs.enums;
 public enum StatusEnum {
 
     SUCCESS(200, "操作成功"),
+    LOGINUSER_NOT_EXIST(201, "用户未登录"),
 
     /*登录状态*/
     ACCOUNT_IS_EMPTY(2001, "用户名或邮箱不能为空！"),
@@ -20,10 +21,17 @@ public enum StatusEnum {
     EMAIL_EXIST(2007, "邮箱已存在"),
     EMAIL_FORMAT_ERROR(2008, "邮箱格式不正确"),
 
-    /*分类与标签*/
-    NAME_IS_EMPTY(2011, "名称不能为空"),
+    /*分类与标签状态*/
+    CATEGORY_NAME_IS_EMPTY(2011, "名称不能为空"),
     CATEGORY_EXIST(2012, "分类已存在"),
     CATEGORY_NOT_EXIST(2013, "分类已不存在"),
+
+
+    /*帖子状态*/
+    TOPIC_TITLE_IS_EMPTY(2021,"帖子标题不能为空"),
+    TOPIC_CONTENT_IS_EMPTY(2022,"帖子内容不能为空"),
+    TOPIC_CATEGORY_IS_EMPTY(2023,"请选择帖子分类"),
+    TOPIC_NOT_EXIST(2024,"帖子已不存在"),
     ;
     Integer code;
     String message;

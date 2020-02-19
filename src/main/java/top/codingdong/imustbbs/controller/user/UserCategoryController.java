@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @Api(tags = {"user_category"})
 @RequestMapping("/user")
-public class CategoryController {
+public class UserCategoryController {
 }
