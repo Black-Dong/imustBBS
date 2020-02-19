@@ -43,4 +43,11 @@ public class TopicServiceImpl implements TopicService {
     public Topic findTopicById(Integer id) {
         return topicMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public ResultDTO removeTopicById(Integer id) {
+
+        topicMapper.updatePublicStatus(id);
+        return ResultDTO.success();
+    }
 }

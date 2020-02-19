@@ -59,6 +59,20 @@ public class UserTopicController {
         return "user/topic-input";
     }
 
+    @GetMapping("/topic/delete")
+    @ApiOperation("帖子删除")
+    @ResponseBody
+    public ResultDTO jumpEditTopic(@RequestParam(name = "id") Integer id) {
+
+        Topic dbTopic = topicService.findTopicById(id);
+
+        if (dbTopic == null) {
+            return ResultDTO.warnOf(StatusEnum.TOPIC_NOT_EXIST);
+        }
+
+        return topicService.removeTopicById(id);
+    }
+
     @PostMapping("/topic")
     @ApiOperation("新增和修改帖子")
     @ResponseBody

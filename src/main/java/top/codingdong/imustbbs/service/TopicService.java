@@ -14,4 +14,6 @@ public interface TopicService {
     ResultDTO updateTopic(Topic topic);
 
     Topic findTopicById(Integer id);
+
+    ResultDTO removeTopicById(Integer id);
 }
