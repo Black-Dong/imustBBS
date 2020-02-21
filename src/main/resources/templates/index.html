@@ -5,10 +5,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <link rel="stylesheet" href="/css/imustBBS.css">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/element-ui/theme-chalk/index.css">
+
 </head>
 <body>
-<div>
-    立下flag之后只写接口
+<div id="app">
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>卡片名称</span>
+            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
+        </div>
+        <div v-for="o in 4" :key="o" class="text item">
+            {{'列表内容 ' + o }}
+        </div>
+    </el-card>
+
 </div>
+<!-- 引入组件库 -->
+<script src="/js/vue.js" type="text/javascript"></script>
+<script src="/element-ui/index.js" type="text/javascript"></script>
+<script>
+    new Vue({
+        el: "#app"
+    })
+</script>
 </body>
 </html>
