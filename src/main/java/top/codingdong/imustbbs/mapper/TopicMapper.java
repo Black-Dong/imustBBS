@@ -11,5 +11,5 @@ import top.codingdong.imustbbs.model.Topic;
 public interface TopicMapper extends Mapper<Topic> {
 
     @Update("update t_topic set public_status = 0 where id = #{id}")
-    void updatePublicStatus(Integer id);
+    void updatePublicStatus(Long id);
 }

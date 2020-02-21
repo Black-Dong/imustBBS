@@ -13,7 +13,7 @@ public interface TopicService {
 
     ResultDTO updateTopic(Topic topic);
 
-    Topic findTopicById(Integer id);
+    Topic findTopicById(Long id);
 
-    ResultDTO removeTopicById(Integer id);
+    ResultDTO removeTopicById(Long id);
 }

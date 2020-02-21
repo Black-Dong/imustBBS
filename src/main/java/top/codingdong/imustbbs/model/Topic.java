@@ -24,4 +24,6 @@ public class Topic {
     private Long lastReplyTime;
     private Long categoryId;
     private Long userId;
+
+    private boolean publicStatus;
 }

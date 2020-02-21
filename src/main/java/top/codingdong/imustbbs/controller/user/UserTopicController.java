@@ -45,7 +45,7 @@ public class UserTopicController {
 
     @GetMapping("/topic/{id}")
     @ApiOperation("跳转帖子修改页")
-    public String jumpEditTopic(@PathVariable(name = "id") Integer id,
+    public String jumpEditTopic(@PathVariable(name = "id") Long id,
                                 RedirectAttributes redirectAttributes,
                                 Model model) {
 
@@ -55,14 +55,14 @@ public class UserTopicController {
             redirectAttributes
                     .addFlashAttribute("resultDTO", ResultDTO.warnOf(StatusEnum.TOPIC_NOT_EXIST));
         }
-        model.addAttribute("topic",dbTopic);
+        model.addAttribute("topic", dbTopic);
         return "user/topic-input";
     }
 
     @GetMapping("/topic/delete")
     @ApiOperation("帖子删除")
     @ResponseBody
-    public ResultDTO jumpEditTopic(@RequestParam(name = "id") Integer id) {
+    public ResultDTO jumpEditTopic(@RequestParam(name = "id") Long id) {
 
         Topic dbTopic = topicService.findTopicById(id);
 
@@ -97,6 +97,7 @@ public class UserTopicController {
                  需要在过滤器中提前验证用户是否存在，不存在此时
                  model.addAttribute("resultDTO",ResultDTO.warnOf(StatusEnum.LOGINUSER_NOT_EXIST))
              */
+//            return ResultDTO.warnOf(StatusEnum.LOGINUSER_NOT_EXIST);
             loginUser = new User();
             loginUser.setId(4L);
         }

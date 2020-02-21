@@ -32,7 +32,13 @@ public enum StatusEnum {
     TOPIC_CONTENT_IS_EMPTY(2022,"帖子内容不能为空"),
     TOPIC_CATEGORY_IS_EMPTY(2023,"请选择帖子分类"),
     TOPIC_NOT_EXIST(2024,"帖子已不存在"),
+
+    /*评论状态*/
+    REPLY_CONTENT_IS_EMPTY(2031,"回复内容不能为空"),
+    REPLY_TOPIC_NOT_EXIST(2032,"回复的帖子已不存在"),
+    REPLY_COMMENT_NOT_EXIST(2033,"回复的评论已不存在"),
     ;
+
     Integer code;
     String message;
 
