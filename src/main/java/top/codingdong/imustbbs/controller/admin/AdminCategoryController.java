@@ -36,6 +36,16 @@ public class AdminCategoryController {
         return "admin/categories";
     }
 
+    @GetMapping("/categories")
+    @ApiOperation("分类列表页")
+    @ResponseBody
+    public PageInfo categorys(@RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
+                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                               Model model) {
+        PageInfo pageInfo = PageInfo.of(categoryService.listCategory(pageNumber, pageSize));
+        return pageInfo;
+    }
+
     @GetMapping("/category.html")
     @ApiOperation("跳转分类新增页")
     public String jumpAddCategory() {

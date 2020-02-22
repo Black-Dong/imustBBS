@@ -1,117 +1,21 @@
-/**
- * 提交回复
- */
-function comment() {
-    let postId = $("#post_id").val();
-    let content = $("#comment_content").val();
-    comment2target(postId, 1, content);
-}
-
-/**
- * 提交二级评论
- */
-function reply(e) {
-    let commentId = $(e).data("id");
-    let content = $("#reply-" + commentId).val();
-    comment2target(commentId, 2, content);
-}
-
-function comment2target(targetId, type, content) {
-    if (content.trim().length == 0) {
-        alert("评论不能为空");
-        return;
-    }
-    $.ajax({
-        type: "POST",
-        url: "/own/comment",
-        contentType: "application/json;charset=utf-8",
-        data: JSON.stringify(
-            {
-                "parentId": targetId,
-                "content": content,
-                "type": type
+let app = new Vue({
+    el: "#app",
+    data: {
+        url: "/images/xh_imusBBS.jpg",
+        search: "",
+        pageInfo: {}
+    },
+    methods: {},
+    beforeCreate: function () {
+        $.ajax({
+            type: "get",
+            url: "/admin/categories",
+            data: {},
+            dataType: 'json',
+            success: function (result) {
+                app.$data.pageInfo = result;
+                console.log(app.$data.pageInfo)
             }
-        ),
-        success: function (response) {
-            if (response.code == 200) {
-                window.location.reload();
-            } else {
-                if (response.code == 2000) {
-                    let isAccepted = confirm(response.message);
-                    if (isAccepted) {
-                        window.open("/login/github");
-
-                        window.localStorage.setItem("closeable", true);
-                    }
-                } else {
-                    alert(response.message);
-                }
-            }
-        },
-        dataType: "json"
-    });
-}
-
-
-/**
- * 展开二级评论
- */
-function collapseComments(c) {
-    let social_comment = $(c);
-    let comment_id = social_comment.data("id");
-    /*二级评论外框*/
-    let comments = $("#comment-" + comment_id);
-    if (comments.hasClass("in")) {
-        /*关闭二级评论*/
-        comments.removeClass("in");
-        social_comment.removeClass("color-active");
-    } else {
-
-        if (comments.children().length > 1) {
-            /*展开二级评论*/
-            comments.addClass("in");
-            social_comment.addClass("color-active");
-        } else {
-            /*展开二级评论准备*/
-            $.getJSON("/own/comment/" + comment_id, function (data) {
-
-                $.each(data.data.reverse(), function (index, comment) {
-
-
-                    let mediaLeftElement = $("<div/>", {
-                        "class": "media-left"
-                    }).append($("<img/>", {
-                        "class": "media-object img-rounded avatar-size",
-                        "src": comment.user.avatarUrl
-                    }));
-
-
-                    let mediaBodyElement = $("<div/>",{
-                        "class": "media-body",
-                    }).append($("<h5/>",{
-                        "class": "media-heading paddingTop-5 color-999",
-                        "html": comment.user.name
-                    })).append($("<div/>",{
-                        "class": "marginTop-10",
-                        "html": comment.content
-                    })).append($("<div/>",{
-                        "class": "color-999 marginTop-5",
-                    }).append($("<span/>",{
-                        "class": "pull-right",
-                        "html": moment(comment.createTime).format('YYYY-MM-DD'),
-                    })));
-
-
-                    let mediaElement = $("<div/>", {
-                        "class": "media borderBottom-black",
-                    }).append(mediaLeftElement).append(mediaBodyElement);
-
-                    comments.prepend(mediaElement);
-                });
-            });
-            /*展开二级评论*/
-            comments.addClass("in");
-            social_comment.addClass("color-active");
-        }
+        })
     }
-}
+})

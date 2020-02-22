@@ -1,0 +1,30 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<el-header th:fragment="el-header">
+    <!--header-->
+    <el-row :gutter="20" class="borderRadius marginTop-10 marginBottom-5">
+        <el-col :span="3">
+            <div class="grid-content">
+                <el-row :gutter="10">
+                    <div class="grid-content">
+                        <a href="/index.html">
+                            <el-image
+                                    style="width: 100px; "
+                                    :src="url"></el-image>
+                        </a>
+                    </div>
+                </el-row>
+            </div>
+        </el-col>
+        <el-col :span="10">
+            <div class="grid-content bg-purple">
+
+                <el-input v-model="search" placeholder="请输入内容" suffix-icon="el-icon-search">
+                </el-input>
+            </div>
+        </el-col>
+        <el-col :span="3">
+            <div class="grid-content bg-purple-light"></div>
+        </el-col>
+    </el-row>
+</el-header>
+</html>
