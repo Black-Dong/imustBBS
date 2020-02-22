@@ -1,0 +1,66 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<nav th:fragment="nav" class="row navbar navbar-default padding-10 height-60">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header col-xs-12 col-sm-12 col-md-4">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">IMUST BBS</span>
+        </button>
+        <a class="navbar-brand padding_0_15" href="#">
+            <img src="/images/xh_imusBBS.jpg" alt="..." class="img-rounded logo_img">
+        </a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <!--<ul class="nav navbar-nav">
+            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+            <li><a href="#">Link</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">Dropdown <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">One more separated link</a></li>
+                </ul>
+            </li>
+        </ul>-->
+
+        <ul class="nav navbar-nav navbar-right">
+            <li th:if="${loginUser == null}">
+                <a href="/login.html">登录 / 注册</a>
+            </li>
+            <li th:if="${loginUser != null}" class="dropdown">
+                <a href="#" class="dropdown-toggle img-rounded padding-0" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">
+                    <img src="/images/avatar.jpeg"  alt="..." class="img-rounded avatar_img">
+                    <span>Dong</span>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">个人资料</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="/user/logout">退出</a></li>
+                </ul>
+            </li>
+        </ul>
+
+        <form class="navbar-form navbar-right">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+    </div>
+</nav>
+
+</html>

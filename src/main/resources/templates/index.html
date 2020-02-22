@@ -4,70 +4,17 @@
     <title>imustBBS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <link rel="stylesheet" href="/css/imustBBS.css">
-    <!-- 引入样式 -->
-    <link rel="stylesheet" href="/element-ui/theme-chalk/index.css">
-
+    <link th:replace="/fragments/link_script :: links">
 </head>
 <body>
-<div id="app">
 
-    <el-container class="marginLeft-50 marginRight-50">
-        <el-header th:replace="fragments :: el-header"></el-header>
-        <el-main>
-            <!--Main-->
-            <el-row :gutter="10">
-                <el-col :span="8">
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span>新鲜出炉</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                        </div>
-                        <div  v-for="category in pageInfo.list" class="text item">
-                            <el-row>
-                                <el-col :span="20">{{category.name}}</el-col>
-                                <el-col :span="4">{{#category.createTime}}</el-col>
-                            </el-row>
-                            <a href=""></a>
-<!--                            {{category.name}}-->
-                        </div>
-                    </el-card>
-                </el-col>
-                <el-col :span="8">
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span>7天最热</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                        </div>
-                        <div v-for="o in 4" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
-                        </div>
-                    </el-card>
-                </el-col>
-                <el-col :span="8">
-                    <el-card class="box-card">
-                        <div slot="header" class="clearfix">
-                            <span>校园交友</span>
-                            <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
-                        </div>
-                        <div v-for="o in 4" :key="o" class="text item">
-                            {{'列表内容 ' + o }}
-                        </div>
-                    </el-card>
-                </el-col>
+<div class="container-fluid">
+<nav th:replace="/fragments/nav :: nav">
 
-
-            </el-row>
-
-        </el-main>
-    </el-container>
-
+</nav>
 
 </div>
-<!-- 引入组件库 -->
-<script src="/js/jquery-1.10.2.js" type="text/javascript"></script>
-<script src="/js/vue.js" type="text/javascript"></script>
-<script src="/element-ui/index.js" type="text/javascript"></script>
-<script src="/js/imustBBS.js"></script>
+
+<script th:replace="/fragments/link_script :: scripts"></script>
 </body>
 </html>
