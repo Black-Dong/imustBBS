@@ -40,7 +40,7 @@ public class AdminCategoryController {
     @ApiOperation("分类列表页")
     @ResponseBody
     public PageInfo categorys(@RequestParam(name = "pageNumber", defaultValue = "1") Integer pageNumber,
-                               @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
+                               @RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize,
                                Model model) {
         PageInfo pageInfo = PageInfo.of(categoryService.listCategory(pageNumber, pageSize));
         return pageInfo;

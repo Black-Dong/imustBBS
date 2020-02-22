@@ -1,29 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <el-header th:fragment="el-header">
     <!--header-->
-    <el-row :gutter="20" class="borderRadius marginTop-10 marginBottom-5">
+    <el-row :gutter="20" class="borderRadius marginTop-10" type="flex" justify="space-between">
         <el-col :span="3">
-            <div class="grid-content">
-                <el-row :gutter="10">
-                    <div class="grid-content">
-                        <a href="/index.html">
-                            <el-image
-                                    style="width: 100px; "
-                                    :src="url"></el-image>
-                        </a>
-                    </div>
-                </el-row>
-            </div>
+            <a href="/index.html">
+                <el-image style="width: 100px;" :src="url"></el-image>
+            </a>
         </el-col>
         <el-col :span="10">
-            <div class="grid-content bg-purple">
-
-                <el-input v-model="search" placeholder="请输入内容" suffix-icon="el-icon-search">
-                </el-input>
-            </div>
+            <el-input v-model="search" placeholder="请输入搜索内容" clearable suffix-icon="el-icon-search"
+                      @keyup.enter.native="onEnterSearch">
+            </el-input>
         </el-col>
-        <el-col :span="3">
-            <div class="grid-content bg-purple-light"></div>
+        <el-col :span="4">
+            <div>
+                <span style="float: right;">Dong</span>
+                <el-avatar shape="square" :size="50" :src="avatar" style="float: right;"></el-avatar>
+            </div>
         </el-col>
     </el-row>
 </el-header>

@@ -20,19 +20,23 @@
                 <el-col :span="8">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
+                            <span>新鲜出炉</span>
                             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
                         </div>
                         <div  v-for="category in pageInfo.list" class="text item">
-<!--                            <a href="">{{category.name}}</a>-->
-                            {{category.name}}
+                            <el-row>
+                                <el-col :span="20">{{category.name}}</el-col>
+                                <el-col :span="4">{{#category.createTime}}</el-col>
+                            </el-row>
+                            <a href=""></a>
+<!--                            {{category.name}}-->
                         </div>
                     </el-card>
                 </el-col>
                 <el-col :span="8">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
+                            <span>7天最热</span>
                             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
                         </div>
                         <div v-for="o in 4" :key="o" class="text item">
@@ -43,7 +47,7 @@
                 <el-col :span="8">
                     <el-card class="box-card">
                         <div slot="header" class="clearfix">
-                            <span>卡片名称</span>
+                            <span>校园交友</span>
                             <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
                         </div>
                         <div v-for="o in 4" :key="o" class="text item">
