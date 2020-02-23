@@ -39,13 +39,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResultDTO<User> checkEmailExist(User user) {
+    public ResultDTO<User> checkEmailOrUsernameExist(User user) {
         Example userExample = new Example(User.class);
+
         userExample.createCriteria()
                 .andEqualTo("email", user.getEmail());
+        userExample.or()
+                .andEqualTo("username",user.getUsername());
+
         User exitUser = userMapper.selectOneByExample(userExample);
         if (exitUser != null){
-            return ResultDTO.warnOf(StatusEnum.EMAIL_EXIST);
+            return ResultDTO.warnOf(StatusEnum.EMAIL_OR_USERNAME_EXIST);
         }
         return ResultDTO.success();
     }

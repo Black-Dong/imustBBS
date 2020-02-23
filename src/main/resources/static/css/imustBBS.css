@@ -1,8 +1,11 @@
 html body{
     margin: 0;
     padding: 0;
+    background-image: url("/images/bj.png");
 }
-
+.background-white{
+    background: #ffffff;
+}
 .height-60{
     height: 80px;
 }
@@ -27,3 +30,19 @@ html body{
     padding: 0px 15px!important;
 }
 
+.paddingTop-5{
+    padding:  auto;
+}
+.paddingTop-100{
+    padding-top: 100px;
+}
+.paddingRight-20{
+    padding-right: 20px;
+}
+.marginBottom-20{
+    margin-bottom: 20px;
+}
+
+.displayNone{
+    display: none;
+}

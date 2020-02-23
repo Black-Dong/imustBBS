@@ -11,7 +11,7 @@ public interface UserService {
 
     User checkUser(String account, String password);
 
-    ResultDTO<User> checkEmailExist(User user);
+    ResultDTO<User> checkEmailOrUsernameExist(User user);
 
     User registerUser(User user);
 
