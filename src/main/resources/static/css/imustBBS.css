@@ -3,6 +3,9 @@ html body{
     padding: 0;
     background-image: url("/images/bj.png");
 }
+a{
+    list-style-type: none;
+}
 .background-white{
     background: #ffffff;
 }
@@ -19,6 +22,9 @@ html body{
     height: 50px;
 }
 
+.width-100{
+    width: 100% !important;
+}
 
 .padding-0{
     padding: 0px !important;
@@ -33,11 +39,20 @@ html body{
 .paddingTop-5{
     padding:  auto;
 }
+.paddingTop-10{
+    padding-top: 10px;
+}
 .paddingTop-100{
     padding-top: 100px;
 }
+.paddingRight-0{
+    padding-right: 0px !important;
+}
 .paddingRight-20{
     padding-right: 20px;
+}
+.marginRight-5{
+    margin-right: 5px;
 }
 .marginBottom-20{
     margin-bottom: 20px;

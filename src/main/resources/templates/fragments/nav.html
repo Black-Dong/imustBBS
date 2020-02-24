@@ -1,60 +1,67 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 
-<nav th:fragment="nav" class="row navbar navbar-default padding-10 height-60">
-    <div class="navbar-header col-xs-12 col-sm-12 col-md-4">
+<nav th:fragment="nav"
+     class="navbar navbar-default col-xs-12 col-sm-12 col-md-12 col-lg-12 paddingTop-10 height-60">
+
+    <!-- 3 -->
+    <div class="navbar-header col-xs-6 col-sm-6 col-md-2 col-md-offset-1 col-lg-2 col-lg-offset-1">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                 data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
             <span class="sr-only">IMUST BBS</span>
         </button>
-        <a class="navbar-brand padding_0_15" href="#">
+        <a class="navbar-brand padding_0_15" href="/index.html">
             <img src="/images/xh_imusBBS.jpg" alt="..." class="img-rounded logo_img">
         </a>
     </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-
-        <ul class="nav navbar-nav navbar-right paddingRight-20">
-
-            <li th:if="${session.loginUser == null}">
-                <form class="navbar-form  paddingTop-5" method="post" id="login-form">
-                    <div class="form-group">
-                        <label class="sr-only" for="account">账号</label>
-                        <input type="email" class="form-control" id="account" placeholder="用户名或邮箱">
-                    </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="password">Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="密码">
-                    </div>
-                    <button type="button" id="login-btn" class="btn btn-default">登录</button>
-                    <button type="button" id="jumpRegister-btn" class="btn btn-default">注册</button>
-                </form>
-            </li>
-            <li th:if="${session.loginUser != null}" class="dropdown">
-                <a href="#" class="dropdown-toggle img-rounded padding-0" data-toggle="dropdown" role="button"
-                   aria-haspopup="true"
-                   aria-expanded="false">
-                    <img th:src="${session.loginUser.avatar}" alt="..." class="img-rounded avatar_img">
-                    <span th:text="${session.loginUser.username}">Dong</span>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">个人资料</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#" id="logout">退出登录</a></li>
-                </ul>
-            </li>
-        </ul>
-        <form class="navbar-form navbar-right">
-            <div class="form-group">
+    <!-- 3 -->
+    <div class=" col-xs-6 col-sm-6 col-md-3 col-lg-3">
+        <form class="navbar-form">
+            <div class="form-group input-group">
                 <input type="text" class="form-control" placeholder="Search">
+                <span class="input-group-btn"><button class="btn btn-default" type="button">Go!</button></span>
             </div>
-            <button type="submit" class="btn btn-default">查询</button>
         </form>
-
+    </div>
+    <!-- 6 -->
+    <div class="col-xs-12 col-sm-12  col-md-5 col-lg-5">
+        <form th:if="${session.loginUser == null}"
+              class="navbar-form"
+              method="post" id="login-form">
+            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4 paddingRight-0 ">
+                <label class="sr-only" for="account">账号</label>
+                <input type="email" class="form-control width-100" id="account" value="admin" placeholder="用户名或邮箱">
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-4 col-lg-4 paddingRight-0 ">
+                <label class="sr-only" for="password">Password</label>
+                <input type="password" class="form-control width-100" id="password" value="admin" placeholder="密码">
+            </div>
+            <div class="form-group col-xs-12 col-sm-12 col-md-3 col-lg-4">
+                <button type="button" id="login-btn" class="btn btn-default">登录</button>
+                <button type="button" id="jumpRegister-btn" class="btn btn-default">注册</button>
+            </div>
+        </form>
+    </div>
+    <!-- 6 -->
+    <div th:if="${session.loginUser != null}"
+         class="dropdown col-xs-12 col-sm-12 col-md-offset-3 col-lg-offset-3 col-md-2 col-lg-2">
+        <a href="#"
+           class="dropdown-toggle img-rounded padding-0 "
+           data-toggle="dropdown" role="button"
+           aria-haspopup="true"
+           aria-expanded="false">
+            <img th:src="${session.loginUser.avatar}" alt="..."
+                 class="img-rounded avatar_img">
+            <span th:text="${session.loginUser.username}">Dong</span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="#">个人资料</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" id="logout">退出登录</a></li>
+        </ul>
     </div>
 </nav>
 
