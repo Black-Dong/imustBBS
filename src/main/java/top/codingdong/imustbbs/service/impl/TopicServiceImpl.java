@@ -1,12 +1,16 @@
 package top.codingdong.imustbbs.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.mapper.TopicMapper;
 import top.codingdong.imustbbs.model.Topic;
 import top.codingdong.imustbbs.service.TopicService;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -49,5 +53,22 @@ public class TopicServiceImpl implements TopicService {
 
         topicMapper.updatePublicStatus(id);
         return ResultDTO.success();
+    }
+
+    @Override
+    public List<Topic> findsByCategoryId(Integer pageNumber, Integer pageSize, Long categoryId) {
+        Example topicExample = new Example(Topic.class);
+        topicExample.createCriteria()
+                .andEqualTo("categoryId", categoryId);
+        PageHelper.startPage(pageSize, pageNumber, "last_reply_time desc");
+        List<Topic> topics = topicMapper.selectByExample(topicExample);
+        return topics;
+    }
+
+    @Override
+    public List<Topic> findAll(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
+        List<Topic> topics = topicMapper.selectAll();
+        return topics;
     }
 }

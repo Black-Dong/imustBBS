@@ -11,9 +11,16 @@
 <div class="container-fluid padding-0">
     <nav th:replace="/fragments/nav :: nav"></nav>
 
+    <div th:replace="/fragments/category :: category"></div>
+
+    <div class="container-fluid">
+        <div th:replace="/fragments/body :: topics"></div>
+        <div th:replace="/fragments/body :: recommends"></div>
+    </div>
 
 </div>
 
 <script th:replace="/fragments/link_script :: scripts"></script>
+<script src="/js/imustBBS_index.js"></script>
 </body>
 </html>

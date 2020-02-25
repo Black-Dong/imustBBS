@@ -98,29 +98,29 @@ $("#email").blur(function () {
     let email = $("#email").val();
     if (CheckIsNullOrEmpty(email)) {
         // if ()
-            $.ajax({
-                url: "/checkEmail",
-                type: "get",
-                contentType: 'application/json',
-                dataType: "json",
-                data: {
-                    "email": email
-                },
-                success: function (resultDto) {
-                    if (resultDto.code != 200) {
-                        $("#errorBox").show();
-                        $("#errorMessage").html(resultDto.message);
-                        $("#email-formGroup").removeClass("has-success");
-                        $("#email-formGroup").addClass("has-error");
-                    } else {
-                        $("#errorBox").hide();
-                        $("#email-formGroup").removeClass("has-error");
-                        $("#email-formGroup").addClass("has-success");
-                    }
-
+        $.ajax({
+            url: "/checkEmail",
+            type: "get",
+            contentType: 'application/json',
+            dataType: "json",
+            data: {
+                "email": email
+            },
+            success: function (resultDto) {
+                if (resultDto.code != 200) {
+                    $("#errorBox").show();
+                    $("#errorMessage").html(resultDto.message);
+                    $("#email-formGroup").removeClass("has-success");
+                    $("#email-formGroup").addClass("has-error");
+                } else {
+                    $("#errorBox").hide();
+                    $("#email-formGroup").removeClass("has-error");
+                    $("#email-formGroup").addClass("has-success");
                 }
 
-            })
+            }
+
+        })
     }
 });
 // 提交注册验证
@@ -172,7 +172,7 @@ $("#register-btn").click(function () {
                 return;
             }
 
-            window.location.href="/index";
+            window.location.href = "/index";
         }
     })
 });
