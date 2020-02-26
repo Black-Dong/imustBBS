@@ -23,6 +23,16 @@
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <!-- jpa -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -192,6 +202,11 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                    <!-- fork : 如果没有配置该配置，devtools不会起作用，即应用不会restart加载 -->
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>
