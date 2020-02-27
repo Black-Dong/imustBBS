@@ -6,7 +6,7 @@ package top.codingdong.imustbbs.util;
  * @author Dong
  * @date 2020/2/26 17:55
  */
-public class Consts {
+public class Constants {
 
     /**当前用户名称*/
     public static final String CURRENT_USER = "currentUser";
@@ -19,4 +19,7 @@ public class Consts {
 
     /**默认密码*/
     public static final String DEFAULT_PASSWORD = "123456";
+
+    /**帖子类型列表*/
+    public static final String ALL_TOPIC_TYPE_NAME = "allTopicType";
 }

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.entity.User;
 import top.codingdong.imustbbs.service.UserService;
-import top.codingdong.imustbbs.util.Consts;
+import top.codingdong.imustbbs.util.Constants;
 import top.codingdong.imustbbs.util.CryptographyUtil;
 import top.codingdong.imustbbs.util.MailUtil;
 
@@ -83,7 +83,7 @@ public class UserController {
                 } else {
                     dbUser.setLatelyLoginTime(new Date());
                     userService.save(dbUser);
-                    session.setAttribute(Consts.CURRENT_USER, dbUser);
+                    session.setAttribute(Constants.CURRENT_USER, dbUser);
                     return ResultDTO.success();
                 }
             } catch (Exception e) {
@@ -126,8 +126,8 @@ public class UserController {
         mailSender.send(message);
         System.err.println(mailCode);
         // 验证码存入session
-        session.setAttribute(Consts.MAIL_CODE, mailCode);
-        session.setAttribute(Consts.USER_ID, user.getUserId());
+        session.setAttribute(Constants.MAIL_CODE, mailCode);
+        session.setAttribute(Constants.USER_ID, user.getUserId());
 
         return ResultDTO.success();
     }
@@ -145,14 +145,14 @@ public class UserController {
         if (StringUtils.isBlank(yzm)) {
             return ResultDTO.errorOf("验证码不能为空");
         }
-        String mailCode = (String) session.getAttribute(Consts.MAIL_CODE);
-        Integer userId = (Integer) session.getAttribute(Consts.USER_ID);
+        String mailCode = (String) session.getAttribute(Constants.MAIL_CODE);
+        Integer userId = (Integer) session.getAttribute(Constants.USER_ID);
         if (!yzm.equals(mailCode)){
             return ResultDTO.errorOf("验证码错误");
         }
 
         User dbUser = userService.findById(userId);
-        dbUser.setPassword(CryptographyUtil.md5(Consts.DEFAULT_PASSWORD));
+        dbUser.setPassword(CryptographyUtil.md5(Constants.DEFAULT_PASSWORD));
         userService.save(dbUser);
         return ResultDTO.success();
     }

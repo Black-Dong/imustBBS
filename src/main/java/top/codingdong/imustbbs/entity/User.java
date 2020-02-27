@@ -21,7 +21,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "hander", "fieldHandler"})
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class User implements Serializable {
 
     @Id
@@ -73,11 +73,11 @@ public class User implements Serializable {
     @Column
     private String roleName = "会员";
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registrationDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date latelyLoginTime;
 

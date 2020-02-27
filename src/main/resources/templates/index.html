@@ -5,15 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
 <!--    <link rel="shortcut icon" href="/images/xh_imusBBS.jpg" type="image/x-icon">-->
-    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/fly-layui/layui/css/layui.css">
+    <link rel="stylesheet" href="/fly-layui/css/full.css">
+    <link rel="stylesheet" href="/fly-layui/css/global.css">
 </head>
 <body>
 
-<a href="javascript:login()">登录</a>
-<a href="javascript:register()">注册</a>
+<div th:replace="common/header :: header"></div>
+
 
 <script src="/js/jquery-1.10.2.js"></script>
-<script src="/layui/layui.js"></script>
+<script src="/fly-layui/layui/layui.all.js"></script>
 <script src="/js/imustBBS.js"></script>
 </body>
 </html>
