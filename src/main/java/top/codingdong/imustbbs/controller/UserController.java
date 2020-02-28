@@ -8,12 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.DTO.ResultDTO;
-import top.codingdong.imustbbs.entity.User;
+import top.codingdong.imustbbs.po.Topic;
+import top.codingdong.imustbbs.po.User;
+import top.codingdong.imustbbs.mapper.TopicMapper;
+import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.Constants;
 import top.codingdong.imustbbs.util.CryptographyUtil;
@@ -23,6 +28,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户控制器
@@ -147,7 +153,7 @@ public class UserController {
         }
         String mailCode = (String) session.getAttribute(Constants.MAIL_CODE);
         Integer userId = (Integer) session.getAttribute(Constants.USER_ID);
-        if (!yzm.equals(mailCode)){
+        if (!yzm.equals(mailCode)) {
             return ResultDTO.errorOf("验证码错误");
         }
 
@@ -156,4 +162,5 @@ public class UserController {
         userService.save(dbUser);
         return ResultDTO.success();
     }
+
 }

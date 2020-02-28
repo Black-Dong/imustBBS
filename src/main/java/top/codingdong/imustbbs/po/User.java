@@ -1,4 +1,4 @@
-package top.codingdong.imustbbs.entity;
+package top.codingdong.imustbbs.po;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

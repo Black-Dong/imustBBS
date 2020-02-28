@@ -1,6 +1,6 @@
 package top.codingdong.imustbbs.service;
 
-import top.codingdong.imustbbs.entity.User;
+import top.codingdong.imustbbs.po.User;
 
 /**
  * @author Dong

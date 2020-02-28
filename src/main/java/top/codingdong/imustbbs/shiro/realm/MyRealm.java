@@ -8,7 +8,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
-import top.codingdong.imustbbs.entity.User;
+import top.codingdong.imustbbs.po.User;
 import top.codingdong.imustbbs.service.UserService;
 
 /**

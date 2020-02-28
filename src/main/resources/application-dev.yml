@@ -24,3 +24,9 @@ spring:
 #自定义属性
 imgFilePath: E:/imustBBS/imustBBS_temp/img/
 lucenePath: E:/imustBBS/imustBBS_temp/lucene/
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  type-aliases-package: top.codingdong.imustbbs.mapper
+pagehelper:
+  reasonable: true
