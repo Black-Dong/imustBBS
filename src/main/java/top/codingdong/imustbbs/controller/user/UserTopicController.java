@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
-public class TopicController {
+public class UserTopicController {
 
     @Autowired
     TopicService topicService;
@@ -33,6 +33,11 @@ public class TopicController {
     CategoryMapper categoryMapper;
 
 
+    /**
+     * 跳转帖子发布页面
+     * @param model
+     * @return
+     */
     @GetMapping("/publishTopic")
     public String publishTopic(Model model) {
         List<Category> categories = categoryMapper.selectAll();
@@ -40,6 +45,12 @@ public class TopicController {
         return "/user/publishTopic";
     }
 
+    /**
+     * 帖子发布与修改
+     * @param topic
+     * @param session
+     * @return
+     */
     @PostMapping("/publishTopic")
     public String publishTopic(Topic topic, HttpSession session) {
 
@@ -60,6 +71,12 @@ public class TopicController {
         return "redirect:/user/topicManager";
     }
 
+    /**
+     * 跳转帖子管理页面
+     * @param model
+     * @param session
+     * @return
+     */
     @GetMapping("/topicManager")
     public String topicManager(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
@@ -68,6 +85,12 @@ public class TopicController {
         return "/user/topicManager";
     }
 
+    /**
+     * 跳转帖子修改页面
+     * @param id
+     * @param model
+     * @return
+     */
     @GetMapping("/editTopic/{id}")
     public String publishTopic(@PathVariable Integer id, Model model) {
         Topic dbTopic = topicService.findById(id);

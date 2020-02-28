@@ -15,11 +15,17 @@ public interface TopicMapper extends Mapper<Topic> {
     @Update("update t_topic set public_status = 0 where id = #{id}")
     void modifyPublicStatusToFalse(Long id);
 
-    @Select("select * from t_topic")
+    @Select("select * from t_topic where public_status = true")
     @Results(id = "selectTopicAndUser", value = {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "user_id", property = "user",
-                    one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey"))
+                    one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey")),
+            @Result(column = "category_id",property = "category",
+                    one = @One(select = "top.codingdong.imustbbs.mapper.CategoryMapper.selectByPrimaryKey"))
     })
-    List<Topic> selectTopicAndUser();
+    List<Topic> listAndUserAndCategory();
+
+    @Select("select * from t_topic where id = #{id}")
+    @ResultMap("selectTopicAndUser")
+    Topic selectAndUserAndCategoryById(Integer id);
 }

@@ -15,7 +15,7 @@ import java.util.List;
 public interface TopicService {
 
     /**
-     * 根据分页条件分页查询帖子列表
+     * 根据分页条件查询帖子列表
      *
      * @param pageNumber 页码
      * @param pageSize   每页条数
@@ -23,7 +23,24 @@ public interface TopicService {
      */
     List<Topic> list(Integer pageNumber, Integer pageSize);
 
+    /**
+     * 根据用户及分页条件查询帖子列表
+     * @param pageNumber
+     * @param pageSize
+     * @param userId
+     * @return
+     */
     List<Topic> list(Integer pageNumber, Integer pageSize,Long userId);
+
+    /**
+     * 根据分页条件查询帖子及其包含的用户和分类
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
+    List<Topic> listAndUserAndCategory(Integer pageNumber, Integer pageSize);
+
+    Topic selectAndUserAndCategoryById(Integer id);
 
     /**
      * 新增帖子

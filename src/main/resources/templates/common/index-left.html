@@ -58,8 +58,8 @@
                     <img th:src="${topic.user.headPortrait}">
                 </a>
                 <h2>
-                    <a class="layui-badge" th:text="${topic.categoryId}">分享</a>
-                    <a href="jie/detail.html" th:text="${topic.title}">基于 layui 的极简社区页面模版</a>
+                    <a class="layui-badge" th:text="${topic.category.name}">分享</a>
+                    <a th:href="@{'/detail/'+${topic.id}}" th:text="${topic.title}">基于 layui 的极简社区页面模版</a>
                 </h2>
                 <div class="fly-list-info">
                     <a href="user/home.html" link>

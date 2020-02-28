@@ -42,5 +42,6 @@ public class Topic implements Serializable {
 
 
     private User user;
+    private Category category;
 
 }

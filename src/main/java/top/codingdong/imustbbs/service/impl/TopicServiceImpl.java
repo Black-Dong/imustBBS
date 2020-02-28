@@ -44,11 +44,24 @@ public class TopicServiceImpl implements TopicService {
 
         Example example = new Example(Topic.class);
         example.createCriteria()
-                .andEqualTo("userId", userId);
+                .andEqualTo("userId", userId)
+                .andEqualTo("public_status",true);
 
         PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
         List<Topic> topics = topicMapper.selectByExample(example);
         return topics;
+    }
+
+    @Override
+    public List<Topic> listAndUserAndCategory(Integer pageNumber, Integer pageSize) {
+        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
+        List<Topic> topics = topicMapper.listAndUserAndCategory();
+        return topics;
+    }
+
+    @Override
+    public Topic selectAndUserAndCategoryById(Integer id) {
+        return topicMapper.selectAndUserAndCategoryById(id);
     }
 
     @Override

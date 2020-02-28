@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import top.codingdong.imustbbs.mapper.CategoryMapper;
-import top.codingdong.imustbbs.mapper.TopicMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.TopicService;
@@ -26,23 +25,20 @@ public class IndexController {
     @Autowired
     private TopicService topicService;
 
-    @Autowired
-    private TopicMapper topicMapper;
-
     /**
      * 首页
+     *
      * @return
      */
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
 
-        PageHelper.startPage(1,5);
+        PageHelper.startPage(1, 5);
         List<Category> categories = categoryMapper.selectAll();
         model.addAttribute("categories", categories);
 
-        PageHelper.startPage(1,999);
-        List<Topic> topics = topicMapper.selectTopicAndUser();
-        model.addAttribute("topics",topics);
+        List<Topic> topics = topicService.listAndUserAndCategory(1, 999);
+        model.addAttribute("topics", topics);
 
         return "index";
     }
