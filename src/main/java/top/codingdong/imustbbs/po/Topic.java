@@ -37,7 +37,10 @@ public class Topic implements Serializable {
     @NotEmpty(message = "发帖人不能为空")
     private Long userId;
 
+    @Column(columnDefinition = "public_status")
     private boolean publicStatus = true;
+    private boolean topStatus = false;
+    private boolean boutiqueStatus = false;
 
 
 

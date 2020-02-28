@@ -45,7 +45,7 @@ public class TopicServiceImpl implements TopicService {
         Example example = new Example(Topic.class);
         example.createCriteria()
                 .andEqualTo("userId", userId)
-                .andEqualTo("public_status",true);
+                .andEqualTo("publicStatus",true);
 
         PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
         List<Topic> topics = topicMapper.selectByExample(example);

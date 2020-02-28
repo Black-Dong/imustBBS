@@ -31,7 +31,7 @@
                 <div class="layui-tab-item layui-show">
                     <ul class="mine-view jie-row">
                         <li th:each="topic : ${myTopics}">
-                            <a class="jie-title" href="../jie/detail.html" target="_blank"
+                            <a class="jie-title" th:href="@{'/detail/'+${topic.id}}" target="_blank"
                                th:text="${topic.title}">基于 layui 的极简社区页面模版</a>
                             <i th:text="${'最后回复与：'+ #dates.format(topic.lastReplyTime,'yyyy-MM-dd HH:mm:ss')}">2017/3/14
                                 上午8:30:00</i>
