@@ -33,7 +33,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> list(Integer pageNumber, Integer pageSize) {
 
-        PageHelper.startPage(pageNumber, pageSize);
+        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
         List<Topic> topicPage = topicMapper.selectAll();
 
         return topicPage;
@@ -46,7 +46,7 @@ public class TopicServiceImpl implements TopicService {
         example.createCriteria()
                 .andEqualTo("userId", userId);
 
-        PageHelper.startPage(pageNumber, pageSize);
+        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
         List<Topic> topics = topicMapper.selectByExample(example);
         return topics;
     }

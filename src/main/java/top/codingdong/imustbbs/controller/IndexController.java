@@ -1,7 +1,17 @@
 package top.codingdong.imustbbs.controller;
 
+import com.github.pagehelper.PageHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import top.codingdong.imustbbs.mapper.CategoryMapper;
+import top.codingdong.imustbbs.mapper.TopicMapper;
+import top.codingdong.imustbbs.po.Category;
+import top.codingdong.imustbbs.po.Topic;
+import top.codingdong.imustbbs.service.TopicService;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -10,12 +20,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private CategoryMapper categoryMapper;
+
+    @Autowired
+    private TopicService topicService;
+
+    @Autowired
+    private TopicMapper topicMapper;
+
     /**
      * 首页
      * @return
      */
     @GetMapping("/")
-    public String index(){
+    public String index(Model model){
+
+        PageHelper.startPage(1,5);
+        List<Category> categories = categoryMapper.selectAll();
+        model.addAttribute("categories", categories);
+
+        PageHelper.startPage(1,999);
+        List<Topic> topics = topicMapper.selectTopicAndUser();
+        model.addAttribute("topics",topics);
+
         return "index";
     }
 }

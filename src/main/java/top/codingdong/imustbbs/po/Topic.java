@@ -39,4 +39,8 @@ public class Topic implements Serializable {
 
     private boolean publicStatus = true;
 
+
+
+    private User user;
+
 }
