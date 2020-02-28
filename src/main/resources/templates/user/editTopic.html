@@ -43,7 +43,7 @@
                                                lay-verify="required" autocomplete="off" class="layui-input"
                                                th:value="${dbTopic.title}"
                                         >
-                                        <!-- <input type="hidden" name="id" value="{{d.edit.id}}"> -->
+                                        <input type="hidden" name="id" th:value="${dbTopic.id}">
                                     </div>
                                 </div>
                             </div>

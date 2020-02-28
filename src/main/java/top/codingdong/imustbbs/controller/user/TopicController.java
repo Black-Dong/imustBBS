@@ -42,14 +42,21 @@ public class TopicController {
 
     @PostMapping("/publishTopic")
     public String publishTopic(Topic topic, HttpSession session) {
-        System.err.println(topic);
-        topic.setCreateTime(System.currentTimeMillis());
+
         topic.setUpdateTime(System.currentTimeMillis());
-        topic.setLastReplyTime(System.currentTimeMillis());
         User user = (User) session.getAttribute(Constants.CURRENT_USER);
         topic.setUserId(user.getUserId().longValue());
 
-        topicService.save(topic);
+        System.err.println(topic);
+        if (topic.getId() != null){
+            topic.setUpdateTime(System.currentTimeMillis());
+            topicService.update(topic);
+        }else {
+            topic.setCreateTime(System.currentTimeMillis());
+            topic.setLastReplyTime(System.currentTimeMillis());
+            topicService.save(topic);
+        }
+
         return "redirect:/user/topicManager";
     }
 
