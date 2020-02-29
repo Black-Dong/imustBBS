@@ -26,15 +26,17 @@ public interface TopicService {
 
     /**
      * 根据用户及分页条件查询帖子列表
+     *
      * @param pageNumber
      * @param pageSize
      * @param userId
      * @return
      */
-    List<Topic> list(Integer pageNumber, Integer pageSize,Long userId);
+    List<Topic> list(Integer pageNumber, Integer pageSize, Long userId);
 
     /**
      * 根据分页条件查询帖子及其包含的用户和分类
+     *
      * @param pageNumber
      * @param pageSize
      * @return
@@ -74,8 +76,9 @@ public interface TopicService {
 
     /**
      * 按分类查找帖子列表
+     *
      * @param id
      * @return
      */
-    List<Topic> listAndUserAndCategoryByCategoryId(Integer id);
+    List<Topic> listAndUserAndCategoryByCategoryId(Integer pageNumber, Integer pageSize, Integer id);
 }

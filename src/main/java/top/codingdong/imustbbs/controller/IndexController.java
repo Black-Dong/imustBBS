@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.controller;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,8 +38,9 @@ public class IndexController {
         List<Category> categories = categoryMapper.selectAll();
         model.addAttribute("categories", categories);
 
-        List<Topic> topics = topicService.listAndUserAndCategory(1, 999);
-        model.addAttribute("topics", topics);
+        List<Topic> topics = topicService.listAndUserAndCategory(1, 10);
+        PageInfo<Topic> pageInfo = PageInfo.of(topics);
+        model.addAttribute("pageInfo", pageInfo);
 
         model.addAttribute("activeCategory",0);
 

@@ -107,7 +107,9 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> listAndUserAndCategoryByCategoryId(Integer id) {
+    public List<Topic> listAndUserAndCategoryByCategoryId(Integer pageNumber, Integer pageSize,Integer id) {
+
+        PageHelper.startPage(pageNumber,pageSize,"last_reply_time desc");
         return topicMapper.listAndUserAndCategoryByCategoryId(id);
 
     }
