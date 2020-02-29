@@ -1,6 +1,5 @@
 package top.codingdong.imustbbs.controller.user;
 
-import net.sf.jsqlparser.statement.select.Top;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +34,7 @@ public class UserTopicController {
 
     /**
      * 跳转帖子发布页面
+     *
      * @param model
      * @return
      */
@@ -47,6 +47,7 @@ public class UserTopicController {
 
     /**
      * 帖子发布与修改
+     *
      * @param topic
      * @param session
      * @return
@@ -59,10 +60,10 @@ public class UserTopicController {
         topic.setUserId(user.getUserId().longValue());
 
         System.err.println(topic);
-        if (topic.getId() != null){
+        if (topic.getId() != null) {
             topic.setUpdateTime(System.currentTimeMillis());
             topicService.update(topic);
-        }else {
+        } else {
             topic.setCreateTime(System.currentTimeMillis());
             topic.setLastReplyTime(System.currentTimeMillis());
             topicService.save(topic);
@@ -73,6 +74,7 @@ public class UserTopicController {
 
     /**
      * 跳转帖子管理页面
+     *
      * @param model
      * @param session
      * @return
@@ -87,6 +89,7 @@ public class UserTopicController {
 
     /**
      * 跳转帖子修改页面
+     *
      * @param id
      * @param model
      * @return
@@ -94,7 +97,7 @@ public class UserTopicController {
     @GetMapping("/editTopic/{id}")
     public String publishTopic(@PathVariable Integer id, Model model) {
         Topic dbTopic = topicService.findById(id);
-        model.addAttribute("dbTopic",dbTopic);
+        model.addAttribute("dbTopic", dbTopic);
         List<Category> categories = categoryMapper.selectAll();
         model.addAttribute("categorys", categories);
 

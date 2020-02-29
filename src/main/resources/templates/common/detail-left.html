@@ -34,7 +34,7 @@
                 <a href="../user/home.html" class="fly-link">
                     <cite th:text="${dbTopic.user.userName}">贤心</cite>
                     <!--<i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>-->
-                    <i class="layui-badge fly-badge-vip" th:text="'LV'+${dbTopic.user.vipGrade}">VIP3</i>
+                    <i class="layui-badge fly-badge-vip" th:text="'LV'+${dbTopic.user.lvGrade}">VIP3</i>
                 </a>
                 <span th:text="'用户创建于: '+${#dates.format(dbTopic.user.registrationDate,'yyyy-MM-DD HH:mm:ss')}">2017-11-30</span>
             </div>
@@ -61,6 +61,7 @@
 
             <!-- 无数据时 -->
             <li class="fly-none" th:if="${#lists.isEmpty(dbReplies)}">消灭零回复</li>
+            <li class="fly-none" th:if="${session.currentUser == null}">登录后才可以评论哦</li>
             <li data-id="111" class="jieda-daan" th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">

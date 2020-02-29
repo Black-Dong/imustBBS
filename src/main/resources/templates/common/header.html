@@ -40,7 +40,7 @@
                     <cite class="layui-hide-xs" th:utext="${session.currentUser.nickname}">贤心</cite>
                     <i class="iconfont icon-renzheng layui-hide-xs" title="认证"></i>
                     <i class="layui-badge fly-badge-vip layui-hide-xs"
-                       th:text="LV+${session.currentUser.vipGrade}">VIP3</i>
+                       th:text="LV+${session.currentUser.getLvGrade}">VIP3</i>
                     <img th:src="${session.currentUser.headPortrait}">
                 </a>
                 <dl class="layui-nav-child">

@@ -59,13 +59,7 @@ public class User implements Serializable {
     private String sex;
 
     @Column
-    private Integer points = 0;
-
-    @Column
-    private boolean isVip = false;
-
-    @Column
-    private Integer vipGrade = 0;
+    private Integer lvGrade = 0;
 
     @Column
     private boolean isOff = false;
