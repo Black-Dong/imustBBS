@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 import tk.mybatis.mapper.common.Mapper;
 import top.codingdong.imustbbs.po.Topic;
 
@@ -16,7 +17,7 @@ public interface TopicMapper extends Mapper<Topic> {
     void modifyPublicStatusToFalse(Long id);
 
     @Select("select * from t_topic where public_status = true")
-    @Results(id = "selectTopicAndUser", value = {
+    @Results(id = "listAndUserAndCategory", value = {
             @Result(id = true, column = "id", property = "id"),
             @Result(column = "user_id", property = "user",
                     one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey")),
@@ -26,6 +27,10 @@ public interface TopicMapper extends Mapper<Topic> {
     List<Topic> listAndUserAndCategory();
 
     @Select("select * from t_topic where id = #{id}")
-    @ResultMap("selectTopicAndUser")
+    @ResultMap("listAndUserAndCategory")
     Topic selectAndUserAndCategoryById(Integer id);
+
+    @Select("select * from t_topic where category_id = #{id}")
+    @ResultMap("listAndUserAndCategory")
+    List<Topic> listAndUserAndCategoryByCategoryId(Integer id);
 }

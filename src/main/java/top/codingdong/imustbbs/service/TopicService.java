@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.service;
 
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.po.User;
 
@@ -70,4 +71,11 @@ public interface TopicService {
      * @return
      */
     Topic findById(Integer id);
+
+    /**
+     * 按分类查找帖子列表
+     * @param id
+     * @return
+     */
+    List<Topic> listAndUserAndCategoryByCategoryId(Integer id);
 }

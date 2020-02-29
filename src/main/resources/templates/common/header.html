@@ -38,9 +38,12 @@
             <li class="layui-nav-item">
                 <a class="fly-nav-avatar" href="javascript:;">
                     <cite class="layui-hide-xs" th:utext="${session.currentUser.nickname}">贤心</cite>
-                    <i class="iconfont icon-renzheng layui-hide-xs" title="认证"></i>
+                    <i class="iconfont icon-renzheng layui-hide-xs"
+                       title="管理员"
+                       th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"
+                    ></i>
                     <i class="layui-badge fly-badge-vip layui-hide-xs"
-                       th:text="LV+${session.currentUser.getLvGrade}">VIP3</i>
+                       th:text="LV+${session.currentUser.lvGrade}">VIP3</i>
                     <img th:src="${session.currentUser.headPortrait}">
                 </a>
                 <dl class="layui-nav-child">

@@ -5,21 +5,25 @@
         <h1 th:text="${dbTopic.title}">Fly Template v3.0，基于 layui 的极简社区页面模版</h1>
         <div class="fly-detail-info">
             <!-- <span class="layui-badge">审核中</span> -->
-            <span class="layui-badge layui-bg-green fly-detail-column" th:text="${dbTopic.category.name}"></span>
+            <span class="layui-badge layui-bg-blue fly-detail-column" th:text="${dbTopic.category.name}"></span>
 
 
             <span class="layui-badge layui-bg-black" th:if="${dbTopic.topStatus}">置顶</span>
             <span class="layui-badge layui-bg-red" th:if="${dbTopic.boutiqueStatus}">精帖</span>
 
-            <div class="fly-admin-box" data-id="123">
-                <!--                <span class="layui-btn layui-btn-xs jie-admin" type="del"-->
-                <!--                      th:if="${session.currentUser != null && session.currentUser.userId == dbTopic.user.userId}">删除</span>-->
+            <div class="fly-admin-box" data-id="123" th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
+                <span class="layui-btn layui-btn-xs jie-admin" type="del"
+                        th:if="${session.currentUser != null && session.currentUser.userId == dbTopic.user.userId}">删除</span>
 
-                <!--<span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1">置顶</span>-->
-                <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;">取消置顶</span> -->
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
+                      th:if="${!dbTopic.topStatus}">置顶</span>
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;"
+                      th:if="${dbTopic.topStatus}">取消置顶</span>
 
-                <!--<span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1">加精</span>-->
-                <!-- <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;">取消加精</span> -->
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
+                      th:if="!${dbTopic.boutiqueStatus}">加精</span>
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;"
+                      th:if="${dbTopic.boutiqueStatus}">取消加精</span>
             </div>
             <span class="fly-list-nums">
                 <!--<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->

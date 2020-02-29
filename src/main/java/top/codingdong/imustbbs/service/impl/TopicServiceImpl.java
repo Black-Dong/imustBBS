@@ -105,4 +105,10 @@ public class TopicServiceImpl implements TopicService {
             return topic;
         }
     }
+
+    @Override
+    public List<Topic> listAndUserAndCategoryByCategoryId(Integer id) {
+        return topicMapper.listAndUserAndCategoryByCategoryId(id);
+
+    }
 }

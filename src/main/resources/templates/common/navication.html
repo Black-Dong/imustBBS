@@ -3,8 +3,9 @@
 <div th:fragment="navication" class="fly-panel fly-column">
     <div class="layui-container">
         <ul class="layui-clear">
-            <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-            <li th:each="category : ${categories}">
+            <li th:class="${activeCategory == 0 ? 'layui-hide-xs layui-this':'layui-hide-xs'}"><a href="/">首页</a></li>
+            <li th:each="category : ${categories}"
+                th:class="${activeCategory == category.id ? 'layui-hide-xs layui-this':'layui-hide-xs'}">
                 <a th:href="@{'/category/'+${category.id}}" th:text="${category.name}"></a>
             </li>
             <li><a href="/">更多分类</a></li>
@@ -15,7 +16,7 @@
             <!-- 用户登入后显示 -->
             <li th:if="${session.currentUser != null}"
                 class="layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-                <a href="user/index.html">我发表的贴</a>
+                <a href="/user/topicManager">我发表的贴</a>
             </li>
         </ul>
 
