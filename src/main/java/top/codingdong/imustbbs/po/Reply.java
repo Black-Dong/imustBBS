@@ -35,4 +35,7 @@ public class Reply implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-d HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Long createTime;
+
+
+    private User user;
 }

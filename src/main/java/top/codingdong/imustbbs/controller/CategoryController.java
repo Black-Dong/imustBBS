@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
+import top.codingdong.imustbbs.service.CategoryService;
 import top.codingdong.imustbbs.service.TopicService;
 
 import java.util.List;
@@ -26,16 +27,15 @@ public class CategoryController {
     TopicService topicService;
 
     @Autowired
-    private CategoryMapper categoryMapper;
+    CategoryService categoryService;
 
 
     @GetMapping("/category/{id}/{pageNum}")
     public String category(@PathVariable Integer id, Model model,
                            @PathVariable Integer pageNum,
-                           @RequestParam(defaultValue = "1") Integer pageSize) {
+                           @RequestParam(defaultValue = "10") Integer pageSize) {
 
-        PageHelper.startPage(1, 5);
-        List<Category> categories = categoryMapper.selectAll();
+        List<Category> categories = categoryService.selectTop5();
         model.addAttribute("categories", categories);
 
         List<Topic> topics;

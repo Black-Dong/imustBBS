@@ -11,18 +11,21 @@
             <span class="layui-badge layui-bg-black" th:if="${dbTopic.topStatus}">置顶</span>
             <span class="layui-badge layui-bg-red" th:if="${dbTopic.boutiqueStatus}">精帖</span>
 
-            <div class="fly-admin-box" data-id="123" th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
+            <div class="fly-admin-box" data-id="123"
+                 th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
                 <span class="layui-btn layui-btn-xs jie-admin" type="del"
-                        th:if="${session.currentUser != null && session.currentUser.userId == dbTopic.user.userId}">删除</span>
+                      th:if="${session.currentUser != null && session.currentUser.userId == dbTopic.user.userId}">删除</span>
 
                 <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
                       th:if="${!dbTopic.topStatus}">置顶</span>
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0" style="background-color:#ccc;"
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0"
+                      style="background-color:#ccc;"
                       th:if="${dbTopic.topStatus}">取消置顶</span>
 
                 <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
                       th:if="!${dbTopic.boutiqueStatus}">加精</span>
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0" style="background-color:#ccc;"
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0"
+                      style="background-color:#ccc;"
                       th:if="${dbTopic.boutiqueStatus}">取消加精</span>
             </div>
             <span class="fly-list-nums">
@@ -70,17 +73,18 @@
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">
                     <a class="fly-avatar" href="">
-                        <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg"
+                        <img th:src="${reply.user.headPortrait}"
                              alt=" ">
                     </a>
                     <div class="fly-detail-user">
                         <a href="" class="fly-link">
-                            <cite>贤心</cite>
-                            <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
-                            <i class="layui-badge fly-badge-vip">VIP3</i>
+                            <cite th:text="${reply.user.userName}">贤心</cite>
+                            <i class="iconfont icon-renzheng" title="认证信息：XXX"
+                               th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"></i>
+                            <i class="layui-badge fly-badge-vip" th:text="'LV'+${reply.user.lvGrade}">VIP3</i>
                         </a>
 
-                        <span th:text="${reply.userId == dbTopic.user.userId ? '(楼主)':''}">(楼主)</span>
+                        <span th:text="${reply.user.userId == dbTopic.user.userId ? '(楼主)':''}">(楼主)</span>
                         <!--
                         <span style="color:#5FB878">(管理员)</span>
                         <span style="color:#FF9E3F">（社区之光）</span>

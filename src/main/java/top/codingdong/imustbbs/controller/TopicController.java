@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.controller;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import tk.mybatis.mapper.entity.Example;
 import top.codingdong.imustbbs.mapper.ReplyMapper;
+import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Reply;
 import top.codingdong.imustbbs.po.Topic;
+import top.codingdong.imustbbs.service.CategoryService;
+import top.codingdong.imustbbs.service.ReplyService;
 import top.codingdong.imustbbs.service.TopicService;
 
 import java.util.List;
@@ -21,22 +25,29 @@ import java.util.List;
 public class TopicController {
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private TopicService topicService;
 
     @Autowired
-    private ReplyMapper replyMapper;
+    private ReplyService replyService;
 
 
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model) {
+
+        List<Category> categories = categoryService.selectTop5();
+        model.addAttribute("categories", categories);
+
         Topic dbTopic = topicService.selectAndUserAndCategoryById(id);
         model.addAttribute("dbTopic", dbTopic);
 
-        Example replyExample = new Example(Reply.class);
-        replyExample.createCriteria()
-                .andEqualTo("topicId", dbTopic.getId());
-        List<Reply> replies = replyMapper.selectByExample(replyExample);
+        model.addAttribute("activeCategory", dbTopic.getCategory().getId());
+
+        List<Reply> replies = replyService.selectAndUserByTopicId(id);
         model.addAttribute("dbReplies", replies);
+
 
         return "detail";
     }
