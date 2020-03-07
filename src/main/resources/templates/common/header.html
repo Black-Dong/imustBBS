@@ -44,11 +44,15 @@
                     ></i>
                     <i class="layui-badge fly-badge-vip layui-hide-xs"
                        th:text="LV+${session.currentUser.lvGrade}">VIP3</i>
-                    <img th:src="${session.currentUser.headPortrait}">
+                    <img th:src="${session.currentUser.avatar}">
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/user/publishTopic" style="text-align: center;">发帖</a></dd>
-                    <dd><a href="/user/topicManager" style="text-align: center;">帖子管理</a></dd>
+                    <dd><a href="/user/manager/2" style="text-align: center;">我的帖子</a></dd>
+
+                    <hr style="margin: 5px 0;">
+                    <dd><a href="/user/manager/5" style="text-align: center;">用户管理</a></dd>
+
                     <hr style="margin: 5px 0;">
                     <dd><a href="/user/logout" style="text-align: center;">
                         退出</a></dd>

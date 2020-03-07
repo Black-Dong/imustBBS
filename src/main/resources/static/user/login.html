@@ -16,8 +16,8 @@
     <div class="layui-form-item" style="margin-bottom: 5px">
         <label class="layui-form-label">用&nbsp;户&nbsp;名</label>
         <div class="layui-input-inline">
-            <input type="text" id="userName" name="userName" required placeholder="请输入用户名"
-                   autocomplete="off" class="layui-input" lay-verify="userName"
+            <input type="text" id="username" name="username" required placeholder="请输入用户名"
+                   autocomplete="off" class="layui-input" lay-verify="username"
                    style="width:280px;">
         </div>
     </div>
@@ -55,7 +55,7 @@
 <script src="/layui/layui.all.js"></script>
 <script>
     layui.form.verify({
-        userName: [
+        username: [
             /^[\S]{5,15}$/,
             "用户名必须5到15位，且不能出现空格"
         ],
@@ -80,7 +80,7 @@
                     if (result.status) {
                         if (rememberMe == 'on') {
                             // 选择记住密码
-                            $.cookie('user', $("#userName").val().trim() + '-' + $("#password").val().trim(), {expires: 7});
+                            $.cookie('user', $("#username").val().trim() + '-' + $("#password").val().trim(), {expires: 7});
                         }else {
                             $.cookie('user', null);
                         }
@@ -111,9 +111,9 @@
         // 从cookie中获取记住的用户名密码
         let user = $.cookie("user");
         if (typeof (user) != 'undefined' && user != 'null') {
-            let userNameAndPassword = user.split("-");
-            $("#userName").val(userNameAndPassword[0]);
-            $("#password").val(userNameAndPassword[1]);
+            let usernameAndPassword = user.split("-");
+            $("#username").val(usernameAndPassword[0]);
+            $("#password").val(usernameAndPassword[1]);
             $("#rememberMe").attr({"checked": "checked"});
             $("#rememberMe").next().addClass("layui-form-checked");
         }

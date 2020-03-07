@@ -3,9 +3,12 @@ package top.codingdong.imustbbs.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 import top.codingdong.imustbbs.po.User;
 import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.service.UserService;
+
+import java.util.List;
 
 /**
  * @author Dong
@@ -20,7 +23,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUserName(String userName) {
-        return usermapper.findUserByUserName(userName);
+        return usermapper.findUserByUsername(userName);
     }
 
     @Override
@@ -31,9 +34,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
 
-        if (user.getUserId() != null){
+        if (user.getUserId() != null) {
             usermapper.updateByPrimaryKeySelective(user);
-        }else {
+        } else {
             usermapper.insertSelective(user);
         }
     }
@@ -41,5 +44,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         return usermapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public List<User> selectAllmember() {
+        Example example = new Example(User.class);
+        example.createCriteria()
+                .andEqualTo("roleName", "会员")
+                .andEqualTo("isOff", false);
+        return usermapper.selectByExample(example);
+    }
+
+    @Override
+    public void banUser(Integer id) {
+        usermapper.banUserById(id);
     }
 }

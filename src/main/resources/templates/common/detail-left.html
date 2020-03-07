@@ -35,15 +35,15 @@
         </div>
         <div class="detail-about">
             <a class="fly-avatar" href="../user/home.html">
-                <img th:src="${dbTopic.user.headPortrait}" alt="">
+                <img th:src="${dbTopic.user.avatar}" alt="">
             </a>
             <div class="fly-detail-user">
                 <a href="../user/home.html" class="fly-link">
-                    <cite th:text="${dbTopic.user.userName}">贤心</cite>
+                    <cite th:text="${dbTopic.user.username}">贤心</cite>
                     <!--<i class="iconfont icon-renzheng" title="认证信息：{{ rows.user.approve }}"></i>-->
                     <i class="layui-badge fly-badge-vip" th:text="'LV'+${dbTopic.user.lvGrade}">VIP3</i>
                 </a>
-                <span th:text="'用户创建于: '+${#dates.format(dbTopic.user.registrationDate,'yyyy-MM-DD HH:mm:ss')}">2017-11-30</span>
+                <span th:text="'用户创建于: '+${#dates.format(dbTopic.user.createTime,'yyyy-MM-DD HH:mm:ss')}">2017-11-30</span>
             </div>
             <div class="detail-hits" id="LAY_jieAdmin" data-id="123">
                 <span style="padding-right: 10px; color: #FF7200"
@@ -73,12 +73,12 @@
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">
                     <a class="fly-avatar" href="">
-                        <img th:src="${reply.user.headPortrait}"
+                        <img th:src="${reply.user.avatar}"
                              alt=" ">
                     </a>
                     <div class="fly-detail-user">
                         <a href="" class="fly-link">
-                            <cite th:text="${reply.user.userName}">贤心</cite>
+                            <cite th:text="${reply.user.username}">贤心</cite>
                             <i class="iconfont icon-renzheng" title="认证信息：XXX"
                                th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"></i>
                             <i class="layui-badge fly-badge-vip" th:text="'LV'+${reply.user.lvGrade}">VIP3</i>

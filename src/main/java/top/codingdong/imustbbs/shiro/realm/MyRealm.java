@@ -49,7 +49,7 @@ public class MyRealm extends AuthorizingRealm {
         if (user == null) {
             return null;
         } else {
-            AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), user.getPassword(), "xx");
+            AuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "xx");
             return authenticationInfo;
         }
     }

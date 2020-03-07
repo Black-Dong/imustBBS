@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.mapper;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 import top.codingdong.imustbbs.po.User;
 
@@ -13,9 +14,12 @@ import top.codingdong.imustbbs.po.User;
 
 public interface UserMapper extends Mapper<User> {
 
-    @Select("select * from user where user_name = #{userName}")
-    User findUserByUserName(String userName);
+    @Select("select * from t_user where username = #{username}")
+    User findUserByUsername(String username);
 
-    @Select("select * from user where email = #{email}")
+    @Select("select * from t_user where email = #{email}")
     User findUserByEmail(String email);
+
+    @Update("update t_user set is_off = 1 where user_id = #{id}")
+    void banUserById(Integer id);
 }

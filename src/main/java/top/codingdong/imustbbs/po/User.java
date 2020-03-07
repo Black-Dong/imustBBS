@@ -20,7 +20,7 @@ import java.util.Date;
  */
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "t_user")
 @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class User implements Serializable {
 
@@ -40,7 +40,7 @@ public class User implements Serializable {
 
     @Column(length = 100)
     @NotEmpty(message = "请输入用户名")
-    private String userName;
+    private String username;
 
     @Column(length = 100)
     @NotEmpty(message = "请输入密码")
@@ -53,7 +53,7 @@ public class User implements Serializable {
 
 
     @Column(length = 100)
-    private String headPortrait;
+    private String avatar;
 
     @Column(length = 50)
     private String sex;
@@ -69,7 +69,7 @@ public class User implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date registrationDate;
+    private Date createTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

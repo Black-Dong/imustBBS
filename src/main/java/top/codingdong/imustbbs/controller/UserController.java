@@ -8,17 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.DTO.ResultDTO;
-import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.po.User;
-import top.codingdong.imustbbs.mapper.TopicMapper;
-import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.Constants;
 import top.codingdong.imustbbs.util.CryptographyUtil;
@@ -28,7 +23,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 用户控制器
@@ -52,14 +46,14 @@ public class UserController {
 
         if (bindingResult.hasErrors()) {
             return ResultDTO.errorOf(bindingResult.getFieldError().getDefaultMessage());
-        } else if (userService.findByUserName(user.getUserName()) != null) {
+        } else if (userService.findByUserName(user.getUsername()) != null) {
             return ResultDTO.errorOf("用户名已存在，请更换");
         } else if (userService.findByEmail(user.getEmail()) != null) {
             return ResultDTO.errorOf("邮箱已存在，请更换");
         } else {
-            user.setRegistrationDate(new Date());
+            user.setCreateTime(new Date());
             user.setLatelyLoginTime(new Date());
-            user.setHeadPortrait("tou.jpg");
+            user.setAvatar("tou.jpg");
             user.setPassword(CryptographyUtil.md5(user.getPassword()));
             userService.save(user);
             return ResultDTO.success();
@@ -70,14 +64,14 @@ public class UserController {
     @ResponseBody
     public ResultDTO login(User user, HttpSession session) {
 
-        if (StringUtils.isBlank(user.getUserName())) {
+        if (StringUtils.isBlank(user.getUsername())) {
             return ResultDTO.errorOf("请输入用户名");
         } else if (StringUtils.isBlank(user.getPassword())) {
             return ResultDTO.errorOf("请输入密码");
         } else {
 
             Subject subject = SecurityUtils.getSubject();
-            UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(), CryptographyUtil.md5(user.getPassword()));
+            UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), CryptographyUtil.md5(user.getPassword()));
             try {
                 // 登录验证
                 subject.login(token);

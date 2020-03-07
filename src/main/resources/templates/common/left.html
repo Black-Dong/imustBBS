@@ -1,27 +1,33 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <ul th:fragment="user-nav" class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
-    <li class="layui-nav-item">
-        <a href="/user/home">
+    <li th:class="${activeManager == 1 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/1">
             <i class="layui-icon">&#xe609;</i>
             我的主页
         </a>
     </li>
-    <li class="layui-nav-item layui-this">
-        <a href="/user/topicManager">
+    <li th:class="${activeManager == 2 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/2">
             <i class="layui-icon">&#xe612;</i>
-            帖子管理
+            我的帖子
         </a>
     </li>
-    <li class="layui-nav-item">
-        <a href="set.html">
+    <li th:class="${activeManager == 3 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/3">
             <i class="layui-icon">&#xe620;</i>
             基本设置
         </a>
     </li>
-    <li class="layui-nav-item">
-        <a href="/user/userManage/1">
+    <li th:class="${activeManager == 4 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/4">
             <i class="layui-icon">&#xe611;</i>
             我的消息
+        </a>
+    </li>
+    <li th:class="${activeManager == 5 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/5">
+            <i class="layui-icon">&#xe611;</i>
+            用户管理
         </a>
     </li>
 </ul>

@@ -17,7 +17,7 @@
         <ul class="fly-list">
             <li th:each="topic : ${pageInfo?.list}">
                 <a href="user/home.html" class="fly-avatar">
-                    <img th:src="${topic.user.headPortrait}">
+                    <img th:src="${topic.user.avatar}">
                 </a>
                 <h2>
                     <a class="layui-badge" th:text="${topic.category.name}">分享</a>
@@ -25,7 +25,7 @@
                 </h2>
                 <div class="fly-list-info">
                     <a href="user/home.html" link>
-                        <cite th:text="${topic.user.userName}">贤心</cite>
+                        <cite th:text="${topic.user.username}">贤心</cite>
                         <!--
                         <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                         -->

@@ -33,12 +33,11 @@
                         <li th:each="topic : ${myTopics}">
                             <a class="jie-title" th:href="@{'/detail/'+${topic.id}}" target="_blank"
                                th:text="${topic.title}">基于 layui 的极简社区页面模版</a>
-                            <i th:text="${'最后回复与：'+ #dates.format(topic.lastReplyTime,'yyyy-MM-dd HH:mm:ss')}">2017/3/14
+                            <i th:text="${'最后回复/更新与：'+ #dates.format(topic.lastReplyTime,'yyyy-MM-dd HH:mm:ss')}">2017/3/14
                                 上午8:30:00</i>
                             <a class="mine-edit" th:href="@{'/user/editTopic/'+${topic.id}}">编辑</a>
                             <!--                            <em>661阅/10答</em>-->
                         </li>
-
                     </ul>
                     <div id="LAY_page"></div>
                 </div>

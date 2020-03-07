@@ -11,7 +11,9 @@ import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.po.User;
+import top.codingdong.imustbbs.service.CategoryService;
 import top.codingdong.imustbbs.service.TopicService;
+import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.Constants;
 
 import javax.servlet.http.HttpSession;
@@ -29,7 +31,10 @@ public class UserTopicController {
     TopicService topicService;
 
     @Autowired
-    CategoryMapper categoryMapper;
+    CategoryService categoryService;
+
+    @Autowired
+    UserService userService;
 
 
     /**
@@ -40,7 +45,7 @@ public class UserTopicController {
      */
     @GetMapping("/publishTopic")
     public String publishTopic(Model model) {
-        List<Category> categories = categoryMapper.selectAll();
+        List<Category> categories = categoryService.selectAll();
         model.addAttribute("categorys", categories);
         return "/user/publishTopic";
     }
@@ -79,12 +84,26 @@ public class UserTopicController {
      * @param session
      * @return
      */
-    @GetMapping("/topicManager")
-    public String topicManager(Model model, HttpSession session) {
+    @GetMapping("/manager/{managerId}")
+    public String topicManager(@PathVariable Integer managerId,
+                               Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
-        List<Topic> list = topicService.list(1, 10, currentUser.getUserId().longValue());
-        model.addAttribute("myTopics", list);
-        return "/user/topicManager";
+        List list = null;
+        if (managerId == 2){
+            list = topicService.list(1, 10, currentUser.getUserId().longValue());
+            model.addAttribute("myTopics", list);
+            model.addAttribute("activeManager",managerId);
+            return "/user/myTopicManager";
+        }
+
+        if (managerId == 5){
+            list = userService.selectAllmember();
+            model.addAttribute("allUser", list);
+            model.addAttribute("activeManager",managerId);
+            return "/user/userManager";
+        }
+
+        return "/user/myTopicManager";
     }
 
     /**
@@ -98,7 +117,7 @@ public class UserTopicController {
     public String publishTopic(@PathVariable Integer id, Model model) {
         Topic dbTopic = topicService.findById(id);
         model.addAttribute("dbTopic", dbTopic);
-        List<Category> categories = categoryMapper.selectAll();
+        List<Category> categories = categoryService.selectAll();
         model.addAttribute("categorys", categories);
 
         return "/user/editTopic";

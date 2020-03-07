@@ -26,4 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
         PageHelper.startPage(1, 5);
         return categoryMapper.selectAll();
     }
+
+    @Override
+    public List<Category> selectAll() {
+        return categoryMapper.selectAll();
+    }
 }
