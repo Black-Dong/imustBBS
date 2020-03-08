@@ -44,6 +44,38 @@ function register() {
     })
 }
 
+function disableUser(user) {
+    layer.confirm("确认要封禁用户 " + user.username + " 吗？", function (index) {
+        $.ajax({
+            url: '/admin/disableUser',
+            data: {
+                'userId': user.userId,
+            },
+            contentType: 'application/json',
+            success: function (result) {
+                layer.close(index);
+                window.location.reload();
+            }
+        });
+    });
+}
+function unDisableUser(user) {
+    layer.confirm("确认要解封用户 " + user.username + " 吗？", function (index) {
+        $.ajax({
+            url: '/admin/unDisableUser',
+            data: {
+                'userId': user.userId,
+            },
+            contentType: 'application/json',
+            success: function (result) {
+                layer.close(index);
+                window.location.reload();
+            }
+
+        });
+    });
+}
+
 $(function () {
 
     $("#loginLi").hover(function () {

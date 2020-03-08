@@ -20,5 +20,7 @@ public interface UserService {
 
     List<User> selectAllmember();
 
-    void banUser(Integer id);
+    void disableUser(Integer id);
+
+    void unDisableUser(Integer userId);
 }

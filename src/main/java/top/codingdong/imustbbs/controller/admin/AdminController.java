@@ -19,9 +19,15 @@ public class AdminController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/ban")
+    @GetMapping("/disableUser")
     @ResponseBody
-    public void banUser(@RequestParam(name = "userId") Integer userId) {
-        userService.banUser(userId);
+    public void disableUser(@RequestParam(name = "userId") Integer userId) {
+        userService.disableUser(userId);
+    }
+
+    @GetMapping("/unDisableUser")
+    @ResponseBody
+    public void unDisableUser(@RequestParam(name = "userId") Integer userId) {
+        userService.unDisableUser(userId);
     }
 }

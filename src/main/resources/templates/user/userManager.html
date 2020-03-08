@@ -53,25 +53,13 @@
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
-                            <td><a th:onclick="banUser([[${user}]])"
-                                   style="cursor: pointer;">封禁</a></td>
+                            <td>
+                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
+                                   th:onclick="disableUser([[${user}]])">封禁</a>
+                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
+                                   th:onclick="unDisableUser([[${user}]])">解封</a>
+                            </td>
                         </tr>
-
-                        <script>
-                            function banUser(user) {
-                                layer.confirm("确认要封禁用户 " + user.username + " 吗？", function (index) {
-                                    $.ajax({
-                                        url: '/admin/ban',
-                                        data: {
-                                            'userId': user.userId,
-                                        },
-                                        contentType: 'application/json',
-                                    });
-                                    layer.close(index);
-                                    window.location.reload();
-                                });
-                            }
-                        </script>
                         </tbody>
                     </table>
                     <div id="LAY_page"></div>

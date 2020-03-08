@@ -50,13 +50,17 @@ public class UserServiceImpl implements UserService {
     public List<User> selectAllmember() {
         Example example = new Example(User.class);
         example.createCriteria()
-                .andEqualTo("roleName", "会员")
-                .andEqualTo("isOff", false);
+                .andEqualTo("roleName", "会员");
         return usermapper.selectByExample(example);
     }
 
     @Override
-    public void banUser(Integer id) {
-        usermapper.banUserById(id);
+    public void disableUser(Integer id) {
+        usermapper.disableUserById(id);
+    }
+
+    @Override
+    public void unDisableUser(Integer userId) {
+        usermapper.unDisableUserById(userId);
     }
 }

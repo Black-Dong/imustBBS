@@ -77,7 +77,7 @@ public class UserController {
                 subject.login(token);
                 String userName = SecurityUtils.getSubject().getPrincipal().toString();
                 User dbUser = userService.findByUserName(userName);
-                if (dbUser.isOff()) {
+                if (dbUser.getIsOff()) {
                     subject.logout();
                     return ResultDTO.errorOf("该用户已封禁，请联系管理页");
                 } else {

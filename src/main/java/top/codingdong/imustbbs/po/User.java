@@ -62,7 +62,7 @@ public class User implements Serializable {
     private Integer lvGrade = 0;
 
     @Column
-    private boolean isOff = false;
+    private Boolean isOff = false;
 
     @Column
     private String roleName = "会员";

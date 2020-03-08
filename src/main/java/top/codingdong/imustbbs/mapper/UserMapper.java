@@ -21,5 +21,8 @@ public interface UserMapper extends Mapper<User> {
     User findUserByEmail(String email);
 
     @Update("update t_user set is_off = 1 where user_id = #{id}")
-    void banUserById(Integer id);
+    void disableUserById(Integer id);
+
+    @Update("update t_user set is_off = 0 where user_id = #{id}")
+    void unDisableUserById(Integer id);
 }
