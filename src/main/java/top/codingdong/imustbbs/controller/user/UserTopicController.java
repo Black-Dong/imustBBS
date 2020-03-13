@@ -74,7 +74,8 @@ public class UserTopicController {
             topicService.save(topic);
         }
 
-        return "redirect:/user/topicManager";
+        // 跳转到帖子详情页
+        return "redirect:/detail/" + topic.getId();
     }
 
     /**
@@ -89,17 +90,17 @@ public class UserTopicController {
                                Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
         List list = null;
-        if (managerId == 2){
+        if (managerId == 2) {
             list = topicService.list(1, 10, currentUser.getUserId().longValue());
             model.addAttribute("myTopics", list);
-            model.addAttribute("activeManager",managerId);
+            model.addAttribute("activeManager", managerId);
             return "/user/myTopicManager";
         }
 
-        if (managerId == 5){
+        if (managerId == 5) {
             list = userService.selectAllmember();
             model.addAttribute("allUser", list);
-            model.addAttribute("activeManager",managerId);
+            model.addAttribute("activeManager", managerId);
             return "/user/userManager";
         }
 
