@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.service.UserService;
 
 /**
+ * 管理员控制类
+ *
  * @author Dong
  * @date 2020/3/7 21:03
  */
@@ -21,12 +23,18 @@ public class AdminController {
 
     @GetMapping("/disableUser")
     @ResponseBody
+    /**
+     * 禁用用户
+     */
     public void disableUser(@RequestParam(name = "userId") Integer userId) {
         userService.disableUser(userId);
     }
 
     @GetMapping("/unDisableUser")
     @ResponseBody
+    /**
+     * 解除禁用用户
+     */
     public void unDisableUser(@RequestParam(name = "userId") Integer userId) {
         userService.unDisableUser(userId);
     }

@@ -14,6 +14,7 @@ import top.codingdong.imustbbs.service.TopicService;
 import java.util.List;
 
 /**
+ * 首页控制类
  * @author Dong
  * @date 2020/2/26 13:15
  */

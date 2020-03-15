@@ -17,6 +17,7 @@ import top.codingdong.imustbbs.service.TopicService;
 import java.util.List;
 
 /**
+ * 分类控制类
  * @author Dong
  * @date 2020/2/29 20:19
  */
@@ -30,26 +31,40 @@ public class CategoryController {
     CategoryService categoryService;
 
 
+    /**
+     * 根据 分类id 和 页数 查询该分类下的所有帖子
+     * @param id
+     * @param model
+     * @param pageNum
+     * @param pageSize
+     * @return 返回首页
+     */
     @GetMapping("/category/{id}/{pageNum}")
     public String category(@PathVariable Integer id, Model model,
                            @PathVariable Integer pageNum,
                            @RequestParam(defaultValue = "10") Integer pageSize) {
 
+        // 查询5个分类名称，给导航
         List<Category> categories = categoryService.selectTop5();
         model.addAttribute("categories", categories);
 
         List<Topic> topics;
+        // 查询该分类下所有帖子
         if (id == 0) {
+            // 当id为0时，在所有分类中查询
             topics = topicService.listAndUserAndCategory(pageNum, pageSize);
         } else {
+            // 根据分类id查询该分类下的所有帖子
             topics = topicService.listAndUserAndCategoryByCategoryId(pageNum, pageSize, id);
         }
+        // 当前激活的分类id
         model.addAttribute("activeCategory", id);
 
+        // 将贴子放入PageInfo返回
         PageInfo<Topic> pageInfo = PageInfo.of(topics);
         model.addAttribute("pageInfo", pageInfo);
 
-
+        // 返回首页
         return "index";
     }
 }

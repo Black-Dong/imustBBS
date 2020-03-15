@@ -66,7 +66,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void save(Topic topic) {
-        if (topic.isPublicStatus()) {
+        if (topic.getPublicStatus()) {
             // 把审核通过的放入redis
             redisTemplate.setKeySerializer(redisSerializer);
             redisTemplate.opsForValue().set("topic_" + topic.getId(), topic);
@@ -76,7 +76,7 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void update(Topic topic) {
-        if (topic.isPublicStatus()) {
+        if (topic.getPublicStatus()) {
             // 把审核通过的放入redis
             redisTemplate.setKeySerializer(redisSerializer);
             redisTemplate.opsForValue().set("topic_" + topic.getId(), topic);
@@ -98,7 +98,7 @@ public class TopicServiceImpl implements TopicService {
             return (Topic) redisTemplate.opsForValue().get("topic_" + id);
         } else {
             Topic topic = topicMapper.selectByPrimaryKey(id);
-            if (topic.isPublicStatus()) {
+            if (topic.getPublicStatus()) {
                 redisTemplate.setKeySerializer(redisSerializer);
                 redisTemplate.opsForValue().set("topic_" + id, topic);
             }

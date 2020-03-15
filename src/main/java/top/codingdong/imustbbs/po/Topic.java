@@ -38,9 +38,9 @@ public class Topic implements Serializable {
     private Long userId;
 
     @Column(columnDefinition = "public_status")
-    private boolean publicStatus = true;
-    private boolean topStatus = false;
-    private boolean boutiqueStatus = false;
+    private Boolean publicStatus = true;
+    private Boolean topStatus = false;
+    private Boolean boutiqueStatus = false;
 
 
 
