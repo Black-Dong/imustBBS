@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.po.User;
@@ -20,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
+ * 用户帖子控制类
+ *
  * @author Dong
  * @date 2020/2/27 17:57
  */
