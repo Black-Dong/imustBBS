@@ -1,20 +1,20 @@
 package top.codingdong.imustbbs.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
+import top.codingdong.imustbbs.service.CategoryService;
 import top.codingdong.imustbbs.service.TopicService;
 
 import java.util.List;
 
 /**
  * 首页控制类
+ *
  * @author Dong
  * @date 2020/2/26 13:15
  */
@@ -22,7 +22,7 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CategoryService categoryService;
 
     @Autowired
     private TopicService topicService;
@@ -35,16 +35,19 @@ public class IndexController {
     @GetMapping("/")
     public String index(Model model) {
 
-        PageHelper.startPage(1, 5);
-        List<Category> categories = categoryMapper.selectAll();
+        // 查询5个分类，放在navigation
+        List<Category> categories = categoryService.selectTop5();
         model.addAttribute("categories", categories);
 
+        // 查询帖子列表
         List<Topic> topics = topicService.listAndUserAndCategory(1, 10);
         PageInfo<Topic> pageInfo = PageInfo.of(topics);
         model.addAttribute("pageInfo", pageInfo);
 
-        model.addAttribute("activeCategory",0);
+        // 激活分类为 0 （首页）
+        model.addAttribute("activeCategory", 0);
 
+        // 返回首页
         return "index";
     }
 }

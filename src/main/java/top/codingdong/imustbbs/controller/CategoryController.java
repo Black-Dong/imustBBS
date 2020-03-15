@@ -1,6 +1,5 @@
 package top.codingdong.imustbbs.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.CategoryService;
@@ -18,6 +16,7 @@ import java.util.List;
 
 /**
  * 分类控制类
+ *
  * @author Dong
  * @date 2020/2/29 20:19
  */
@@ -33,6 +32,7 @@ public class CategoryController {
 
     /**
      * 根据 分类id 和 页数 查询该分类下的所有帖子
+     *
      * @param id
      * @param model
      * @param pageNum
