@@ -14,7 +14,7 @@
             <div class="fly-admin-box" data-id="123"
                  th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
                 <span class="layui-btn layui-btn-xs jie-admin" type="del"
-                      th:if="${session.currentUser != null && session.currentUser.userId == dbTopic.user.userId}">删除</span>
+                      >删除</span>
 
                 <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
                       th:if="${!dbTopic.topStatus}">置顶</span>
