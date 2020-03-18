@@ -7,7 +7,7 @@
         </a>
     </li>
     <li th:class="${activeManager == 2 ? 'layui-nav-item layui-this':'layui-nav-item'}">
-        <a href="/user/manager/2">
+        <a href="/user/manager/2/1">
             <i class="layui-icon">&#xe612;</i>
             我的帖子
         </a>
@@ -26,7 +26,7 @@
     </li>
     <li th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"
         th:class="${activeManager == 5 ? 'layui-nav-item layui-this':'layui-nav-item'}">
-        <a href="/user/manager/5">
+        <a href="/user/manager/5/1">
             <i class="layui-icon">&#xe611;</i>
             用户管理
         </a>

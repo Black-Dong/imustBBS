@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.controller.user;
 
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,14 +87,19 @@ public class UserTopicController {
      * @param session
      * @return
      */
-    @GetMapping("/manager/{managerId}")
+    @GetMapping("/manager/{managerId}/{pageNumber}")
     public String topicManager(@PathVariable Integer managerId,
+                               @PathVariable Integer pageNumber,
                                Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
         List list = null;
+        // 帖子管理
         if (managerId == 2) {
-            list = topicService.list(1, 10, currentUser.getUserId().longValue());
-            model.addAttribute("myTopics", list);
+            list = topicService.list(pageNumber, 10, currentUser.getUserId().longValue());
+
+            PageInfo pageInfo = PageInfo.of(list);
+            model.addAttribute("pageInfo", pageInfo);
+
             model.addAttribute("activeManager", managerId);
             return "/user/myTopicManager";
         }

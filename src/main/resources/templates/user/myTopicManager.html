@@ -24,13 +24,13 @@
         -->
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
-                <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span>89</span>）</li>
+                <li data-type="mine-jie" lay-id="index" class="layui-this">我发的帖（<span th:text="${pageInfo.total}">89</span>）</li>
                 <li data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖（<span>16</span>）</li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
                     <ul class="mine-view jie-row">
-                        <li th:each="topic : ${myTopics}">
+                        <li th:each="topic : ${pageInfo.list}">
                             <a class="jie-title" th:href="@{'/detail/'+${topic.id}}" target="_blank"
                                th:text="${topic.title}">基于 layui 的极简社区页面模版</a>
                             <i th:text="${'最后回复/更新与：'+ #dates.format(topic.lastReplyTime,'yyyy-MM-dd HH:mm:ss')}">2017/3/14
@@ -48,6 +48,47 @@
                             <i>收藏于23小时前</i></li>
                     </ul>
                     <div id="LAY_page1"></div>
+                </div>
+            </div>
+
+            <div style="border-top: 1px dotted #e2e2e2; text-align: center;" th:if="${pageInfo?.list != null}">
+                <div class="laypage-main">
+                    <a th:if="${pageInfo.pageNum - 2 > 1}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/1'}" class="laypage-first" title="首页">首页</a>
+
+                    <a th:if="${pageInfo.hasPreviousPage}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${pageInfo.prePage}}"
+                       class="laypage-prev">上一页</a>
+
+                    <a th:if="${pageInfo.pages <= 5}"
+                       th:each="num : ${#numbers.sequence(1,pageInfo.pages)}"
+                       th:text="${num}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${num}}"
+                       th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+                    <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 <= 1}"
+                       th:each="num : ${#numbers.sequence(1,5)}"
+                       th:text="${num}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${num}}"
+                       th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+                    <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 > 1 && pageInfo.pageNum+2 < pageInfo.pages}"
+                       th:each="num : ${#numbers.sequence(pageInfo.pageNum-2,pageInfo.pageNum+2)}"
+                       th:text="${num}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${num}}"
+                       th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+                    <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 > 1 && pageInfo.pageNum+2 >= pageInfo.pages}"
+                       th:each="num : ${#numbers.sequence(pageInfo.pages-4,pageInfo.pages)}"
+                       th:text="${num}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${num}}"
+                       th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+
+
+                    <a th:if="${pageInfo.hasNextPage}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${pageInfo.nextPage}}"
+                       class="laypage-next">下一页</a>
+
+                    <a th:unless="${pageInfo.pageNum + 3 > pageInfo.pages}"
+                       th:href="@{'/user/manager/'+${activeManager}+'/'+${pageInfo.pages}}"
+                       class="laypage-last" title="尾页">尾页</a>
                 </div>
             </div>
         </div>

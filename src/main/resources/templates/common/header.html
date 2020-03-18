@@ -51,11 +51,11 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/user/publishTopic" style="text-align: center;">发帖</a></dd>
-                    <dd><a href="/user/manager/2" style="text-align: center;">我的帖子</a></dd>
+                    <dd><a href="/user/manager/2/1" style="text-align: center;">我的帖子</a></dd>
 
                     <hr style="margin: 5px 0;">
                     <dd th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
-                        <a href="/user/manager/5" style="text-align: center;">用户管理</a>
+                        <a href="/user/manager/5/1" style="text-align: center;">用户管理</a>
                     </dd>
 
                     <hr style="margin: 5px 0;">
