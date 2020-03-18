@@ -50,4 +50,17 @@ public class IndexController {
         // 返回首页
         return "index";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "/user/login";
+    }
+    @GetMapping("/register")
+    public String register(){
+        return "/user/register";
+    }
+    @GetMapping("/findPassword")
+    public String findPassword(){
+        return "/user/findPassword";
+    }
 }

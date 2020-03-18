@@ -69,6 +69,7 @@
             <!-- 无数据时 -->
             <li class="fly-none" th:if="${#lists.isEmpty(dbReplies)}">消灭零回复</li>
             <li class="fly-none" th:if="${session.currentUser == null}">登录后才可以评论哦</li>
+
             <li data-id="111" class="jieda-daan" th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">

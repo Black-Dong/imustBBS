@@ -21,10 +21,13 @@
 
             <!-- 未登入的状态-->
             <li class="layui-nav-item">
-                <a href="javascript:login()">登录</a>
+                <a class="iconfont icon-touxiang layui-hide-xs" href="/login"></a>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:register()">注册</a>
+                <a href=/login>登录</a>
+            </li>
+            <li class="layui-nav-item">
+                <a href="/register">注册</a>
             </li>
             <li class="layui-nav-item layui-hide-xs">
                 <a href="/qqLogin" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入"
@@ -37,7 +40,7 @@
             <!-- 登入后的状态 -->
             <li class="layui-nav-item">
                 <a class="fly-nav-avatar" href="javascript:;">
-                    <cite class="layui-hide-xs" th:utext="${session.currentUser.nickname}">贤心</cite>
+                    <cite class="layui-hide-xs" th:utext="${session.currentUser.username}">贤心</cite>
                     <i class="iconfont icon-renzheng layui-hide-xs"
                        title="管理员"
                        th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"
