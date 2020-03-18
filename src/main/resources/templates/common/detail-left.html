@@ -54,7 +54,7 @@
                 </span>
             </div>
         </div>
-        <div class="detail-body photos" th:text="${dbTopic.content}">
+        <div class="detail-body photos" th:utext="${dbTopic.content}">
 
         </div>
     </div>
@@ -127,7 +127,7 @@
                 <div class="layui-form-item layui-form-text">
                     <a name="comment"></a>
                     <div class="layui-input-block">
-                        <textarea id="L_content" name="content" required lay-verify="required" placeholder="请输入内容"
+                        <textarea id="L_reply" name="content" required lay-verify="required" placeholder="请输入内容"
                                   class="layui-textarea fly-editor" style="height: 150px;"></textarea>
                     </div>
                 </div>

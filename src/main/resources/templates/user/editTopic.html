@@ -72,5 +72,28 @@
 <script src="/js/jquery-1.10.2.js"></script>
 <script src="/fly-layui/layui/layui.all.js"></script>
 <script src="/js/imustBBS.js"></script>
+<script>
+    layui.use('layedit', function () {
+        let layedit = layui.layedit;
+        layedit.build('L_content', {
+            height:200,
+            tool: [
+                'strong'
+                ,'italic'
+                ,'underline'
+                ,'del'
+                ,'|'
+                ,'left'
+                ,'center'
+                ,'right'
+                ,'link'
+                ,'unlink'
+                ,'face'
+                // ,'image'
+                // ,'help'
+            ]
+        })
+    })
+</script>
 </body>
 </html>

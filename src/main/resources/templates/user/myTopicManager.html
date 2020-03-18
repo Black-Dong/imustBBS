@@ -51,7 +51,7 @@
                 </div>
             </div>
 
-            <div style="border-top: 1px dotted #e2e2e2; text-align: center;" th:if="${pageInfo?.list != null}">
+            <div style="border-top: 1px dotted #e2e2e2; text-align: center;" th:if="${pageInfo?.list != null && pageInfo?.total > 10}">
                 <div class="laypage-main">
                     <a th:if="${pageInfo.pageNum - 2 > 1}"
                        th:href="@{'/user/manager/'+${activeManager}+'/1'}" class="laypage-first" title="首页">首页</a>
