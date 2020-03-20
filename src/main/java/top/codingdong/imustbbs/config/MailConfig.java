@@ -19,6 +19,7 @@ public class MailConfig {
     @Bean
     public MailSender mailSender(){
 
+
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         // 知道用来发送email的邮件服务器主机名
         mailSender.setHost("smtp.126.com");
