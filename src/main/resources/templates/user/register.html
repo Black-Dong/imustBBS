@@ -110,10 +110,15 @@
         form.on('submit(register)', function (data) {
             let url = '/user/register';
             data = $('form').serializeArray();
+            let obj = {}
+            for (let i = 0 ;i < data.length; i++){
+                obj[data[i].name] = data[i].value;
+            }
             $.ajax({
                 url: url,
                 type: 'post',
-                data: data,
+                contentType: "application/json;charset=UTF-8",
+                data: JSON.stringify(obj),
                 success: function (result) {
                     if (result.status) {
                         layer.msg("注册成功", {

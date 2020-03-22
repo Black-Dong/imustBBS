@@ -82,10 +82,16 @@
             let url = '/user/login';
             let rememberMe = data.field.rememberMe;
             data = $('form').serializeArray();
+
+            let obj = {}
+            for (let i = 0 ;i < data.length; i++){
+                obj[data[i].name] = data[i].value;
+            }
             $.ajax({
                 url: url,
                 type: 'post',
-                data: data,
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(obj),
                 success: function (result) {
                     if (result.status) {
                         if (rememberMe == 'on') {

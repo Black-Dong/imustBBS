@@ -10,6 +10,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.DTO.ResultDTO;
@@ -49,7 +50,7 @@ public class UserAuthorizeController {
      */
     @PostMapping("/register")
     @ResponseBody
-    public ResultDTO register(@Valid User user, BindingResult bindingResult) {
+    public ResultDTO register(@Valid @RequestBody User user, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             return ResultDTO.errorOf(bindingResult.getFieldError().getDefaultMessage());
@@ -76,7 +77,7 @@ public class UserAuthorizeController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public ResultDTO login(User user, HttpSession session) {
+    public ResultDTO login(@RequestBody User user, HttpSession session) {
 
         if (StringUtils.isBlank(user.getUsername())) {
             return ResultDTO.errorOf("请输入用户名");
