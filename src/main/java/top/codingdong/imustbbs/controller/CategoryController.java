@@ -33,9 +33,9 @@ public class CategoryController {
     /**
      * 根据 分类id 和 页数 查询该分类下的所有帖子
      *
-     * @param id
+     * @param id    分类id
      * @param model
-     * @param pageNum
+     * @param pageNum   页码
      * @param pageSize
      * @return 返回首页
      */
