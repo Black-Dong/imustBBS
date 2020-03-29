@@ -36,7 +36,7 @@ public class UserReplyController {
         reply.setUserId(currentUser.getUserId());
         reply.setCreateTime(System.currentTimeMillis());
         // 设置回复为顶级回复
-        reply.setReplyType(1);
+//        reply.setReplyType(1);
 
         replyMapper.insertSelective(reply);
         return "redirect:/detail/" + reply.getTopicId();

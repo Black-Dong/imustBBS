@@ -1,3 +1,4 @@
+/*
 function checkRole() {
     layui.use('layer',function () {
         let layer = layui.layer;
@@ -43,7 +44,12 @@ function register() {
         })
     })
 }
+*/
 
+/**
+ * 封禁用户
+ * @param user
+ */
 function disableUser(user) {
     layer.confirm("确认要封禁用户 " + user.username + " 吗？", function (index) {
         $.ajax({
@@ -59,6 +65,11 @@ function disableUser(user) {
         });
     });
 }
+
+/**
+ * 解封用户
+ * @param user
+ */
 function unDisableUser(user) {
     layer.confirm("确认要解封用户 " + user.username + " 吗？", function (index) {
         $.ajax({
@@ -78,11 +89,4 @@ function unDisableUser(user) {
 
 $(function () {
 
-    $("#loginLi").hover(function () {
-        $(".layui-nav-child").show();
-    },function () {
-        $(".layui.nav.child").hide();
-    })
-
-    //用户中心菜单切换
 });
