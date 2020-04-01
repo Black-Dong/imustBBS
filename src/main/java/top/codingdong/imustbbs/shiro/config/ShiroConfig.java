@@ -57,6 +57,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/findPassword", "anon");
         filterChainDefinitionMap.put("/user/sendEmail", "anon");
         filterChainDefinitionMap.put("/user/checkYzm", "anon");
+        filterChainDefinitionMap.put("/user/detail/**", "anon");
         filterChainDefinitionMap.put("/detail/**", "anon");
         filterChainDefinitionMap.put("/category/**", "anon");
 

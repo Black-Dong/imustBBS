@@ -95,7 +95,7 @@ public class UserTopicController {
         List list = null;
         // 帖子管理
         if (managerId == 2) {
-            list = topicService.list(pageNumber, 10, currentUser.getUserId().longValue());
+            list = topicService.list(pageNumber, 10, currentUser.getUserId());
 
             PageInfo pageInfo = PageInfo.of(list);
             model.addAttribute("pageInfo", pageInfo);

@@ -32,7 +32,7 @@ public interface TopicService {
      * @param userId
      * @return
      */
-    List<Topic> list(Integer pageNumber, Integer pageSize, Long userId);
+    List<Topic> list(Integer pageNumber, Integer pageSize, Integer userId);
 
     /**
      * 根据分页条件查询帖子及其包含的用户和分类

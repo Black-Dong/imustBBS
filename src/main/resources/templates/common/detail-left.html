@@ -70,15 +70,18 @@
             <li class="fly-none" th:if="${#lists.isEmpty(dbReplies)}">消灭零回复</li>
             <li class="fly-none" th:if="${session.currentUser == null}">登录后才可以评论哦</li>
 
+            <!-- 评论列表 -->
             <li data-id="111" class="jieda-daan" th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">
-                    <a class="fly-avatar" href="">
+                    <a class="fly-avatar"
+                       th:href="@{/user/detail/{fatherUserId}(fatherUserId=${reply.user.userId})}">
                         <img th:src="${reply.user.avatar}"
-                             alt=" ">
+                             alt="">
                     </a>
                     <div class="fly-detail-user">
-                        <a href="" class="fly-link">
+                        <a class="fly-link"
+                           th:href="@{/user/detail/{fatherUserId}(fatherUserId=${reply.user.userId})}">
                             <cite th:text="${reply.user.username}">贤心</cite>
                             <i class="iconfont icon-renzheng" title="认证信息：XXX"
                                th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"></i>
@@ -102,7 +105,8 @@
                 <!-- 评论内容 -->
                 <div class="detail-body jieda-body photos">
                     <p>
-                        <a th:if="${reply.replyType == 2}" th:href="@{/user/detail/{fatherUserId}(fatherUserId=${reply.user.userId})}">
+                        <a th:if="${reply.replyType == 2}"
+                           th:href="@{/user/detail/{fatherUserId}(fatherUserId=${reply.user.userId})}">
                             <span th:text="'@'+${reply.user.username}"></span>
                         </a>
                         <span th:text="${reply.content}">香菇那个蓝瘦，这是一条被采纳的回帖</span>
@@ -113,7 +117,8 @@
                         <i class="iconfont icon-zan"></i>
                         <em>66</em>
                     </span>
-                    <span type="reply" th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
+                    <span type="reply"
+                          th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
 
                         <i class="iconfont icon-svgmoban53"></i>
                         回复
@@ -144,7 +149,8 @@
                     <input type="hidden" id="fatherReplyId" name="fatherReplyId">
                     <input type="hidden" id="replyType" name="replyType" value="1">
                     <button type="button" class="layui-btn layui-btn-primary" id="cancelReply"
-                            style="display: none;" onclick="cancelReplyF()">取消回复</button>
+                            style="display: none;" onclick="cancelReplyF()">取消回复
+                    </button>
 
                     <button class="layui-btn" lay-filter="*" lay-submit>提交回复</button>
                 </div>
@@ -158,15 +164,17 @@
             $("#fatherReplyId").val(fatherReplyId);
             $("#fatherUserId").val(fatherUserId);
             $("#replyType").val(2);
-            $("#L_reply").attr("placeholder","回复："+username);
-            $("#cancelReply").css('display','');
+            $("#L_reply").attr("placeholder", "回复：" + username);
+            $("#cancelReply").css('display', '');
         }
-        function cancelReplyF(){
+
+        function cancelReplyF() {
             $("#fatherReplyId").val(null);
             $("#fatherUserId").val(null);
             $("#replyType").val(1);
-            $("#L_reply").attr("placeholder","请输入回复内容");
-            $("#cancelReply").css('display','none');
+            $("#L_reply").attr("placeholder", "请输入回复内容");
+            $("#cancelReply").css('display', 'none');
         }
     </script>
 </div>
+</html>

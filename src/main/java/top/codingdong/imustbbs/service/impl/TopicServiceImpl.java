@@ -40,7 +40,7 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> list(Integer pageNumber, Integer pageSize, Long userId) {
+    public List<Topic> list(Integer pageNumber, Integer pageSize, Integer userId) {
 
         Example example = new Example(Topic.class);
         example.createCriteria()
