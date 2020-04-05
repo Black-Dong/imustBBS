@@ -12,7 +12,7 @@
             我的帖子
         </a>
     </li>
-    <li th:class="${activeManager == 3 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+    <!--<li th:class="${activeManager == 3 ? 'layui-nav-item layui-this':'layui-nav-item'}">
         <a href="/user/manager/3">
             <i class="layui-icon">&#xe620;</i>
             基本设置
@@ -23,7 +23,7 @@
             <i class="layui-icon">&#xe611;</i>
             我的消息
         </a>
-    </li>
+    </li>-->
     <li th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}"
         th:class="${activeManager == 5 ? 'layui-nav-item layui-this':'layui-nav-item'}">
         <a href="/user/manager/5/1">

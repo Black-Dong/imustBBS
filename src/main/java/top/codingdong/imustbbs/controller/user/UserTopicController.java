@@ -62,15 +62,22 @@ public class UserTopicController {
     @PostMapping("/publishTopic")
     public String publishTopic(Topic topic, HttpSession session) {
 
+        // 设置帖子最后更新时间
         topic.setUpdateTime(System.currentTimeMillis());
+
+        // 设置发帖人
         User user = (User) session.getAttribute(Constants.CURRENT_USER);
         topic.setUserId(user.getUserId().longValue());
 
         System.err.println(topic);
+
+        // 根据是否有Id，判断是新增还是修改
         if (topic.getId() != null) {
+            // 修改帖子，设置帖子最后更新时间
             topic.setUpdateTime(System.currentTimeMillis());
             topicService.update(topic);
         } else {
+            // 新增帖子，设置帖子创建时间 和 最后回复时间
             topic.setCreateTime(System.currentTimeMillis());
             topic.setLastReplyTime(System.currentTimeMillis());
             topicService.save(topic);

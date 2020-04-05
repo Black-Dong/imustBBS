@@ -83,6 +83,7 @@
             let rememberMe = data.field.rememberMe;
             data = $('form').serializeArray();
 
+            // 获取数据 转换为 {"":"", "":"" ......}
             let obj = {}
             for (let i = 0 ;i < data.length; i++){
                 obj[data[i].name] = data[i].value;
