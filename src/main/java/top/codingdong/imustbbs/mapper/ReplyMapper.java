@@ -17,7 +17,15 @@ public interface ReplyMapper extends Mapper<Reply> {
 
     @Select("select * from t_reply where topic_id = #{topicId}")
     @Results(id = "selectAndUser", value = {
-            @Result(column = "user_id", property = "user", one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey"))
+            @Result(column = "user_id", property = "user",
+                    one = @One(select = "top.codingdong.imustbbs.mapper.UserMapper.selectByPrimaryKey"))
     })
     List<Reply> listAndUserByTopicId(Integer topicId);
+
+    @Select("select * from t_reply where user_id = #{id}")
+    @Results(id = "selectAndTopic", value = {
+            @Result(column = "topic_id", property = "topic",
+                    one = @One(select = "top.codingdong.imustbbs.mapper.TopicMapper.selectById"))
+    })
+    List<Reply> listAndReplyByUserId(Integer id);
 }

@@ -1,9 +1,6 @@
 package top.codingdong.imustbbs.service;
 
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 import top.codingdong.imustbbs.po.Topic;
-import top.codingdong.imustbbs.po.User;
 
 import java.util.List;
 
@@ -25,7 +22,7 @@ public interface TopicService {
     List<Topic> list(Integer pageNumber, Integer pageSize);
 
     /**
-     * 根据用户及分页条件查询帖子列表
+     * 根据用户id及分页条件查询帖子列表
      *
      * @param pageNumber
      * @param pageSize
@@ -43,6 +40,12 @@ public interface TopicService {
      */
     List<Topic> listAndUserAndCategory(Integer pageNumber, Integer pageSize);
 
+    /**
+     * 根据帖子id查找帖子列表（包括发帖人及帖子分类）
+     *
+     * @param id
+     * @return
+     */
     Topic selectAndUserAndCategoryById(Integer id);
 
     /**

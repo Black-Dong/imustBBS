@@ -33,4 +33,7 @@ public interface TopicMapper extends Mapper<Topic> {
     @Select("select * from t_topic where category_id = #{id}")
     @ResultMap("listAndUserAndCategory")
     List<Topic> listAndUserAndCategoryByCategoryId(Integer id);
+
+    @Select("select * from t_topic where id = #{id}")
+    Topic selectById(Integer id);
 }

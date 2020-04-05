@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +11,8 @@ import top.codingdong.imustbbs.service.ReplyService;
 import java.util.List;
 
 /**
+ * 回复接口实现类
+ *
  * @author Dong
  * @date 2020/3/2 11:26
  */
@@ -21,7 +24,14 @@ public class ReplyServiceImpl implements ReplyService {
     private ReplyMapper replyMapper;
 
     @Override
-    public List<Reply> selectAndUserByTopicId(Integer id) {
+    public List<Reply> listAndUserByTopicId(Integer id) {
         return replyMapper.listAndUserByTopicId(id);
+    }
+
+    @Override
+    public List<Reply> listAndTopicByUserId(Integer id, Integer pageNumber, Integer pageSize) {
+
+        PageHelper.startPage(pageNumber, pageSize);
+        return replyMapper.listAndReplyByUserId(id);
     }
 }

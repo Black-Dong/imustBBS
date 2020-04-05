@@ -54,7 +54,7 @@ public class TopicController {
         model.addAttribute("activeCategory", dbTopic.getCategory().getId());
 
         // 查询回复列表
-        List<Reply> replies = replyService.selectAndUserByTopicId(id);
+        List<Reply> replies = replyService.listAndUserByTopicId(id);
         model.addAttribute("dbReplies", replies);
 
         return "detail";

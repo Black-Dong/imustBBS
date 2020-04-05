@@ -38,4 +38,5 @@ public class Reply implements Serializable {
 
 
     private User user;
+    private Topic topic;
 }

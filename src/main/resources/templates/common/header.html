@@ -51,6 +51,9 @@
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/user/publishTopic" style="text-align: center;">发帖</a></dd>
+                    <hr style="margin: 5px 0;">
+
+                    <dd><a th:href="@{/user/detail/{userId}(userId=${session.currentUser?.userId})}" style="text-align: center;">我的主页</a></dd>
                     <dd><a href="/user/manager/2/1" style="text-align: center;">我的帖子</a></dd>
 
                     <hr style="margin: 5px 0;">
