@@ -84,4 +84,12 @@ public interface TopicService {
      * @return
      */
     List<Topic> listAndUserAndCategoryByCategoryId(Integer pageNumber, Integer pageSize, Integer id);
+
+    /**
+     * 修改帖子置顶状态
+     *
+     * @param topicId
+     * @param topStatus
+     */
+    void topTopicById(Integer topicId, boolean topStatus);
 }

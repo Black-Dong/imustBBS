@@ -49,12 +49,31 @@ public class AdminController {
 
     /**
      * 根据帖子id删除帖子，伪删除（修改帖子状态为不公开）
+     *
      * @param topicId
      */
     @GetMapping("/deleteTopic")
+    @ResponseBody
     public void deleteTopic(@RequestParam(name = "id") Integer topicId) {
         topicService.deleteById(topicId);
         return;
     }
+
+
+    /**
+     * 修改帖子 置顶
+     *
+     * @param topicId
+     * @param topStatus
+     */
+    @GetMapping("/topTopic")
+    @ResponseBody
+    public void topTopic(@RequestParam(name = "id") Integer topicId,
+                         @RequestParam("topStatus") boolean topStatus) {
+
+        topicService.topTopicById(topicId, topStatus);
+        return;
+    }
+
 
 }

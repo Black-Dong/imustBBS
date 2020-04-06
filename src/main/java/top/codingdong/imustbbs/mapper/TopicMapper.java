@@ -36,4 +36,10 @@ public interface TopicMapper extends Mapper<Topic> {
 
     @Select("select * from t_topic where id = #{id}")
     Topic selectById(Integer id);
+
+    @Update("update t_topic set top_status = 0 where id = #{topicId}")
+    void modifyTopStatusToFalse(Integer topicId);
+
+    @Update("update t_topic set top_status = 1 where id = #{topicId}")
+    void modifyTopStatusToTrue(Integer topicId);
 }

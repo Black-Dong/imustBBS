@@ -13,47 +13,76 @@
 
             <div class="fly-admin-box" data-id="123"
                  th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
-                <a th:onclick="delTopic([[${dbTopic.id}]],[[${dbTopic.title}]])"
-                   class="layui-btn layui-btn-xs jie-admin" type="del"
-                >删除</a>
+                <span th:onclick="delTopic([[${dbTopic.id}]],[[${dbTopic.title}]])"
+                      class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+
+                <span th:onclick="topTopic([[${dbTopic.id}]],[[${dbTopic.title}]],[[${dbTopic.topStatus}]])"
+                      class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
+                      th:text="${dbTopic.topStatus} ? '取消置顶':'置顶'">置顶</span>
                 <script>
-                    function delTopic(topicId, topicTitle) {
-                        layer.msg('确定删除：' + topicTitle + ' 吗？', {
-                            time: 0 //不自动关闭
-                            , btn: ['确定删除', '取消删除']
-                            , yes: function (index) {
-                                layer.close(index);
-                                $.ajax({
-                                    url: '/admin/deleteTopic',
-                                    data: {"id": topicId},
-                                    method: "GET",
-                                    success: function (result) {
-                                        window.location.href = "/";
-                                        layer.msg('删除成功！！！', {
-                                            time: 1000
-                                            ,icon: 6
-                                            ,btn: ['关闭']
-                                        });
-                                    },
-                                    error: function (result) {
-                                        layer.msg('删除失败！！！', {
-                                            time: 1000
-                                            ,icon: 5
-                                            ,btn: ['关闭']
-                                        });
-                                    }
-                                })
-                            }
-                        });
+                    function topTopic(topicId, topicTitle, topStatus) {
+                        if (!topStatus) {
+                            layer.msg('确定置顶帖子：' + topicTitle + ' 吗？', {
+                                time: 0 //不自动关闭
+                                , btn: ['确定置顶', '取消操作']
+                                , yes: function (index) {
+                                    layer.close(index);
+                                    $.ajax({
+                                        url: '/admin/topTopic',
+                                        data: {"id": topicId, "topStatus": topStatus},
+                                        method: "GET",
+                                        success: function (result) {
+                                            layer.msg('置顶成功！！！', {
+                                                time: 1000
+                                                , icon: 6
+                                                , btn: ['关闭']
+                                            });
+                                            window.location.reload();
+                                        },
+                                        error: function (result) {
+                                            layer.msg('置顶失败', {
+                                                time: 1000
+                                                , icon: 5
+                                                , btn: ['关闭']
+                                            });
+                                        }
+                                    })
+                                }
+                            });
+                        } else {
+                            layer.msg('确定取消置顶帖子：' + topicTitle + ' 吗？', {
+                                time: 0 //不自动关闭
+                                , btn: ['确定取消', '取消操作']
+                                , yes: function (index) {
+                                    layer.close(index);
+                                    $.ajax({
+                                        url: '/admin/topTopic',
+                                        data: {"id": topicId, "topStatus": topStatus},
+                                        method: "GET",
+                                        success: function (result) {
+                                            layer.msg('取消置顶成功！！！', {
+                                                time: 1000
+                                                , icon: 6
+                                                , btn: ['关闭']
+                                            });
+                                            window.location.reload();
+                                        },
+                                        error: function (result) {
+                                            layer.msg('取消置顶失败', {
+                                                time: 1000
+                                                , icon: 5
+                                                , btn: ['关闭']
+                                            });
+                                        }
+                                    })
+                                }
+                            });
+                        }
+
                     }
 
                 </script>
 
-                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
-                   th:if="${!dbTopic.topStatus}">置顶</a>
-                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0"
-                   style="background-color:#ccc;"
-                   th:if="${dbTopic.topStatus}">取消置顶</a>
 
                 <a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
                    th:if="!${dbTopic.boutiqueStatus}">加精</a>

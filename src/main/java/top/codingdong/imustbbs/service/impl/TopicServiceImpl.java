@@ -118,4 +118,13 @@ public class TopicServiceImpl implements TopicService {
         return topicMapper.listAndUserAndCategoryByCategoryId(id);
 
     }
+
+    @Override
+    public void topTopicById(Integer topicId, boolean topStatus) {
+        if (topStatus){
+            topicMapper.modifyTopStatusToFalse(topicId);
+        }else {
+            topicMapper.modifyTopStatusToTrue(topicId);
+        }
+    }
 }
