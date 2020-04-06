@@ -1,51 +1,3 @@
-/*
-function checkRole() {
-    layui.use('layer',function () {
-        let layer = layui.layer;
-        layer.msg("你还不是会员，请联系站长！");
-    });
-}
-
-//登录弹窗
-function login() {
-    layui.use('layer',function () {
-        let layer = layui.layer;
-        layer.open({
-            type: 2,
-            title: false,
-            area: ['450px','370px'], //宽高
-            closeBtn: 0, //不显示关闭按钮
-            scrollbar: false, //禁止浏览器出现滚动条
-            resize: false, //禁止拉伸
-            move: false, //禁止拖动
-            shade: 0.8, //遮罩
-
-            shadeClose: true, //开启遮罩关闭
-            content: '/user/login.html', //这里content是一个Url
-        });
-    })
-}
-
-//注册弹窗
-function register() {
-    layui.use('layer',function () {
-        let layer = layui.layer;
-        layer.open({
-            type: 2,
-            title: false,
-            area: ['450px','480px'], //宽高
-            closeBtn: 0, //不显示关闭按钮
-            scrollbar: false, //禁止浏览器出现滚动条
-            resize: false, //禁止拉伸
-            move: false, //禁止拖动
-            shade: 0.8, //遮罩
-            shadeClose: true, //开启遮罩关闭
-            content: '/user/register.html', //这里content是一个Url
-        })
-    })
-}
-*/
-
 /**
  * 封禁用户
  * @param user
@@ -85,6 +37,31 @@ function unDisableUser(user) {
 
         });
     });
+}
+
+
+/* 点击回复 */
+function replyFor(fatherReplyId, fatherUserId, username) {
+    // alert(username)
+    // 父回复id
+    $("#fatherReplyId").val(fatherReplyId);
+    // 父回复UserId
+    $("#fatherUserId").val(fatherUserId);
+    // 修改恢复类型为2，非顶级恢复
+    $("#replyType").val(2);
+    // 修改回复内容框的placeholder
+    $("#L_reply").attr("placeholder", "回复：" + username);
+    // 显示取消回复按钮
+    $("#cancelReply").css('display', '');
+}
+
+/* 点击取消回复 */
+function cancelReplyF() {
+    $("#fatherReplyId").val(null);
+    $("#fatherUserId").val(null);
+    $("#replyType").val(1);
+    $("#L_reply").attr("placeholder", "请输入回复内容");
+    $("#cancelReply").css('display', 'none');
 }
 
 $(function () {
