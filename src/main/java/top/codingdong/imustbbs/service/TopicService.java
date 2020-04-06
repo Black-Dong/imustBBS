@@ -67,7 +67,7 @@ public interface TopicService {
      *
      * @param id
      */
-    void delete(Long id);
+    void deleteById(Integer id);
 
     /**
      * 根据Id查找帖子分类

@@ -13,20 +13,53 @@
 
             <div class="fly-admin-box" data-id="123"
                  th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
-                <span class="layui-btn layui-btn-xs jie-admin" type="del"
-                >删除</span>
+                <a th:onclick="delTopic([[${dbTopic.id}]],[[${dbTopic.title}]])"
+                   class="layui-btn layui-btn-xs jie-admin" type="del"
+                >删除</a>
+                <script>
+                    function delTopic(topicId, topicTitle) {
+                        layer.msg('确定删除：' + topicTitle + ' 吗？', {
+                            time: 0 //不自动关闭
+                            , btn: ['确定删除', '取消删除']
+                            , yes: function (index) {
+                                layer.close(index);
+                                $.ajax({
+                                    url: '/admin/deleteTopic',
+                                    data: {"id": topicId},
+                                    method: "GET",
+                                    success: function (result) {
+                                        window.location.href = "/";
+                                        layer.msg('删除成功！！！', {
+                                            time: 1000
+                                            ,icon: 6
+                                            ,btn: ['关闭']
+                                        });
+                                    },
+                                    error: function (result) {
+                                        layer.msg('删除失败！！！', {
+                                            time: 1000
+                                            ,icon: 5
+                                            ,btn: ['关闭']
+                                        });
+                                    }
+                                })
+                            }
+                        });
+                    }
 
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
-                      th:if="${!dbTopic.topStatus}">置顶</span>
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0"
-                      style="background-color:#ccc;"
-                      th:if="${dbTopic.topStatus}">取消置顶</span>
+                </script>
 
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
-                      th:if="!${dbTopic.boutiqueStatus}">加精</span>
-                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0"
-                      style="background-color:#ccc;"
-                      th:if="${dbTopic.boutiqueStatus}">取消加精</span>
+                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
+                   th:if="${!dbTopic.topStatus}">置顶</a>
+                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="0"
+                   style="background-color:#ccc;"
+                   th:if="${dbTopic.topStatus}">取消置顶</a>
+
+                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
+                   th:if="!${dbTopic.boutiqueStatus}">加精</a>
+                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0"
+                   style="background-color:#ccc;"
+                   th:if="${dbTopic.boutiqueStatus}">取消加精</a>
             </div>
             <span class="fly-list-nums">
                 <!--<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->

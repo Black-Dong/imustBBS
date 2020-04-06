@@ -14,7 +14,7 @@ import java.util.List;
 public interface TopicMapper extends Mapper<Topic> {
 
     @Update("update t_topic set public_status = 0 where id = #{id}")
-    void modifyPublicStatusToFalse(Long id);
+    void modifyPublicStatusToFalse(Integer id);
 
     @Select("select * from t_topic where public_status = true")
     @Results(id = "listAndUserAndCategory", value = {

@@ -42,16 +42,21 @@ public class TopicController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model) {
 
-        // 查询5个分类，放在navigation
-        List<Category> categories = categoryService.selectTop5();
-        model.addAttribute("categories", categories);
-
         // 根据帖子id查询该帖子详情，包括发帖人和所在分类
         Topic dbTopic = topicService.selectAndUserAndCategoryById(id);
+        if (!dbTopic.getPublicStatus()){
+            // todo: 应该抛出404异常
+            return "redirect:/";
+        }
         model.addAttribute("dbTopic", dbTopic);
 
         // 激活的分类的id
         model.addAttribute("activeCategory", dbTopic.getCategory().getId());
+
+        // 查询5个分类，放在navigation
+        List<Category> categories = categoryService.selectTop5();
+        model.addAttribute("categories", categories);
+
 
         // 查询回复列表
         List<Reply> replies = replyService.listAndUserByTopicId(id);

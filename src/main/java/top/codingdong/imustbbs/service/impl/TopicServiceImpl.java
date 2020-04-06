@@ -33,7 +33,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> list(Integer pageNumber, Integer pageSize) {
 
-        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
+        PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
         List<Topic> topicPage = topicMapper.selectAll();
 
         return topicPage;
@@ -45,16 +45,16 @@ public class TopicServiceImpl implements TopicService {
         Example example = new Example(Topic.class);
         example.createCriteria()
                 .andEqualTo("userId", userId)
-                .andEqualTo("publicStatus",true);
+                .andEqualTo("publicStatus", true);
 
-        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
+        PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
         List<Topic> topics = topicMapper.selectByExample(example);
         return topics;
     }
 
     @Override
     public List<Topic> listAndUserAndCategory(Integer pageNumber, Integer pageSize) {
-        PageHelper.startPage(pageNumber, pageSize,"last_reply_time desc");
+        PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
         List<Topic> topics = topicMapper.listAndUserAndCategory();
         return topics;
     }
@@ -85,11 +85,16 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteById(Integer id) {
 
-        redisTemplate.delete("topic_" + id);
+        try {
+            redisTemplate.delete("topic_" + id);
+            topicMapper.modifyPublicStatusToFalse(id);
+        } catch (Exception e) {
+            // todo: 删除的帖子不存在时抛出异常
+            System.err.println("删除错误");
+        }
 
-        topicMapper.modifyPublicStatusToFalse(id);
     }
 
     @Override
@@ -107,9 +112,9 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public List<Topic> listAndUserAndCategoryByCategoryId(Integer pageNumber, Integer pageSize,Integer id) {
+    public List<Topic> listAndUserAndCategoryByCategoryId(Integer pageNumber, Integer pageSize, Integer id) {
 
-        PageHelper.startPage(pageNumber,pageSize,"last_reply_time desc");
+        PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
         return topicMapper.listAndUserAndCategoryByCategoryId(id);
 
     }
