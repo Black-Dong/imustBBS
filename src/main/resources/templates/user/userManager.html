@@ -11,7 +11,7 @@
 <div th:replace="/common/header :: header"></div>
 
 <div class="layui-container fly-marginTop fly-user-main">
-    <ul th:replace="/common/left :: user-nav"></ul>
+    <ul th:replace="/common/manager-left :: user-nav"></ul>
     <div class="site-tree-mobile layui-hide">
         <i class="layui-icon">&#xe602;</i>
     </div>
@@ -24,11 +24,18 @@
         -->
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
-                <li data-type="mine-jie" lay-id="index" class="layui-this">所有用户（<span>89</span>）</li>
-                <li data-type="collection" data-url="/collection/find/" lay-id="collection">我收藏的帖（<span>16</span>）</li>
+                <li data-type="mine-jie" lay-id="index" class="layui-this">
+                    所有用户（<span th:text="${pageInfo.total}">89</span>）
+                </li>
+                <li data-type="collection"
+                    th:if="${session.currentUser?.roleName == '超级管理员'}"
+                    data-url="/collection/find/" lay-id="collection">
+                    管理员（<span>16</span>）
+                </li>
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-tab-item layui-show">
+                    <!-- 所有用户 -->
                     <table class="layui-table">
                         <colgroup>
                             <col width="150">
@@ -47,7 +54,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="user : ${allUser}">
+                        <tr th:each="user : ${pageInfo.list}">
                             <input type="hidden" th:value="${user.userId}">
                             <td th:text="${user.username}">贤心</td>
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
@@ -64,12 +71,42 @@
                     </table>
                     <div id="LAY_page"></div>
                 </div>
-                <div class="layui-tab-item">
-                    <ul class="mine-view jie-row">
-                        <li>
-                            <a class="jie-title" href="../jie/detail.html" target="_blank">基于 layui 的极简社区页面模版</a>
-                            <i>收藏于23小时前</i></li>
-                    </ul>
+
+                <div class="layui-tab-item" th:if="${session.currentUser?.roleName == '超级管理员'}">
+                    <!-- 管理员用户列表 -->
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col>
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>昵称</th>
+                            <th>加入时间</th>
+                            <th>最近修改时间</th>
+                            <th>最后登录时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${pageInfo.list}">
+                            <input type="hidden" th:value="${user.userId}">
+                            <td th:text="${user.username}">贤心</td>
+                            <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
+                            <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
+                            <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
+                            <td>
+                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
+                                   th:onclick="disableUser([[${user}]])">封禁</a>
+                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
+                                   th:onclick="unDisableUser([[${user}]])">解封</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <div id="LAY_page1"></div>
                 </div>
             </div>

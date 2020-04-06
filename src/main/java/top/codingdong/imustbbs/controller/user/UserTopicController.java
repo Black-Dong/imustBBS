@@ -88,7 +88,7 @@ public class UserTopicController {
     }
 
     /**
-     * 跳转帖子管理页面
+     * 跳转后台管理页面
      *
      * @param model
      * @param session
@@ -111,9 +111,13 @@ public class UserTopicController {
             return "/user/myTopicManager";
         }
 
+        // 用户管理
         if (managerId == 5) {
             list = userService.selectAllmember();
-            model.addAttribute("allUser", list);
+
+            PageInfo pageInfo = PageInfo.of(list);
+            model.addAttribute("pageInfo", pageInfo);
+
             model.addAttribute("activeManager", managerId);
             return "/user/userManager";
         }

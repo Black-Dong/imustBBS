@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <ul th:fragment="user-nav" class="layui-nav layui-nav-tree layui-inline" lay-filter="user">
     <li th:class="${activeManager == 1 ? 'layui-nav-item layui-this':'layui-nav-item'}">
-        <a th:href="@{/user/detail/{userId}(userId=${session.currentUser?.userId})}">
+        <a th:href="@{/user/detail/{userId}(userId=${session.currentUser?.userId})}" target="_blank">
             <i class="layui-icon">&#xe609;</i>
             我的主页
         </a>
