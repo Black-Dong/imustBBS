@@ -18,9 +18,11 @@ public interface UserService {
 
     User findById(Integer id);
 
-    List<User> selectAllmember();
+    List<User> selectAllmember(Integer pageNumber,Integer pageSize);
 
     void disableUser(Integer id);
 
     void unDisableUser(Integer userId);
+
+    List<User> selectAdmins(Integer pageNumber, Integer pageSize);
 }

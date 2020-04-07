@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,10 +48,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectAllmember() {
+    public List<User> selectAllmember(Integer pageNumber, Integer pageSize) {
         Example example = new Example(User.class);
         example.createCriteria()
                 .andEqualTo("roleName", "会员");
+        PageHelper.startPage(pageNumber, pageSize);
         return usermapper.selectByExample(example);
     }
 
@@ -62,5 +64,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void unDisableUser(Integer userId) {
         usermapper.unDisableUserById(userId);
+    }
+
+    @Override
+    public List<User> selectAdmins(Integer pageNumber, Integer pageSize) {
+        Example example = new Example(User.class);
+        example.createCriteria()
+                .andEqualTo("roleName","管理员");
+        PageHelper.startPage(pageNumber,pageSize);
+        return usermapper.selectByExample(example);
     }
 }

@@ -113,10 +113,16 @@ public class UserTopicController {
 
         // 用户管理
         if (managerId == 5) {
-            list = userService.selectAllmember();
+            list = userService.selectAllmember(pageNumber,10);
 
             PageInfo pageInfo = PageInfo.of(list);
             model.addAttribute("pageInfo", pageInfo);
+
+            if ("超级管理员".equals(currentUser.getRoleName())){
+                List<User> admins = userService.selectAdmins(pageNumber,10);
+                PageInfo<User> pageInfo_admin = PageInfo.of(admins);
+                model.addAttribute("pageInfo_admin",pageInfo_admin);
+            }
 
             model.addAttribute("activeManager", managerId);
             return "/user/userManager";

@@ -58,7 +58,7 @@ public class AdminController {
 
 
     /**
-     * 修改帖子 置顶状态
+     * 修改帖子的置顶状态
      *
      * @param topicId
      * @param topStatus
@@ -73,7 +73,7 @@ public class AdminController {
     }
 
     /**
-     * 修改帖子 精品状态
+     * 修改帖子的精品状态
      * @param topicId
      * @param boutiqueStatus
      */
