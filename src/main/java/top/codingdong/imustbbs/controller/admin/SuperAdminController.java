@@ -21,10 +21,27 @@ public class SuperAdminController {
     @Autowired
     UserService userService;
 
+    /**
+     * 普通用户授权为管理员
+     *
+     * @param userId
+     */
     @GetMapping("/authorizeAdmin")
     @ResponseBody
     public void authorizeAdmin(@RequestParam(name = "userId") Integer userId) {
         userService.authorizeAdmin(userId);
+        return;
+    }
+
+    /**
+     * 管理员用户取消授权为普通用户
+     *
+     * @param userId
+     */
+    @GetMapping("/deauthorizeAdmin")
+    @ResponseBody
+    public void deauthorizeAdmin(@RequestParam(name = "userId") Integer userId) {
+        userService.deauthorizeAdmin(userId);
         return;
     }
 }

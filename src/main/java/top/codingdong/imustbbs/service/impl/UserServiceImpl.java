@@ -80,4 +80,9 @@ public class UserServiceImpl implements UserService {
 
         usermapper.modifyRoleNameToAdmin(userId);
     }
+
+    @Override
+    public void deauthorizeAdmin(Integer userId) {
+        usermapper.modifyRoleNameToMember(userId);
+    }
 }

@@ -72,32 +72,6 @@
                                         th:class="${user.roleName!='管理员' ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
                                         th:onclick="authorizeAdmin([[${user.userId}]],[[${user.username}]])">授权为管理员
                                 </button>
-                                <script>
-                                    function authorizeAdmin(userId, username) {
-                                        /*Deauthorize*/
-                                        layer.confirm('确认要升级用户：' + username + ' 为管理员吗？', function (index){
-                                            $.ajax({
-                                                url: '/super/authorizeAdmin',
-                                                data: {"userId": userId},
-                                                method: "GET",
-                                                success: function (result) {
-                                                    window.location.reload();
-                                                    layer.msg('升级成功！！！',{
-                                                        time: 1000,
-                                                        icon: 6,
-                                                    });
-
-                                                },
-                                                error: function (result) {
-                                                    layer.msg('升级失败！！！',{
-                                                        time: 1000,
-                                                        icon: 5,
-                                                    });
-                                                }
-                                            })
-                                        })
-                                    }
-                                </script>
                             </td>
                         </tr>
                         </tbody>
@@ -136,10 +110,41 @@
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td>
-                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
-                                   th:onclick="disableUser([[${user}]])">封禁</a>
-                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
-                                   th:onclick="unDisableUser([[${user}]])">解封</a>
+                                <button th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
+                                   th:onclick="disableUser([[${user}]])">封禁</button>
+
+                                <button th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
+                                   th:onclick="unDisableUser([[${user}]])">解封</button>
+
+                                <button th:class="${user.roleName=='管理员' ? 'layui-btn layui-btn-xs layui-btn-danger':'layui-btn layui-btn-xs layui-btn-disabled'}"
+                                        th:onclick="deauthorizeAdmin([[${user.userId}]],[[${user.username}]])">取消授权
+
+                                <script>
+                                    function deauthorizeAdmin(userId, username) {
+
+                                        layer.confirm('确认要取消：' + username + ' 的管理员权限吗？', function (index){
+                                            $.ajax({
+                                                url: '/super/deauthorizeAdmin',
+                                                data: {"userId": userId},
+                                                method: "GET",
+                                                success: function (result) {
+                                                    window.location.reload();
+                                                    layer.msg('取消成功！！！',{
+                                                        time: 1000,
+                                                        icon: 6,
+                                                    });
+
+                                                },
+                                                error: function (result) {
+                                                    layer.msg('取消失败！！！',{
+                                                        time: 1000,
+                                                        icon: 5,
+                                                    });
+                                                }
+                                            })
+                                        })
+                                    }
+                                </script>
                             </td>
                         </tr>
                         </tbody>

@@ -28,4 +28,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Update("update t_user set role_name = '管理员' where user_id = #{userId}")
     void modifyRoleNameToAdmin(Integer userId);
+
+    @Update("update t_user set role_name = '会员' where user_id = #{userId}")
+    void modifyRoleNameToMember(Integer userId);
 }
