@@ -61,10 +61,10 @@
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td>
-                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
-                                   th:onclick="disableUser([[${user}]])">封禁</a>
-                                <a th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
-                                   th:onclick="unDisableUser([[${user}]])">解封</a>
+                                <button th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
+                                   th:onclick="disableUser([[${user}]])">封禁</button>
+                                <button th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
+                                   th:onclick="unDisableUser([[${user}]])">解封</button>
                             </td>
                         </tr>
                         </tbody>

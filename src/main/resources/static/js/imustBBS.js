@@ -37,6 +37,13 @@ function cancelReplyF() {
  * @param user
  */
 function disableUser(user) {
+    if (user.isOff){
+        layer.msg('用户已被封禁！！！', {
+            time: 1000
+            ,icon: 6
+        });
+        return;
+    }
     layer.confirm("确认要封禁用户 " + user.username + " 吗？", function (index) {
         $.ajax({
             url: '/admin/disableUser',
@@ -57,6 +64,13 @@ function disableUser(user) {
  * @param user
  */
 function unDisableUser(user) {
+    if (!user.isOff){
+        layer.msg('用户没有被封禁！！！', {
+            time: 1000
+            ,icon: 6
+        });
+        return;
+    }
     layer.confirm("确认要解封用户 " + user.username + " 吗？", function (index) {
         $.ajax({
             url: '/admin/unDisableUser',
