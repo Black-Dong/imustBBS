@@ -74,4 +74,10 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(pageNumber,pageSize);
         return usermapper.selectByExample(example);
     }
+
+    @Override
+    public void authorizeAdmin(Integer userId) {
+
+        usermapper.modifyRoleNameToAdmin(userId);
+    }
 }

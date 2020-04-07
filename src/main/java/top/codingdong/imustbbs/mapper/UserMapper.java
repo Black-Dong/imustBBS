@@ -25,4 +25,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Update("update t_user set is_off = 0 where user_id = #{id}")
     void unDisableUserById(Integer id);
+
+    @Update("update t_user set role_name = '管理员' where user_id = #{userId}")
+    void modifyRoleNameToAdmin(Integer userId);
 }

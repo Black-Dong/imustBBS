@@ -25,4 +25,10 @@ public interface UserService {
     void unDisableUser(Integer userId);
 
     List<User> selectAdmins(Integer pageNumber, Integer pageSize);
+
+    /**
+     * 升级用户权限为管理员
+     * @param userId
+     */
+    void authorizeAdmin(Integer userId);
 }

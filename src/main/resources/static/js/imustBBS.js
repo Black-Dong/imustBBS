@@ -248,8 +248,40 @@ function boutiqueTopic(topicId, topicTitle, boutiqueStatus) {
                 })
             }
         });
-    }
-}
+    };
+};
+
+
+/* 超级管理员用户登录 */
+/**
+ * 普通用户授权为管理员
+ * @param userId
+ * @param username
+ */
+function authorizeAdmin(userId, username) {
+    /*Deauthorize*/
+    layer.confirm('确认要升级用户：' + username + ' 为管理员吗？', function (index){
+        $.ajax({
+            url: '/super/authorizeAdmin',
+            data: {"userId": userId},
+            method: "GET",
+            success: function (result) {
+                window.location.reload();
+                layer.msg('升级成功！！！',{
+                    time: 1000,
+                    icon: 6,
+                });
+
+            },
+            error: function (result) {
+                layer.msg('升级失败！！！',{
+                    time: 1000,
+                    icon: 5,
+                });
+            }
+        });
+    });
+};
 
 $(function () {
 
