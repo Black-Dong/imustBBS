@@ -104,8 +104,138 @@ function delTopic(topicId, topicTitle) {
     });
 }
 
+/**
+ * 帖子置顶管理
+ * @param topicId 帖子id
+ * @param topicTitle 帖子标题
+ * @param topStatus 帖子置顶状态
+ */
+function topTopic(topicId, topicTitle, topStatus) {
+    if (!topStatus) {
+        layer.msg('确定置顶帖子：' + topicTitle + ' 吗？', {
+            time: 0 //不自动关闭
+            , btn: ['确定置顶', '取消操作']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: '/admin/topTopic',
+                    data: {"id": topicId, "topStatus": topStatus},
+                    method: "GET",
+                    success: function (result) {
+                        layer.msg('置顶成功！！！', {
+                            time: 1000
+                            , icon: 6
+                            , btn: ['关闭']
+                        });
+                        window.location.reload();
+                    },
+                    error: function (result) {
+                        layer.msg('置顶失败', {
+                            time: 1000
+                            , icon: 5
+                            , btn: ['关闭']
+                        });
+                    }
+                })
+            }
+        });
+    } else {
+        layer.msg('确定取消置顶帖子：' + topicTitle + ' 吗？', {
+            time: 0 //不自动关闭
+            , btn: ['确定取消', '取消操作']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: '/admin/topTopic',
+                    data: {"id": topicId, "topStatus": topStatus},
+                    method: "GET",
+                    success: function (result) {
+                        layer.msg('取消置顶成功！！！', {
+                            time: 1000
+                            , icon: 6
+                            , btn: ['关闭']
+                        });
+                        window.location.reload();
+                    },
+                    error: function (result) {
+                        layer.msg('取消置顶失败', {
+                            time: 1000
+                            , icon: 5
+                            , btn: ['关闭']
+                        });
+                    }
+                })
+            }
+        });
+    }
 
+}
 
+/**
+ * 帖子精品管理
+ * @param topicId
+ * @param topicTitle
+ * @param boutiqueStatus
+ */
+function boutiqueTopic(topicId, topicTitle, boutiqueStatus) {
+    if (!boutiqueStatus) {
+        layer.msg('确定加精帖子：' + topicTitle + ' 吗？', {
+            time: 0 //不自动关闭
+            , btn: ['确定加精', '取消操作']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: '/admin/boutiqueTopic',
+                    data: {"id": topicId, "boutiqueStatus": boutiqueStatus},
+                    method: "GET",
+                    success: function (result) {
+                        layer.msg('加精成功！！！', {
+                            time: 1000
+                            , icon: 6
+                            , btn: ['关闭']
+                        });
+                        window.location.reload();
+                    },
+                    error: function (result) {
+                        layer.msg('加精失败', {
+                            time: 1000
+                            , icon: 5
+                            , btn: ['关闭']
+                        });
+                    }
+                })
+            }
+        });
+    } else {
+        layer.msg('确定取消加精帖子：' + topicTitle + ' 吗？', {
+            time: 0 //不自动关闭
+            , btn: ['确定取消', '取消操作']
+            , yes: function (index) {
+                layer.close(index);
+                $.ajax({
+                    url: '/admin/boutiqueTopic',
+                    data: {"id": topicId, "boutiqueStatus": boutiqueStatus},
+                    method: "GET",
+                    success: function (result) {
+                        layer.msg('取消加精成功！！！', {
+                            time: 1000
+                            , icon: 6
+                            , btn: ['关闭']
+                        });
+                        window.location.reload();
+                    },
+                    error: function (result) {
+                        layer.msg('取消加精失败', {
+                            time: 1000
+                            , icon: 5
+                            , btn: ['关闭']
+                        });
+                    }
+                })
+            }
+        });
+    }
+}
 
 $(function () {
 

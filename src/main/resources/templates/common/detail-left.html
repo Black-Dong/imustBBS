@@ -19,76 +19,12 @@
                 <span th:onclick="topTopic([[${dbTopic.id}]],[[${dbTopic.title}]],[[${dbTopic.topStatus}]])"
                       class="layui-btn layui-btn-xs jie-admin" type="set" field="stick" rank="1"
                       th:text="${dbTopic.topStatus} ? '取消置顶':'置顶'">置顶</span>
-                <script>
-                    function topTopic(topicId, topicTitle, topStatus) {
-                        if (!topStatus) {
-                            layer.msg('确定置顶帖子：' + topicTitle + ' 吗？', {
-                                time: 0 //不自动关闭
-                                , btn: ['确定置顶', '取消操作']
-                                , yes: function (index) {
-                                    layer.close(index);
-                                    $.ajax({
-                                        url: '/admin/topTopic',
-                                        data: {"id": topicId, "topStatus": topStatus},
-                                        method: "GET",
-                                        success: function (result) {
-                                            layer.msg('置顶成功！！！', {
-                                                time: 1000
-                                                , icon: 6
-                                                , btn: ['关闭']
-                                            });
-                                            window.location.reload();
-                                        },
-                                        error: function (result) {
-                                            layer.msg('置顶失败', {
-                                                time: 1000
-                                                , icon: 5
-                                                , btn: ['关闭']
-                                            });
-                                        }
-                                    })
-                                }
-                            });
-                        } else {
-                            layer.msg('确定取消置顶帖子：' + topicTitle + ' 吗？', {
-                                time: 0 //不自动关闭
-                                , btn: ['确定取消', '取消操作']
-                                , yes: function (index) {
-                                    layer.close(index);
-                                    $.ajax({
-                                        url: '/admin/topTopic',
-                                        data: {"id": topicId, "topStatus": topStatus},
-                                        method: "GET",
-                                        success: function (result) {
-                                            layer.msg('取消置顶成功！！！', {
-                                                time: 1000
-                                                , icon: 6
-                                                , btn: ['关闭']
-                                            });
-                                            window.location.reload();
-                                        },
-                                        error: function (result) {
-                                            layer.msg('取消置顶失败', {
-                                                time: 1000
-                                                , icon: 5
-                                                , btn: ['关闭']
-                                            });
-                                        }
-                                    })
-                                }
-                            });
-                        }
 
-                    }
+                <!--<a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1" style="background-color:#ccc;" th:if="!${dbTopic.boutiqueStatus}">加精</a>-->
+                <span class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0"
+                      th:onclick="boutiqueTopic([[${dbTopic.id}]],[[${dbTopic.title}]],[[${dbTopic.boutiqueStatus}]])"
+                      th:text="${dbTopic.boutiqueStatus} ? '取消加精':'加精'">取消加精</span>
 
-                </script>
-
-
-                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="1"
-                   th:if="!${dbTopic.boutiqueStatus}">加精</a>
-                <a class="layui-btn layui-btn-xs jie-admin" type="set" field="status" rank="0"
-                   style="background-color:#ccc;"
-                   th:if="${dbTopic.boutiqueStatus}">取消加精</a>
             </div>
             <span class="fly-list-nums">
                 <!--<a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> 66</a>-->

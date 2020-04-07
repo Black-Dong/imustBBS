@@ -42,4 +42,10 @@ public interface TopicMapper extends Mapper<Topic> {
 
     @Update("update t_topic set top_status = 1 where id = #{topicId}")
     void modifyTopStatusToTrue(Integer topicId);
+
+    @Update("update t_topic set boutique_status = 0 where id = #{topicId}")
+    void modifyBoutiqueStatusToFalse(Integer topicId);
+
+    @Update("update t_topic set boutique_status = 1 where id = #{topicId}")
+    void modifyBoutiqueStatusToTrue(Integer topicId);
 }

@@ -121,10 +121,19 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public void topTopicById(Integer topicId, boolean topStatus) {
-        if (topStatus){
+        if (topStatus) {
             topicMapper.modifyTopStatusToFalse(topicId);
-        }else {
+        } else {
             topicMapper.modifyTopStatusToTrue(topicId);
+        }
+    }
+
+    @Override
+    public void boutiqueTopicById(Integer topicId, boolean boutiqueTopic) {
+        if (boutiqueTopic) {
+            topicMapper.modifyBoutiqueStatusToFalse(topicId);
+        }else {
+            topicMapper.modifyBoutiqueStatusToTrue(topicId);
         }
     }
 }

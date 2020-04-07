@@ -2,10 +2,7 @@ package top.codingdong.imustbbs.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
 
@@ -61,7 +58,7 @@ public class AdminController {
 
 
     /**
-     * 修改帖子 置顶
+     * 修改帖子 置顶状态
      *
      * @param topicId
      * @param topStatus
@@ -75,5 +72,18 @@ public class AdminController {
         return;
     }
 
+    /**
+     * 修改帖子 精品状态
+     * @param topicId
+     * @param boutiqueStatus
+     */
+    @GetMapping("/boutiqueTopic")
+    @ResponseBody
+    public void boutiqueTopic(@RequestParam(name = "id") Integer topicId,
+                              @RequestParam("boutiqueStatus") boolean boutiqueStatus) {
+
+        topicService.boutiqueTopicById(topicId, boutiqueStatus);
+        return;
+    }
 
 }

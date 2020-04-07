@@ -92,4 +92,12 @@ public interface TopicService {
      * @param topStatus
      */
     void topTopicById(Integer topicId, boolean topStatus);
+
+    /**
+     * 修改帖子精品状态
+     *
+     * @param topicId
+     * @param boutiqueTopic
+     */
+    void boutiqueTopicById(Integer topicId, boolean boutiqueTopic);
 }
