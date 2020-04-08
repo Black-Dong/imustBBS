@@ -17,11 +17,7 @@
     </div>
 
     <div class="fly-panel fly-panel-user" pad20>
-        <!--
-        <div class="fly-msg" style="margin-top: 15px;">
-          您的邮箱尚未验证，这比较影响您的帐号安全，<a href="activate.html">立即去激活？</a>
-        </div>
-        -->
+        
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
                 <li data-type="mine-jie" lay-id="index" class="layui-this">
@@ -30,7 +26,7 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0 0 0;">
                 <div class="layui-tab-item layui-show">
-                    <!-- 所有用户 -->
+                    <!-- 分类列表 -->
                     <table class="layui-table">
                         <colgroup>
                             <col width="150">
@@ -56,11 +52,13 @@
                             <td th:text="${#dates.format(category.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${category.description}">溜溜哒</td>
                             <td>
-                                <button class="layui-btn layui-btn-xs"
-                                        th:onclick="modifyCategory([[${category}]])">修改分类</button>
+                                <a th:href="@{/super/editCategory/{id}(id=${category.id})}"
+                                   class="layui-btn layui-btn-xs">修改分类</a>
 
                                 <button class="layui-btn layui-btn-xs layui-btn-danger"
-                                        th:onclick="delCategory([[${category}]])">删除分类</button>
+                                        th:onclick="delCategory([[${category.id}]])">删除分类</button>
+                                <script>
+                                </script>
                             </td>
                         </tr>
                         </tbody>

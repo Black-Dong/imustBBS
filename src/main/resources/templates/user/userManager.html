@@ -83,7 +83,7 @@
 
                 <div class="layui-tab-item" th:if="${session.currentUser?.roleName == '超级管理员'}">
                     <!-- 管理员用户列表 -->
-                    <table class="layui-table">
+                    <table class="layui-table" id="LAY_page1">
                         <colgroup>
                             <col width="150">
                             <col width="150">
@@ -123,7 +123,7 @@
                     </table>
 
                     <div th:replace="/common/pagination :: pagination(${pageInfo_admin})"></div>
-                    <div id="LAY_page1"></div>
+                    <div ></div>
                 </div>
 
             </div>

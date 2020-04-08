@@ -15,4 +15,10 @@ public interface CategoryService {
     List<Category> selectAll();
 
     List<Category> selectAll(Integer pageNumber, Integer pageSize);
+
+    Category selectById(Integer id);
+
+    Category selectByName(String name);
+
+    void updateCategory(Category category);
 }

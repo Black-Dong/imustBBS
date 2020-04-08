@@ -267,12 +267,11 @@ function authorizeAdmin(userId, username) {
             data: {"userId": userId},
             method: "GET",
             success: function (result) {
-                window.location.reload();
                 layer.msg('升级成功！！！', {
                     time: 1000,
                     icon: 6,
                 });
-
+                window.location.reload();
             },
             error: function (result) {
                 layer.msg('升级失败！！！', {
@@ -297,11 +296,11 @@ function deauthorizeAdmin(userId, username) {
             data: {"userId": userId},
             method: "GET",
             success: function (result) {
-                window.location.reload();
                 layer.msg('取消成功！！！', {
                     time: 1000,
                     icon: 6,
                 });
+                window.location.reload();
 
             },
             error: function (result) {
@@ -311,6 +310,36 @@ function deauthorizeAdmin(userId, username) {
                 });
             }
         })
+    })
+}
+
+/**
+ * 修改分类描述
+ */
+function modifyCategory() {
+    let serializeArray = $("#modifyCategoryForm").serializeArray();
+    let modifyCategory = {};
+    for (let i = 0; i < serializeArray.length; i++) {
+        modifyCategory[serializeArray[i].name] = serializeArray[i].value;
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/super/modifyCategory',
+        contentType: 'application/json;',
+        dataType: 'JSON',
+        data: JSON.stringify(modifyCategory),
+        success: function (result) {
+            if (result.status) {
+                window.location.href = '/user/manager/6/1'
+                alert("修改成功")
+            } else {
+                alert(result.message)
+            }
+            return;
+        },
+        error: function (result) {
+            alert(result.message)
+        }
     })
 }
 
