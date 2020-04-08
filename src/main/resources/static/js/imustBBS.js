@@ -37,10 +37,10 @@ function cancelReplyF() {
  * @param user
  */
 function disableUser(user) {
-    if (user.isOff){
+    if (user.isOff) {
         layer.msg('用户已被封禁！！！', {
             time: 1000
-            ,icon: 6
+            , icon: 6
         });
         return;
     }
@@ -64,10 +64,10 @@ function disableUser(user) {
  * @param user
  */
 function unDisableUser(user) {
-    if (!user.isOff){
+    if (!user.isOff) {
         layer.msg('用户没有被封禁！！！', {
             time: 1000
-            ,icon: 6
+            , icon: 6
         });
         return;
     }
@@ -101,16 +101,16 @@ function delTopic(topicId, topicTitle) {
                 success: function (result) {
                     layer.msg('删除成功！！！', {
                         time: 1000
-                        ,icon: 6
-                        ,btn: ['关闭']
+                        , icon: 6
+                        , btn: ['关闭']
                     });
                     window.location.href = "/";
                 },
                 error: function (result) {
                     layer.msg('删除失败！！！', {
                         time: 1000
-                        ,icon: 5
-                        ,btn: ['关闭']
+                        , icon: 5
+                        , btn: ['关闭']
                     });
                 }
             })
@@ -248,7 +248,8 @@ function boutiqueTopic(topicId, topicTitle, boutiqueStatus) {
                 })
             }
         });
-    };
+    }
+    ;
 };
 
 
@@ -260,21 +261,21 @@ function boutiqueTopic(topicId, topicTitle, boutiqueStatus) {
  */
 function authorizeAdmin(userId, username) {
     /*Deauthorize*/
-    layer.confirm('确认要升级用户：' + username + ' 为管理员吗？', function (index){
+    layer.confirm('确认要升级用户：' + username + ' 为管理员吗？', function (index) {
         $.ajax({
             url: '/super/authorizeAdmin',
             data: {"userId": userId},
             method: "GET",
             success: function (result) {
                 window.location.reload();
-                layer.msg('升级成功！！！',{
+                layer.msg('升级成功！！！', {
                     time: 1000,
                     icon: 6,
                 });
 
             },
             error: function (result) {
-                layer.msg('升级失败！！！',{
+                layer.msg('升级失败！！！', {
                     time: 1000,
                     icon: 5,
                 });
@@ -282,6 +283,36 @@ function authorizeAdmin(userId, username) {
         });
     });
 };
+
+/**
+ * 管理员用户取消授权为普通用户
+ * @param userId
+ * @param username
+ */
+function deauthorizeAdmin(userId, username) {
+
+    layer.confirm('确认要取消：' + username + ' 的管理员权限吗？', function (index) {
+        $.ajax({
+            url: '/super/deauthorizeAdmin',
+            data: {"userId": userId},
+            method: "GET",
+            success: function (result) {
+                window.location.reload();
+                layer.msg('取消成功！！！', {
+                    time: 1000,
+                    icon: 6,
+                });
+
+            },
+            error: function (result) {
+                layer.msg('取消失败！！！', {
+                    time: 1000,
+                    icon: 5,
+                });
+            }
+        })
+    })
+}
 
 $(function () {
 

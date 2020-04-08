@@ -128,6 +128,17 @@ public class UserTopicController {
             return "/user/userManager";
         }
 
+        // 分类管理
+        if (managerId == 6) {
+            list = categoryService.selectAll(pageNumber,10);
+
+            PageInfo pageInfo = PageInfo.of(list);
+            model.addAttribute("pageInfo", pageInfo);
+
+            model.addAttribute("activeManager", managerId);
+            return "/user/categoryManager";
+        }
+
         return "/user/myTopicManager";
     }
 

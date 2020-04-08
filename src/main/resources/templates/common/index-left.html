@@ -15,6 +15,7 @@
         </div>
 
         <ul class="fly-list">
+            <!-- 帖子列表 -->
             <li th:each="topic : ${pageInfo?.list}">
                 <a th:href="@{/user/detail/{userId}(userId=${topic.user.userId})}" class="fly-avatar">
                     <img th:src="${topic.user.avatar}">
@@ -39,7 +40,8 @@
               </span>
                 </div>
                 <div class="fly-list-badge">
-                    <!--<span class="layui-badge layui-bg-red">精帖</span>-->
+<!--                    <span th:if="${topic.topStatus}" class="layui-badge layui-bg-black">置顶</span>-->
+                    <span th:if="${topic.boutiqueStatus}" class="layui-badge layui-bg-red">精帖</span>
                 </div>
             </li>
         </ul>

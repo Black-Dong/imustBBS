@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>imustBBS</title>
+
+    <link rel="stylesheet" href="/fly-layui/layui/css/layui.css">
+    <link rel="stylesheet" href="/fly-layui/css/global.css">
+</head>
+<body>
+<div th:replace="/common/header :: header"></div>
+
+<div class="layui-container fly-marginTop fly-user-main">
+    <ul th:replace="/common/manager-left :: user-nav"></ul>
+    <div class="site-tree-mobile layui-hide">
+        <i class="layui-icon">&#xe602;</i>
+    </div>
+
+    <div class="fly-panel fly-panel-user" pad20>
+        <!--
+        <div class="fly-msg" style="margin-top: 15px;">
+          您的邮箱尚未验证，这比较影响您的帐号安全，<a href="activate.html">立即去激活？</a>
+        </div>
+        -->
+        <div class="layui-tab layui-tab-brief" lay-filter="user">
+            <ul class="layui-tab-title" id="LAY_mine">
+                <li data-type="mine-jie" lay-id="index" class="layui-this">
+                    所有分类（<span th:text="${pageInfo.total}">89</span>）
+                </li>
+            </ul>
+            <div class="layui-tab-content" style="padding: 20px 0 0 0;">
+                <div class="layui-tab-item layui-show">
+                    <!-- 所有用户 -->
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col width="150">
+                            <col width="150">
+                            <col >
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>分类名称</th>
+                            <th>创建时间</th>
+                            <th>最后修改时间</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="category : ${pageInfo.list}">
+                            <input type="hidden" th:value="${category.id}">
+                            <td th:text="${category.name}">贤心</td>
+                            <td th:text="${#dates.format(category.createTime,'yyyy-MM-dd')}">2016-11-29</td>
+                            <td th:text="${#dates.format(category.createTime,'yyyy-MM-dd')}">2016-11-29</td>
+                            <td th:text="${category.description}">溜溜哒</td>
+                            <td>
+                                <button class="layui-btn layui-btn-xs"
+                                        th:onclick="modifyCategory([[${category}]])">修改分类</button>
+
+                                <button class="layui-btn layui-btn-xs layui-btn-danger"
+                                        th:onclick="delCategory([[${category}]])">删除分类</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 分页 -->
+                    <div th:replace="/common/pagination :: pagination(${pageInfo})"></div>
+
+                    <div id="LAY_page"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/jquery-1.10.2.js"></script>
+<script src="/fly-layui/layui/layui.all.js"></script>
+<script src="/js/imustBBS.js"></script>
+</body>
+</html>

@@ -62,16 +62,14 @@
                             <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td>
                                 <button th:class="${user.isOff ? 'layui-btn layui-btn-xs layui-btn-disabled':'layui-btn layui-btn-xs layui-btn-danger'}"
-                                        th:onclick="disableUser([[${user}]])">封禁
-                                </button>
+                                        th:onclick="disableUser([[${user}]])">封禁</button>
+
                                 <button th:class="${user.isOff ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
-                                        th:onclick="unDisableUser([[${user}]])">解封
-                                </button>
+                                        th:onclick="unDisableUser([[${user}]])">解封</button>
 
                                 <button th:if="${session.currentUser?.roleName == '超级管理员'}"
                                         th:class="${user.roleName!='管理员' ? 'layui-btn layui-btn-xs':'layui-btn layui-btn-xs layui-btn-disabled'}"
-                                        th:onclick="authorizeAdmin([[${user.userId}]],[[${user.username}]])">授权为管理员
-                                </button>
+                                        th:onclick="authorizeAdmin([[${user.userId}]],[[${user.username}]])">授权为管理员</button>
                             </td>
                         </tr>
                         </tbody>
@@ -117,34 +115,8 @@
                                    th:onclick="unDisableUser([[${user}]])">解封</button>
 
                                 <button th:class="${user.roleName=='管理员' ? 'layui-btn layui-btn-xs layui-btn-danger':'layui-btn layui-btn-xs layui-btn-disabled'}"
-                                        th:onclick="deauthorizeAdmin([[${user.userId}]],[[${user.username}]])">取消授权
+                                        th:onclick="deauthorizeAdmin([[${user.userId}]],[[${user.username}]])">取消授权</button>
 
-                                <script>
-                                    function deauthorizeAdmin(userId, username) {
-
-                                        layer.confirm('确认要取消：' + username + ' 的管理员权限吗？', function (index){
-                                            $.ajax({
-                                                url: '/super/deauthorizeAdmin',
-                                                data: {"userId": userId},
-                                                method: "GET",
-                                                success: function (result) {
-                                                    window.location.reload();
-                                                    layer.msg('取消成功！！！',{
-                                                        time: 1000,
-                                                        icon: 6,
-                                                    });
-
-                                                },
-                                                error: function (result) {
-                                                    layer.msg('取消失败！！！',{
-                                                        time: 1000,
-                                                        icon: 5,
-                                                    });
-                                                }
-                                            })
-                                        })
-                                    }
-                                </script>
                             </td>
                         </tr>
                         </tbody>

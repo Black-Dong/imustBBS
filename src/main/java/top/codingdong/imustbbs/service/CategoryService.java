@@ -13,4 +13,6 @@ public interface CategoryService {
     List<Category> selectTop5();
 
     List<Category> selectAll();
+
+    List<Category> selectAll(Integer pageNumber, Integer pageSize);
 }

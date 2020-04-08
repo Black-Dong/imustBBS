@@ -31,4 +31,12 @@
             用户管理
         </a>
     </li>
+
+    <li th:if="${session.currentUser?.roleName == '超级管理员'}"
+        th:class="${activeManager == 6 ? 'layui-nav-item layui-this':'layui-nav-item'}">
+        <a href="/user/manager/6/1">
+            <i class="layui-icon">&#xe611;</i>
+            分类管理
+        </a>
+    </li>
 </ul>
