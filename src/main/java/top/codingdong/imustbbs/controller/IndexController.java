@@ -51,16 +51,33 @@ public class IndexController {
         return "index";
     }
 
+    /**
+     * 跳转登录页
+     *
+     * @return
+     */
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "/user/login";
     }
+
+    /**
+     * 跳转注册页
+     *
+     * @return
+     */
     @GetMapping("/register")
-    public String register(){
+    public String register() {
         return "/user/register";
     }
+
+    /**
+     * 跳转密码找回页
+     *
+     * @return
+     */
     @GetMapping("/findPassword")
-    public String findPassword(){
+    public String findPassword() {
         return "/user/findPassword";
     }
 }
