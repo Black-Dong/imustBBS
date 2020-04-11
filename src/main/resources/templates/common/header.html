@@ -60,6 +60,9 @@
                     <dd th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
                         <a href="/user/manager/5/1" style="text-align: center;">用户管理</a>
                     </dd>
+                    <dd th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
+                        <a href="/user/manager/6/1" style="text-align: center;">分类管理</a>
+                    </dd>
 
                     <hr style="margin: 5px 0;">
                     <dd><a href="/user/logout" style="text-align: center;">
