@@ -4,12 +4,35 @@
     <div class="layui-container">
         <ul class="layui-clear">
             <li th:class="${activeCategory == 0 ? 'layui-hide-xs layui-this':'layui-hide-xs'}">
-                <a href="/category/0/1">首页</a></li>
+                <a href="/">首页</a></li>
             <li th:each="category : ${categories}"
                 th:class="${activeCategory == category.id ? 'layui-hide-xs layui-this':'layui-hide-xs'}">
-                <a th:href="@{'/category/'+${category.id}+'/1'}" th:text="${category.name}"></a>
+                <a href="javascript(0)" th:onclick="topicsByCategoryId([[${category.id}]])"
+                   th:text="${category.name}"></a>
             </li>
-            <li><a href="/">更多分类</a></li>
+            <li class="layui-form-item">
+                <!--                <a href="javascript:;">更多分类</a>-->
+                <select name="categoryId" id="selectCategoryId"
+                        th:style="${activeCategory > 5 ? 'color: blue':''}" onchange="selectCategoryId()">
+<!--                    <option>更多分类</option>-->
+                    <option th:each="category : ${categories}"
+                            th:value="${category.id}"
+                            th:text="${category.name}"
+                            th:selected="${category.id == activeCategory ? 'true':'false'}"></option>
+                </select>
+            </li>
+            <script>
+                function selectCategoryId() {
+                    let selectCategoryId = $("#selectCategoryId");
+                    let categoryId = selectCategoryId.val();
+                    topicsByCategoryId(categoryId);
+                    selectCategoryId.css("color", "blue");
+                }
+
+                function topicsByCategoryId(categoryId) {
+                    window.location.href = "/category/" + categoryId + "/1";
+                }
+            </script>
 
             <!--            <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>-->
 
@@ -25,3 +48,4 @@
         </div>
     </div>
 </div>
+</html>
