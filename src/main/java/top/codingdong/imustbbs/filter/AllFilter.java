@@ -1,15 +1,20 @@
+/*
 package top.codingdong.imustbbs.filter;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.*;
 import java.io.IOException;
 
+*/
 /**
  * @author Dong
  * @date 2020/2/26 13:53
- */
+ *//*
+
+@Configuration
 public class AllFilter implements Filter {
 
     @Bean
@@ -36,3 +41,4 @@ public class AllFilter implements Filter {
 
     }
 }
+*/

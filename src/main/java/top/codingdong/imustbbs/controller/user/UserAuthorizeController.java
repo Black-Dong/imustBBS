@@ -85,6 +85,7 @@ public class UserAuthorizeController {
             return ResultDTO.errorOf("请输入密码");
         } else {
 
+            // 获取当前Subject
             Subject subject = SecurityUtils.getSubject();
             UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), CryptographyUtil.md5(user.getPassword()));
             try {
@@ -97,6 +98,7 @@ public class UserAuthorizeController {
                     subject.logout();
                     return ResultDTO.errorOf("该用户已封禁，请联系管理页");
                 } else {
+                    // 修改最后登录时间
                     dbUser.setLatelyLoginTime(new Date());
                     userService.save(dbUser);
 

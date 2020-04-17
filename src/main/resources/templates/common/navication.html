@@ -44,11 +44,14 @@
         </ul>
 
         <div class="fly-column-right layui-hide-xs">
-            <div class="layui-inline">
-                <input class="layui-input" name="id" id="" placeholder="帖子标题" autocomplete="off">
-            </div>
-            <span class="fly-search"><i class="layui-icon"></i></span>
+            <form action="/search" method="post" id="serachTopic">
+                <div class="layui-inline">
+                    <input class="layui-input" name="title" placeholder="帖子标题" autocomplete="off">
+                </div>
+                <button type="submit" class="fly-search searchBtn"><i class="layui-icon" lay-submit></i></button>
+            </form>
         </div>
+
     </div>
 </div>
 </html>
