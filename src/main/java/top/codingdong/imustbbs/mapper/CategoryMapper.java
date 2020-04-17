@@ -18,7 +18,7 @@ public interface CategoryMapper extends Mapper<Category> {
      *
      * @param category
      */
-    @Update("update t_category set description = #{description}, name = #{name} where id= #{id}")
+    @Update("update t_category set description = #{description} where id= #{id}")
     void update(Category category);
 
     /**
@@ -29,4 +29,7 @@ public interface CategoryMapper extends Mapper<Category> {
             "right join t_category_order o " +
             "on c.id = o.category_id")
     List<Category> selectNavCategory();
+
+    @Select("select 1 from t_category where name = #{name} limit 1")
+    Integer existsWithName(String name);
 }

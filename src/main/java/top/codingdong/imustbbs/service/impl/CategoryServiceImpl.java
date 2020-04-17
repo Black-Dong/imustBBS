@@ -57,21 +57,35 @@ public class CategoryServiceImpl implements CategoryService {
     public ResultDTO updateCategory(Category category) {
         if (category.getId() == null || !categoryMapper.existsWithPrimaryKey(category.getId())) {
             return ResultDTO.errorOf("您要修改的分类不存在！！！");
+        } else if ("".equals(category.getName())) {
+            return ResultDTO.errorOf("分类名不能为空！！！");
         } else {
             categoryMapper.update(category);
             return ResultDTO.success();
         }
     }
 
+    /**
+     * 新增分类
+     *
+     * @param category
+     * @return
+     */
     @Override
     public ResultDTO addCategory(Category category) {
-        try{
+        try {
+            if (categoryMapper.existsWithName(category.getName()) != null) {
+                return ResultDTO.errorOf("分类名称已存在！！！");
+            } else if ("".equals(category.getName().trim())) {
+                return ResultDTO.errorOf("分类名不能为空！！！");
+            }
             category.setCreateTime(System.currentTimeMillis());
             category.setUpdateTime(System.currentTimeMillis());
+            category.setName(category.getName().trim());
             categoryMapper.insert(category);
             return ResultDTO.success();
-        }catch (Exception e){
-            System.err.println(e);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
             return ResultDTO.errorOf("新增失败");
         }
     }
