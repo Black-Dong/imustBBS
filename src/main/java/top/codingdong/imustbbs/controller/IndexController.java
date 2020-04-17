@@ -28,16 +28,19 @@ public class IndexController {
     private TopicService topicService;
 
     /**
-     * 首页
+     * 跳转首页
      *
      * @return
      */
     @GetMapping("/")
     public String index(Model model) {
 
-        // 查询5个分类，放在navigation
-        List<Category> categories = categoryService.selectTop5();
+        // 查询标签中的分类
+        List<Category> categories = categoryService.selectNavCategory();
         model.addAttribute("categories", categories);
+
+        // 查询更多分类，不在标签中的分类
+//        List<Category> moreCategorys = categoryService.selectMoreCategorys();
 
         // 查询帖子列表
         List<Topic> topics = topicService.listAndUserAndCategory(1, 10);

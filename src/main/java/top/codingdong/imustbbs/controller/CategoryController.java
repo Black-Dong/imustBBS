@@ -44,8 +44,8 @@ public class CategoryController {
                            @PathVariable Integer pageNum,
                            @RequestParam(defaultValue = "10") Integer pageSize) {
 
-        // 查询5个分类名称，给导航
-        List<Category> categories = categoryService.selectTop5();
+        // 查询导航的5个分类名称
+        List<Category> categories = categoryService.selectNavCategory();
         model.addAttribute("categories", categories);
 
         List<Topic> topics;

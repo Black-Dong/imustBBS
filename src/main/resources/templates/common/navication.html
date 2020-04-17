@@ -7,18 +7,19 @@
                 <a href="/">首页</a></li>
             <li th:each="category : ${categories}"
                 th:class="${activeCategory == category.id ? 'layui-hide-xs layui-this':'layui-hide-xs'}">
-                <a href="javascript(0)" th:onclick="topicsByCategoryId([[${category.id}]])"
+                <a href="#" th:onclick="topicsByCategoryId([[${category.id}]])"
                    th:text="${category.name}"></a>
             </li>
-            <li class="layui-form-item">
+            <li class="layui-form-item" th:if="${moreCagegorys != null}">
                 <!--                <a href="javascript:;">更多分类</a>-->
                 <select name="categoryId" id="selectCategoryId"
-                        th:style="${activeCategory > 5 ? 'color: blue':''}" onchange="selectCategoryId()">
-<!--                    <option>更多分类</option>-->
-                    <option th:each="category : ${categories}"
+                        class="border_0" onchange="selectCategoryId()">
+                    <option selected disabled hidden>更多分类</option>
+                    <option th:each="category : ${moreCagegorys}"
                             th:value="${category.id}"
                             th:text="${category.name}"
-                            th:selected="${category.id == activeCategory ? 'true':'false'}"></option>
+                            th:selected="${category.id == activeCategory ? 'true':'false'}"
+                            class="border_0"></option>
                 </select>
             </li>
             <script>
@@ -26,11 +27,13 @@
                     let selectCategoryId = $("#selectCategoryId");
                     let categoryId = selectCategoryId.val();
                     topicsByCategoryId(categoryId);
-                    selectCategoryId.css("color", "blue");
                 }
 
                 function topicsByCategoryId(categoryId) {
                     window.location.href = "/category/" + categoryId + "/1";
+                    if(categoryId > 5){
+                        selectCategoryId.css("color", "blue");
+                    }
                 }
             </script>
 

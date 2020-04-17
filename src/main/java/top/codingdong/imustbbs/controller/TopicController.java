@@ -54,7 +54,7 @@ public class TopicController {
         model.addAttribute("activeCategory", dbTopic.getCategory().getId());
 
         // 查询5个分类，放在navigation
-        List<Category> categories = categoryService.selectTop5();
+        List<Category> categories = categoryService.selectNavCategory();
         model.addAttribute("categories", categories);
 
 

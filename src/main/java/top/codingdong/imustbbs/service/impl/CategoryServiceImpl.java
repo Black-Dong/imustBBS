@@ -23,9 +23,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> selectTop5() {
-        PageHelper.startPage(1, 5);
-        return categoryMapper.selectAll();
+    public List<Category> selectNavCategory() {
+        return categoryMapper.selectNavCategory();
     }
 
     @Override

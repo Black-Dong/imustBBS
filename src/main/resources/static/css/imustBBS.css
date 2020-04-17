@@ -1,3 +1,7 @@
 .float_right {
     float: right;
 }
+
+.border_0{
+    border: 0px !important;
+}
