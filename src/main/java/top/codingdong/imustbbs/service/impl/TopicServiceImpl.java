@@ -8,6 +8,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import top.codingdong.imustbbs.mapper.ReplyMapper;
 import top.codingdong.imustbbs.mapper.TopicMapper;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.TopicService;
@@ -24,6 +25,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Autowired
     private TopicMapper topicMapper;
+
+    @Autowired
+    private ReplyMapper replyMapper;
 
     @Autowired
     private RedisTemplate<Object, Object> redisTemplate;
@@ -56,6 +60,10 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> listAndUserAndCategory(Integer pageNumber, Integer pageSize) {
         PageHelper.startPage(pageNumber, pageSize, "last_reply_time desc");
         List<Topic> topics = topicMapper.listAndUserAndCategory();
+
+        topics.forEach(topic -> {
+            topic.setReplyCount(replyMapper.selectCountByTopicId(topic.getId()));
+        });
         return topics;
     }
 

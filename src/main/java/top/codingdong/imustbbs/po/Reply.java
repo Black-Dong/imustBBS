@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
+ * 回复实体类
+ *
  * @author Dong
  * @date 2020/2/28 17:33
  */
@@ -32,7 +34,7 @@ public class Reply implements Serializable {
 
     private Integer fatherUserId;
 
-    @JsonFormat(pattern = "yyyy-MM-d HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-d HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Long createTime;
 

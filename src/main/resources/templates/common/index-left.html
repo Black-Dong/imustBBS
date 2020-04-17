@@ -36,8 +36,9 @@
 
                     <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
                     <span class="fly-list-nums">
-                <i class="iconfont icon-pinglun1" title="回答"></i> 66
-              </span>
+                        <i class="iconfont icon-pinglun1" title="回答"></i>
+                        <span th:text="${topic?.replyCount}"></span>
+                    </span>
                 </div>
                 <div class="fly-list-badge">
 <!--                    <span th:if="${topic.topStatus}" class="layui-badge layui-bg-black">置顶</span>-->

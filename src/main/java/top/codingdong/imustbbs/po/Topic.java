@@ -1,16 +1,15 @@
 package top.codingdong.imustbbs.po;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
-import java.util.Date;
 
 
 /**
+ * 帖子实体类
+ *
  * @author Dong
  * @date 2020/2/27 15:02
  */
@@ -43,8 +42,9 @@ public class Topic implements Serializable {
     private Boolean boutiqueStatus = false;
 
 
-
     private User user;
     private Category category;
+
+    private Integer replyCount;
 
 }

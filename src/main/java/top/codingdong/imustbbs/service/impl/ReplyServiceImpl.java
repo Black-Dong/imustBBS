@@ -32,6 +32,6 @@ public class ReplyServiceImpl implements ReplyService {
     public List<Reply> listAndTopicByUserId(Integer id, Integer pageNumber, Integer pageSize) {
 
         PageHelper.startPage(pageNumber, pageSize);
-        return replyMapper.listAndReplyByUserId(id);
+        return replyMapper.listAndTopicByUserId(id);
     }
 }
