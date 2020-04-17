@@ -343,6 +343,33 @@ function modifyCategory() {
     })
 }
 
+
+function addCategory(){
+    let serializeArray = $("#addCategoryForm").serializeArray();
+    let addCategoryForm = {};
+    for (let i = 0; i < serializeArray.length; i++) {
+        addCategoryForm[serializeArray[i].name] = serializeArray[i].value;
+    }
+    $.ajax({
+        type: 'POST',
+        url: '/super/addCategory',
+        contentType: 'application/json;',
+        dataType: 'JSON',
+        data: JSON.stringify(addCategoryForm),
+        success: function (result) {
+            if (result.status) {
+                window.location.href = '/user/manager/6/1'
+                alert("新增成功")
+            } else {
+                alert(result.message)
+            }
+            return;
+        },
+        error: function (result) {
+            alert(result.message)
+        }
+    })
+}
 $(function () {
 
 });

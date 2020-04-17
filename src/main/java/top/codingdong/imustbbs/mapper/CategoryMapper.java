@@ -12,9 +12,19 @@ import java.util.List;
  * @date 2020/2/27 18:05
  */
 public interface CategoryMapper extends Mapper<Category> {
-    @Update("update t_category set description = #{description} where name = #{name}")
+
+    /**
+     * 根据分类id修改分类信息
+     *
+     * @param category
+     */
+    @Update("update t_category set description = #{description}, name = #{name} where id= #{id}")
     void update(Category category);
 
+    /**
+     * 查询nav的要展示的分类id与名称
+     * @return
+     */
     @Select("select c.id, c.name from t_category c " +
             "right join t_category_order o " +
             "on c.id = o.category_id")

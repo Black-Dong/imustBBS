@@ -51,22 +51,45 @@ public class SuperAdminController {
 
     /**
      * 跳转分类修改页
+     *
      * @param id
      * @param model
      * @return
      */
     @GetMapping("/editCategory/{id}")
-    public String modifyCategory(@PathVariable(name = "id")Integer id,
-                                 Model model){
+    public String modifyCategory(@PathVariable(name = "id") Integer id,
+                                 Model model) {
         Category category = categoryService.selectById(id);
-        model.addAttribute("category",category);
+        model.addAttribute("category", category);
         return "/user/editCategory";
     }
 
+    /**
+     * 修改分类信息
+     *
+     * @param category
+     * @return
+     */
     @PostMapping("/modifyCategory")
-    public @ResponseBody ResultDTO modifyCategory(@RequestBody Category category){
+    public @ResponseBody
+    ResultDTO modifyCategory(@RequestBody Category category) {
 
-        categoryService.updateCategory(category);
-        return ResultDTO.success();
+        return categoryService.updateCategory(category);
+    }
+
+    /**
+     * 新增分类
+     *
+     * @param category
+     * @return
+     */
+    @PostMapping("/addCategory")
+    public @ResponseBody
+    ResultDTO addCategory(@RequestBody Category category) {
+        if ("".equals(category.getName()) || category.getName() == null){
+            return ResultDTO.errorOf("分类名称不能为空");
+        }
+
+        return categoryService.addCategory(category);
     }
 }

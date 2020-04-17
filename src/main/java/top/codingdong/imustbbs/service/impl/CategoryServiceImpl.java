@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.mapper.CategoryMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.service.CategoryService;
 
+import javax.xml.transform.Result;
 import java.util.List;
 
 /**
@@ -34,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> selectAll(Integer pageNumber, Integer pageSize) {
-        PageHelper.startPage(pageNumber,pageSize);
+        PageHelper.startPage(pageNumber, pageSize);
         return categoryMapper.selectAll();
     }
 
@@ -47,12 +49,30 @@ public class CategoryServiceImpl implements CategoryService {
     public Category selectByName(String name) {
         Example example = new Example(Category.class);
         example.createCriteria()
-                .andEqualTo("name",name);
+                .andEqualTo("name", name);
         return (Category) categoryMapper.selectByExample(example);
     }
 
     @Override
-    public void updateCategory(Category category) {
-        categoryMapper.update(category);
+    public ResultDTO updateCategory(Category category) {
+        if (category.getId() == null || !categoryMapper.existsWithPrimaryKey(category.getId())) {
+            return ResultDTO.errorOf("您要修改的分类不存在！！！");
+        } else {
+            categoryMapper.update(category);
+            return ResultDTO.success();
+        }
+    }
+
+    @Override
+    public ResultDTO addCategory(Category category) {
+        try{
+            category.setCreateTime(System.currentTimeMillis());
+            category.setUpdateTime(System.currentTimeMillis());
+            categoryMapper.insert(category);
+            return ResultDTO.success();
+        }catch (Exception e){
+            System.err.println(e);
+            return ResultDTO.errorOf("新增失败");
+        }
     }
 }

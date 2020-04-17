@@ -21,7 +21,7 @@ import java.util.Date;
 @Data
 @Entity
 @Table(name = "t_user")
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
+//@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler", "fieldHandler"})
 public class User implements Serializable {
 
     @Id

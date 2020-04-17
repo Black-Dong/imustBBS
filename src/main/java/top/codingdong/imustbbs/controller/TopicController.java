@@ -35,7 +35,8 @@ public class TopicController {
 
     /**
      * 跳转帖子详情
-     * @param id 帖子id
+     *
+     * @param id    帖子id
      * @param model
      * @return 返回帖子详情页
      */
@@ -44,7 +45,7 @@ public class TopicController {
 
         // 根据帖子id查询该帖子详情，包括发帖人和所在分类
         Topic dbTopic = topicService.selectAndUserAndCategoryById(id);
-        if (!dbTopic.getPublicStatus()){
+        if (!dbTopic.getPublicStatus()) {
             // todo: 应该抛出404异常
             return "redirect:/";
         }
@@ -53,7 +54,7 @@ public class TopicController {
         // 激活的分类的id
         model.addAttribute("activeCategory", dbTopic.getCategory().getId());
 
-        // 查询5个分类，放在navigation
+        // 查询navigation的5个分类
         List<Category> categories = categoryService.selectNavCategory();
         model.addAttribute("categories", categories);
 

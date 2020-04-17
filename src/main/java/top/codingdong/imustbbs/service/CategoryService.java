@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service;
 
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Category;
 
 import java.util.List;
@@ -20,5 +21,19 @@ public interface CategoryService {
 
     Category selectByName(String name);
 
-    void updateCategory(Category category);
+    /**
+     * 修改分类信息
+     *
+     * @param category
+     * @return
+     */
+    ResultDTO updateCategory(Category category);
+
+    /**
+     * 新增分类
+     *
+     * @param category
+     * @return
+     */
+    ResultDTO addCategory(Category category);
 }

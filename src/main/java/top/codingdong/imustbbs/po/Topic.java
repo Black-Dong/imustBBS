@@ -45,6 +45,7 @@ public class Topic implements Serializable {
     private User user;
     private Category category;
 
+    @Transient
     private Integer replyCount;
 
 }

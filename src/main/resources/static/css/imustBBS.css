@@ -1,7 +1,7 @@
 .float_right {
-    float: right;
+    float: right !important;
 }
 
-.border_0{
+.border_0 {
     border: 0px !important;
 }

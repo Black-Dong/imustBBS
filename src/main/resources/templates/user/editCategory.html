@@ -27,7 +27,7 @@
                                     <label class="layui-form-label">分类名称</label>
                                     <div for="L_name" class="layui-input-block">
                                         <input type="text" id="L_name" name="name" required lay-verify="required"
-                                               autocomplete="off" class="layui-input" th:value="${category.name}" disabled>
+                                               autocomplete="off" class="layui-input" th:value="${category.name}" >
                                     </div>
                                 </div>
                                 <div class="layui-col-md9">
@@ -40,15 +40,11 @@
                                 </div>
                             </div>
 
-
+                            <input type="hidden" name="id" th:value="${category?.id}">
                             <div class="layui-form-item">
                                 <button class="layui-btn" onclick="modifyCategory()">立即发布</button>
                             </div>
                         </form>
-
-                        <script>
-
-                        </script>
                     </div>
                 </div>
             </div>

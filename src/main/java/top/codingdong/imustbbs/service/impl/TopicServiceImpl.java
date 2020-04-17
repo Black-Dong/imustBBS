@@ -69,7 +69,9 @@ public class TopicServiceImpl implements TopicService {
 
     @Override
     public Topic selectAndUserAndCategoryById(Integer id) {
-        return topicMapper.selectAndUserAndCategoryById(id);
+        Topic topic = topicMapper.selectAndUserAndCategoryById(id);
+        topic.setReplyCount(replyMapper.selectCountByTopicId(topic.getId()));
+        return topic;
     }
 
     @Override
