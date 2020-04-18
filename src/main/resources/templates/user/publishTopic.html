@@ -75,23 +75,29 @@
         /*layedit.set({
             uploadImage: {
                 url: '/user/uploadImage',
-                type: 'post'
+                type: 'post',
+
+                url: '/Attachment/LayUploadFile',
+                accept: 'image',
+                acceptMime: 'image/*',
+                exts: 'jpg|png|gif|bmp|jpeg',
+                size: '10240'
             }
         })*/
         layedit.build('L_content', {
             // height:200,
             tool: [
                 'strong'
-                ,'italic'
-                ,'underline'
-                ,'del'
-                ,'|'
-                ,'left'
-                ,'center'
-                ,'right'
-                ,'link'
-                ,'unlink'
-                ,'face'
+                , 'italic'
+                , 'underline'
+                , 'del'
+                , '|'
+                , 'left'
+                , 'center'
+                , 'right'
+                , 'link'
+                , 'unlink'
+                , 'face'
                 // ,'image'
                 // ,'help'
             ]
