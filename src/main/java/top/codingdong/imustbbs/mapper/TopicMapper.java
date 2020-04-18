@@ -104,7 +104,7 @@ public interface TopicMapper extends Mapper<Topic> {
      * @param title
      * @return
      */
-    @Select("select * from t_topic where title like concat('%',#{title},'%')")
+    @Select("select * from t_topic where title like concat('%',#{title},'%') and public_status = 1")
     @ResultMap(value = "listAndUserAndCategory")
     List<Topic> listLikeTitle(String title);
 }

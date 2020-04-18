@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 用户帖子控制类
@@ -69,15 +70,23 @@ public class UserTopicController {
         Map<String, Object> map = new HashMap<>();
         Map<String, Object> map2 = new HashMap<>();
         if (file != null) {
+            // 服务器图片存储路径
             String webapp = request.getServletContext().getRealPath("/");
 //            String webapp = "/";
             try {
-                String substring = file.getOriginalFilename();
-                // 图片的路径 + 文件名称
-                String fileName = "/upload/" + substring;
-                System.out.println(fileName);
+                // 文件名称，带路径
+                String originalFilename = file.getOriginalFilename();
+                // edge出错
+//                String fileName = originalFilename.substring(originalFilename.lastIndexOf("/"));
+                String imgSuffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+                // 保存服务器的图片名称，不带路径
+                String serverFileName = UUID.randomUUID().toString().replaceAll("-", "") + imgSuffix;
+                // 保存服务器的图片的路径 + 文件名称
+                serverFileName = "/upload/" + serverFileName;
+
+                System.out.println(serverFileName);
                 // 图片的在服务器上面的物理路径
-                File destFile = new File(webapp, fileName);
+                File destFile = new File(webapp, serverFileName);
                 // 生成upload目录
                 File parentFile = destFile.getParentFile();
                 if (!parentFile.exists()) {
@@ -94,9 +103,9 @@ public class UserTopicController {
                 map.put("msg", "上传成功");
                 map.put("data", map2);
                 //图片url
-                map2.put("src", fileName);
+                map2.put("src", serverFileName);
                 //图片名称，这个会显示在输入框里
-                map2.put("title", substring);
+                map2.put("title", serverFileName);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -72,12 +72,12 @@
 <script type="text/javascript">
     layui.use('layedit', function () {
         let layedit = layui.layedit;
-        layedit.set({
+        /*layedit.set({
             uploadImage: {
                 url: '/user/uploadImage',
                 type: 'post'
             }
-        })
+        })*/
         layedit.build('L_content', {
             // height:200,
             tool: [
@@ -92,7 +92,7 @@
                 ,'link'
                 ,'unlink'
                 ,'face'
-                ,'image'
+                // ,'image'
                 // ,'help'
             ]
         });
