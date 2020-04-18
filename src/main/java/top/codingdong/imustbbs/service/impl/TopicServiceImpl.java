@@ -142,8 +142,19 @@ public class TopicServiceImpl implements TopicService {
     public void boutiqueTopicById(Integer topicId, boolean boutiqueTopic) {
         if (boutiqueTopic) {
             topicMapper.modifyBoutiqueStatusToFalse(topicId);
-        }else {
+        } else {
             topicMapper.modifyBoutiqueStatusToTrue(topicId);
         }
+    }
+
+    @Override
+    public List<Topic> listLikeTitle(String title, Integer pageNumber) {
+
+        Example example = new Example(Topic.class);
+        example.createCriteria()
+                .andLike("title", '%' + title + '%');
+
+        PageHelper.startPage(pageNumber, 10);
+        return topicMapper.listLikeTitle(title);
     }
 }

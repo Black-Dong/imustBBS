@@ -100,4 +100,13 @@ public interface TopicService {
      * @param boutiqueTopic
      */
     void boutiqueTopicById(Integer topicId, boolean boutiqueTopic);
+
+    /**
+     * 根据传入的title，模糊查询帖子标题，按pageNumber查询
+     *
+     * @param title
+     * @param pageNumber
+     * @return
+     */
+    List<Topic> listLikeTitle(String title, Integer pageNumber);
 }

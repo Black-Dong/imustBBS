@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.CategoryService;
@@ -86,10 +87,24 @@ public class IndexController {
         return "/user/findPassword";
     }
 
-    @RequestMapping("/search")
-    public String search(String title,Model model){
 
-//        topicService.list
+    /**
+     * 跳转搜索页
+     *
+     * @param title
+     * @param model
+     * @return
+     */
+    @RequestMapping("/search/{pageNumber}")
+    public String search(String title, @PathVariable(name = "pageNumber") Integer pageNumber, Model model) {
+
+        model.addAttribute("searchTitle", title);
+
+        List<Topic> likeTopics = topicService.listLikeTitle(title, pageNumber);
+
+        PageInfo<Topic> pageInfo = PageInfo.of(likeTopics);
+
+        model.addAttribute("pageInfo", pageInfo);
 
         return "/search";
     }

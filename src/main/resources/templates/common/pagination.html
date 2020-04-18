@@ -1,4 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
+
+<!-- 管理页面分页 -->
 <div th:fragment="pagination_manager(pageInfo)" style="border-top: 1px dotted #e2e2e2; text-align: center;"
 
      th:if="${pageInfo?.list != null && pageInfo?.total > 10}">
@@ -43,7 +45,7 @@
 </div>
 
 
-
+<!-- 首页分页 -->
 <div th:fragment="pagination_index(pageInfo)" style="border-top: 1px dotted #e2e2e2; text-align: center;"
      th:if="${pageInfo?.list != null && pageInfo?.total > 10}">
     <div class="laypage-main">
@@ -84,5 +86,61 @@
            th:href="@{'/category/'+${activeCategory}+'/'+${pageInfo.pages}}"
            class="laypage-last" title="尾页">尾页</a>
     </div>
+</div>
+
+<!-- 搜索分页 -->
+<div th:fragment="pagination_search(pageInfo)" style="border-top: 1px dotted #e2e2e2; text-align: center;"
+     th:if="${pageInfo?.list != null}">
+<!--     th:if="${pageInfo?.list != null && pageInfo?.total > 10}">-->
+    <div class="laypage-main">
+        <a th:if="${pageInfo.pageNum - 2 > 1}" href="#"
+           th:onclick="searchPagination(1)" class="laypage-first" title="首页">首页</a>
+
+        <a th:if="${pageInfo.hasPreviousPage}" href="#"
+           th:onclick="searchPagination([[${pageInfo.prePage}]])"
+           class="laypage-prev">上一页</a>
+
+        <a th:if="${pageInfo.pages <= 5}"
+           th:each="num : ${#numbers.sequence(1,pageInfo.pages)}"
+           th:text="${num}"
+           href="#"
+           th:onclick="searchPagination([[${num}]])"
+           th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+        <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 <= 1}"
+           th:each="num : ${#numbers.sequence(1,5)}"
+           th:text="${num}"
+           href="#"
+           th:onclick="searchPagination([[${num}]])"
+           th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+        <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 > 1 && pageInfo.pageNum+2 < pageInfo.pages}"
+           th:each="num : ${#numbers.sequence(pageInfo.pageNum-2,pageInfo.pageNum+2)}"
+           th:text="${num}"
+           href="#"
+           th:onclick="searchPagination([[${num}]])"
+           th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+        <a th:if="${pageInfo.pages > 5 && pageInfo.pageNum-2 > 1 && pageInfo.pageNum+2 >= pageInfo.pages}"
+           th:each="num : ${#numbers.sequence(pageInfo.pages-4,pageInfo.pages)}"
+           th:text="${num}"
+           href="#"
+           th:onclick="searchPagination([[${num}]])"
+           th:class="${num == pageInfo.pageNum ? 'laypage-curr' : ''}">1</a>
+
+
+        <a th:if="${pageInfo.hasNextPage}" href="#"
+           th:onclick="searchPagination([[${pageInfo.nextPage}]])"
+           class="laypage-next">下一页</a>
+
+        <a th:unless="${pageInfo.pageNum + 3 > pageInfo.pages}"
+           href="#"
+           th:onclick="searchPagination([[${pageInfo.pages}]])"
+           class="laypage-last" title="尾页">尾页</a>
+    </div>
+
+    <script>
+        function searchPagination(pageNumber) {
+            let searchTitle = $("#searchTitle").val();
+            alert(pageNumber+'  ' + searchTitle)
+        }
+    </script>
 </div>
 </html>

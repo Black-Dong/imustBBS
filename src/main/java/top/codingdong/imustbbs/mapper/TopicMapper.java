@@ -97,4 +97,14 @@ public interface TopicMapper extends Mapper<Topic> {
      */
     @Update("update t_topic set boutique_status = 1 where id = #{topicId}")
     void modifyBoutiqueStatusToTrue(Integer topicId);
+
+    /**
+     * 根据帖子标题模糊查询
+     *
+     * @param title
+     * @return
+     */
+    @Select("select * from t_topic where title like concat('%',#{title},'%')")
+    @ResultMap(value = "listAndUserAndCategory")
+    List<Topic> listLikeTitle(String title);
 }
