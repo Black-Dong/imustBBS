@@ -97,6 +97,10 @@ public class IndexController {
     @RequestMapping("/search/{pageNumber}")
     public String search(String title, @PathVariable(name = "pageNumber") Integer pageNumber, Model model) {
 
+        if ("".equals(title)){
+            return "search";
+        }
+
         model.addAttribute("searchTitle", title);
 
         List<Topic> likeTopics = topicService.listLikeTitle(title, pageNumber);
