@@ -6,9 +6,16 @@
     border: 0px !important;
 }
 
+/*搜索按钮*/
 .searchBtn {
     border: 0;
     margin: 0;
     padding: 0;
     background: none;
+}
+
+/*登录后才可以评论哦*/
+.login_reply{
+    min-height: 50px !important;
+    padding: 0;
 }

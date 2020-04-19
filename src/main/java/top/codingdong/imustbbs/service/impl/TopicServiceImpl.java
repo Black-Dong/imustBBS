@@ -150,11 +150,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> listLikeTitle(String title, Integer pageNumber) {
 
-        Example example = new Example(Topic.class);
-        example.createCriteria()
-                .andLike("title", '%' + title + '%');
-
-        PageHelper.startPage(pageNumber, 10);
+        PageHelper.startPage(pageNumber, 10,"create_time desc");
         return topicMapper.listLikeTitle(title);
     }
 }

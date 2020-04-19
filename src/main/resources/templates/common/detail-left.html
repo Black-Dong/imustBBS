@@ -64,6 +64,8 @@
             <legend>回帖</legend>
         </fieldset>
 
+        <div class="fly-none login_reply" th:if="${session.currentUser == null}">登录后才可以评论哦</div>
+
         <div class="layui-form layui-form-pane" th:if="${session.currentUser != null}">
             <form action="/user/reply" method="post">
                 <div class="layui-form-item layui-form-text">
@@ -96,7 +98,6 @@
 
             <!-- 无数据时 -->
             <li class="fly-none" th:if="${#lists.isEmpty(dbReplies)}">消灭零回复</li>
-            <li class="fly-none" th:if="${session.currentUser == null}">登录后才可以评论哦</li>
 
             <!-- 评论列表 -->
             <li data-id="111" class="jieda-daan" th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
@@ -141,15 +142,16 @@
                     </p>
                 </div>
                 <div class="jieda-reply">
-                    <span class="jieda-zan" type="zan">
+                    <!--<span class="jieda-zan" type="zan">
                         <i class="iconfont icon-zan"></i>
                         <em>66</em>
-                    </span>
+                    </span>-->
                     <span type="reply"
                           th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
-
-                        <i class="iconfont icon-svgmoban53"></i>
-                        回复
+                        <a href="#flyReply">
+                            <i class="iconfont icon-svgmoban53"></i>
+                            回复
+                        </a>
                     </span>
                     <div class="jieda-admin">
                         <span type="edit">编辑</span>
