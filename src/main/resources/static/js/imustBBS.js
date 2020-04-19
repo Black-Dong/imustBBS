@@ -343,7 +343,9 @@ function modifyCategory() {
     })
 }
 
-
+/**
+ * 添加分类
+ */
 function addCategory(){
     let serializeArray = $("#addCategoryForm").serializeArray();
     let addCategoryForm = {};

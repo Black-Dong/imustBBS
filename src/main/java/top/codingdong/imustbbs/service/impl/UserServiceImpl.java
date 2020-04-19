@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserService {
     private UserMapper usermapper;
 
     @Override
-    public User findByUserName(String userName) {
-        return usermapper.findUserByUsername(userName);
+    public User selectByUsername(String userName) {
+        return usermapper.selectUserByUsername(userName);
     }
 
     @Override
-    public User findByEmail(String email) {
-        return usermapper.findUserByEmail(email);
+    public User selectByEmail(String email) {
+        return usermapper.selectUserByEmail(email);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Integer id) {
+    public User selectById(Integer id) {
         return usermapper.selectByPrimaryKey(id);
     }
 
@@ -84,5 +84,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deauthorizeAdmin(Integer userId) {
         usermapper.modifyRoleNameToMember(userId);
+    }
+
+
+    /**
+     * 根据传入的用户名，模糊查询用户列表，只查询5个
+     * @param searchName
+     * @return
+     */
+    @Override
+    public List<User> listLikeUsername(String searchName) {
+
+
+        PageHelper.startPage(1,5);
+        List<User> usersLikeUsername = usermapper.listLikeUsername(searchName);
+
+        return usersLikeUsername;
     }
 }

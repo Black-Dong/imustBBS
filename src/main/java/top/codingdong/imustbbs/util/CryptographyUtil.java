@@ -15,7 +15,8 @@ public class CryptographyUtil {
     }
 
     public static void main(String[] args) {
-        String password = "imustBBS";
+//        String password = "imustBBS";
+        String password = "123456";
         System.out.println(md5(password));
     }
 }

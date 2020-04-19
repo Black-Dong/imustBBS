@@ -12,20 +12,67 @@ import java.util.List;
  */
 public interface UserService {
 
-    User findByUserName(String userName);
+    /**
+     * 根据用户名查询用户
+     *
+     * @param userName
+     * @return
+     */
+    User selectByUsername(String userName);
 
-    User findByEmail(String email);
+    /**
+     * 通过邮箱查找用户
+     *
+     * @param email
+     * @return
+     */
+    User selectByEmail(String email);
 
+    /**
+     * 根据传入的user的id判断是 新增用户还是修改用户
+     *
+     * @param user
+     */
     void save(User user);
 
-    User findById(Integer id);
+    /**
+     * 通过id查询用户
+     *
+     * @param id
+     * @return
+     */
+    User selectById(Integer id);
 
+    /**
+     * 查询普通用户
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
     List<User> selectAllmember(Integer pageNumber, Integer pageSize);
 
+    /**
+     * 禁用用户
+     *
+     * @param id
+     */
     void disableUser(Integer id);
 
+    /**
+     * 解禁用户
+     *
+     * @param userId
+     */
     void unDisableUser(Integer userId);
 
+    /**
+     * 查询所有管理员
+     *
+     * @param pageNumber
+     * @param pageSize
+     * @return
+     */
     List<User> selectAdmins(Integer pageNumber, Integer pageSize);
 
     /**
@@ -41,4 +88,12 @@ public interface UserService {
      * @param userId
      */
     void deauthorizeAdmin(Integer userId);
+
+    /**
+     * 根据传入的用户名，模糊查询用户列表
+     *
+     * @param searchName
+     * @return
+     */
+    List<User> listLikeUsername(String searchName);
 }

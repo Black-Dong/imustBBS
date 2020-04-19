@@ -54,9 +54,9 @@ public class UserAuthorizeController {
 
         if (bindingResult.hasErrors()) {
             return ResultDTO.errorOf(bindingResult.getFieldError().getDefaultMessage());
-        } else if (userService.findByUserName(user.getUsername()) != null) {
+        } else if (userService.selectByUsername(user.getUsername()) != null) {
             return ResultDTO.errorOf("用户名已存在，请更换");
-        } else if (userService.findByEmail(user.getEmail()) != null) {
+        } else if (userService.selectByEmail(user.getEmail()) != null) {
             return ResultDTO.errorOf("邮箱已存在，请更换");
         } else {
             user.setCreateTime(new Date());
@@ -87,12 +87,13 @@ public class UserAuthorizeController {
 
             // 获取当前Subject
             Subject subject = SecurityUtils.getSubject();
+            CryptographyUtil.md5(user.getPassword());
             UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), CryptographyUtil.md5(user.getPassword()));
             try {
                 // 登录验证
                 subject.login(token);
                 String userName = SecurityUtils.getSubject().getPrincipal().toString();
-                User dbUser = userService.findByUserName(userName);
+                User dbUser = userService.selectByUsername(userName);
                 // 查看用户状态
                 if (dbUser.getIsOff()) {
                     subject.logout();
@@ -127,7 +128,7 @@ public class UserAuthorizeController {
         }
 
         // 验证邮件是否存在
-        User user = userService.findByEmail(email);
+        User user = userService.selectByEmail(email);
         if (user == null) {
             return ResultDTO.errorOf("邮箱不存在");
         }
@@ -170,7 +171,7 @@ public class UserAuthorizeController {
             return ResultDTO.errorOf("验证码错误");
         }
 
-        User dbUser = userService.findById(userId);
+        User dbUser = userService.selectById(userId);
         dbUser.setPassword(CryptographyUtil.md5(Constants.DEFAULT_PASSWORD));
         userService.save(dbUser);
         return ResultDTO.success();

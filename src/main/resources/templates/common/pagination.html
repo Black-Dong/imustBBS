@@ -137,6 +137,10 @@
     </div>
 
     <script>
+        /**
+         * 分页翻页
+         * @param pageNumber
+         */
         function searchPagination(pageNumber) {
             let searchTitle = $("#searchTitle").val();
             window.location.href = "/search/"+pageNumber+"?title="+searchTitle;

@@ -44,7 +44,7 @@ public class UserController {
                            @RequestParam(required = false, defaultValue = "1") Integer pageNumber,
                            Model model) {
 
-        User dbUser = userService.findById(id);
+        User dbUser = userService.selectById(id);
         List<Topic> dbTopics = topicService.list(pageNumber, 10, id);
 
         List<Reply> dbReplies = replyService.listAndTopicByUserId(dbUser.getUserId(), pageNumber, 4);

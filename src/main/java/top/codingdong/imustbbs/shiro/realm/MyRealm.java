@@ -45,7 +45,7 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
         String userName = (String) authenticationToken.getPrincipal();
-        User user = userService.findByUserName(userName);
+        User user = userService.selectByUsername(userName);
         if (user == null) {
             return null;
         } else {

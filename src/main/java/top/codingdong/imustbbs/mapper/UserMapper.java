@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 import top.codingdong.imustbbs.po.User;
 
+import java.util.List;
+
 /**
  * 用户Repository接口
  *
@@ -15,10 +17,10 @@ import top.codingdong.imustbbs.po.User;
 public interface UserMapper extends Mapper<User> {
 
     @Select("select * from t_user where username = #{username}")
-    User findUserByUsername(String username);
+    User selectUserByUsername(String username);
 
     @Select("select * from t_user where email = #{email}")
-    User findUserByEmail(String email);
+    User selectUserByEmail(String email);
 
     @Update("update t_user set is_off = 1 where user_id = #{id}")
     void disableUserById(Integer id);
@@ -31,4 +33,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Update("update t_user set role_name = '会员' where user_id = #{userId}")
     void modifyRoleNameToMember(Integer userId);
+
+    @Select("select * from t_user where username like concat('%',#{searchName},'%')")
+    List<User> listLikeUsername(String searchName);
 }

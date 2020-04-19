@@ -150,61 +150,6 @@ public class UserTopicController {
     }
 
     /**
-     * 跳转后台管理页面
-     *
-     * @param model
-     * @param session
-     * @return
-     */
-    @GetMapping("/manager/{managerId}/{pageNumber}")
-    public String topicManager(@PathVariable Integer managerId,
-                               @PathVariable Integer pageNumber,
-                               Model model, HttpSession session) {
-        User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
-        List list = null;
-        // 帖子管理
-        if (managerId == 2) {
-            list = topicService.list(pageNumber, 10, currentUser.getUserId());
-
-            PageInfo pageInfo = PageInfo.of(list);
-            model.addAttribute("pageInfo", pageInfo);
-
-            model.addAttribute("activeManager", managerId);
-            return "/user/myTopicManager";
-        }
-
-        // 用户管理
-        if (managerId == 5) {
-            list = userService.selectAllmember(pageNumber, 10);
-
-            PageInfo pageInfo = PageInfo.of(list);
-            model.addAttribute("pageInfo", pageInfo);
-
-            if ("超级管理员".equals(currentUser.getRoleName())) {
-                List<User> admins = userService.selectAdmins(pageNumber, 10);
-                PageInfo<User> pageInfo_admin = PageInfo.of(admins);
-                model.addAttribute("pageInfo_admin", pageInfo_admin);
-            }
-
-            model.addAttribute("activeManager", managerId);
-            return "/user/userManager";
-        }
-
-        // 分类管理
-        if (managerId == 6) {
-            list = categoryService.selectAll(pageNumber, 10);
-
-            PageInfo pageInfo = PageInfo.of(list);
-            model.addAttribute("pageInfo", pageInfo);
-
-            model.addAttribute("activeManager", managerId);
-            return "/user/categoryManager";
-        }
-
-        return "/user/myTopicManager";
-    }
-
-    /**
      * 跳转帖子修改页面
      *
      * @param id

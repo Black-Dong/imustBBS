@@ -21,6 +21,11 @@ public class ResultDTO<T> {
         this.status = status;
     }
 
+    private ResultDTO(Boolean status, T data) {
+        this.status = status;
+        this.data = data;
+    }
+
     public ResultDTO(Boolean status, String message) {
         this.status = status;
         this.message = message;
@@ -30,6 +35,9 @@ public class ResultDTO<T> {
         return new ResultDTO(true);
     }
 
+    public static <T> ResultDTO success(T data) {
+        return new ResultDTO(true, data);
+    }
 
     public static ResultDTO errorOf(String message) {
         return new ResultDTO(false, message);
