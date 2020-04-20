@@ -64,7 +64,9 @@
                         <tbody>
                             <tr th:each="user : ${pageInfo?.list}">
                                 <input type="hidden" th:value="${user.userId}">
-                                <td th:text="${user.username}">贤心</td>
+                                <td>
+                                    <a th:href="@{/user/detail/{userId}(userId=${user.userId})}" th:text="${user.username}" target="_blank">贤心</a>
+                                </td>
                                 <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                                 <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                                 <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
@@ -112,7 +114,9 @@
                         <tbody>
                         <tr th:each="user : ${pageInfo_admin?.list}">
                             <input type="hidden" th:value="${user.userId}">
-                            <td th:text="${user.username}">贤心</td>
+                            <td>
+                                <a th:href="@{/user/detail/{userId}(userId=${user.userId})}" th:text="${user.username}" target="_blank">贤心</a>
+                            </td>
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(user.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
@@ -179,7 +183,9 @@
                         <tbody th:if="${userByUserName} != null">
                         <tr>
                             <input type="hidden" th:value="${userByUserName.userId}">
-                            <td th:text="${userByUserName.username}">贤心</td>
+                            <td>
+                                <a th:href="@{/user/detail/{userId}(userId=${user.userId})}" th:text="${user.username}" target="_blank">贤心</a>
+                            </td>
                             <td th:text="${#dates.format(userByUserName.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(userByUserName.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(userByUserName.latelyLoginTime,'yyyy-MM-dd')}">2016-11-29</td>
