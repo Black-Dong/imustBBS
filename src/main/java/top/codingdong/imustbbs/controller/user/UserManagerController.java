@@ -36,6 +36,8 @@ public class UserManagerController {
     /**
      * 跳转后台管理页面
      *
+     * @param managerId  管理id
+     * @param pageNumber 第几页  当 managerId == 1 时，即：个人信息，这个参数为tab数
      * @param model
      * @param session
      * @return
@@ -45,8 +47,15 @@ public class UserManagerController {
                                @PathVariable Integer pageNumber,
                                Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
+
+        if (managerId == 1){
+            model.addAttribute("activeManager",managerId);
+            return "/user/userSet";
+        }
+
         List list = null;
-        // 帖子管理
+
+        // 我的帖子管理
         if (managerId == 2) {
             list = topicService.list(pageNumber, 10, currentUser.getUserId());
 

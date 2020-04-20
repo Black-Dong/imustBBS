@@ -61,8 +61,9 @@ public class UserAuthorizeController {
         } else {
             user.setCreateTime(new Date());
             user.setLatelyLoginTime(new Date());
-            user.setAvatar("tou.jpg");
+            user.setAvatar("http://imust-bbs.oss-cn-beijing.aliyuncs.com/xh.jpg");
             user.setPassword(CryptographyUtil.md5(user.getPassword()));
+            user.setSex("保密");
             userService.save(user);
             return ResultDTO.success();
         }

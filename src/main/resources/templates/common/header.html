@@ -50,16 +50,27 @@
                     <img th:src="${session.currentUser.avatar}">
                 </a>
                 <dl class="layui-nav-child">
+                    <!-- 发帖 -->
                     <dd><a href="/user/publishTopic" style="text-align: center;">发帖</a></dd>
                     <hr style="margin: 5px 0;">
 
-                    <dd><a th:href="@{/user/detail/{userId}(userId=${session.currentUser?.userId})}" style="text-align: center;">我的主页</a></dd>
+                    <!-- 个人信息 /1/1 -->
+                    <dd><a href="/user/manager/1/1" style="text-align: center;">个人信息</a></dd>
+
+                    <!-- 我的主页 -->
+                    <dd><a th:href="@{/user/detail/{userId}(userId=${session.currentUser?.userId})}"
+                           style="text-align: center;">我的主页</a></dd>
+                    <!-- 我的帖子 /2/1-->
                     <dd><a href="/user/manager/2/1" style="text-align: center;">我的帖子</a></dd>
 
+
+                    <!-- 用户管理 /5/1 -->
                     <hr style="margin: 5px 0;">
                     <dd th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">
                         <a href="/user/manager/5/1" style="text-align: center;">用户管理</a>
                     </dd>
+
+                    <!-- 分类管理 /6/1 -->
                     <dd th:if="${session.currentUser?.roleName == '超级管理员'}">
                         <a href="/user/manager/6/1" style="text-align: center;">分类管理</a>
                     </dd>
