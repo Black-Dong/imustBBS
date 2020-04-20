@@ -47,7 +47,7 @@
                         for (let i = 0; i < index_right_map.topTopics.length; i++) {
                             let topTopic = index_right_map.topTopics[i];
                             topTopics += "<dd>\n" +
-                                "            <a href=\"\">" + topTopic.title + "</a>\n" +
+                                "            <a href=\"/detail/" + topTopic.id + "\">" + topTopic.title + "</a>\n" +
                                 "            <span><i class=\"iconfont icon-pinglun1\"></i> " + topTopic.replyCount + "</span>\n" +
                                 "        </dd>"
                         }
@@ -58,7 +58,7 @@
                         for (let i = 0; i < index_right_map.boutiqueTopics.length; i++) {
                             let boutiqueTopic = index_right_map.boutiqueTopics[i];
                             boutiqueTopics += "<dd>\n" +
-                                "            <a href=\"\">" + boutiqueTopic.title + "</a>\n" +
+                                "            <a href=\"/detail/" + boutiqueTopic.id + "\">" + boutiqueTopic.title + "</a>\n" +
                                 "            <span><i class=\"iconfont icon-pinglun1\"></i> " + boutiqueTopic.replyCount + "</span>\n" +
                                 "        </dd>"
                         }
