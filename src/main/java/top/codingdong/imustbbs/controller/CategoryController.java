@@ -33,9 +33,9 @@ public class CategoryController {
     /**
      * 根据 分类id 和 页数 查询该分类下的所有帖子
      *
-     * @param id    分类id
+     * @param id       分类id
      * @param model
-     * @param pageNum   页码
+     * @param pageNum  页码
      * @param pageSize
      * @return 返回首页
      */
@@ -51,10 +51,10 @@ public class CategoryController {
         List<Topic> topics;
         // 查询该分类下所有帖子
         if (id == 0) {
-            // 当id为0时，在所有分类中查询
+            // 当id为0时，在 所有分类 中查询
             topics = topicService.listAndUserAndCategory(pageNum, pageSize);
         } else {
-            // 根据分类id查询该分类下的所有帖子
+            // 根据分类id查询 该分类 下的所有帖子
             topics = topicService.listAndUserAndCategoryByCategoryId(pageNum, pageSize, id);
         }
         // 当前激活的分类id

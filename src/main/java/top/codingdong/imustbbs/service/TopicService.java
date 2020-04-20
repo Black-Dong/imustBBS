@@ -109,4 +109,22 @@ public interface TopicService {
      * @return
      */
     List<Topic> listLikeTitle(String title, Integer pageNumber);
+
+    /**
+     * 置顶的 size条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
+     *
+     * @param pageNumber
+     * @param size
+     * @return
+     */
+    List<Topic> listTopTopics(Integer pageNumber, Integer size);
+
+    /**
+     * 精品的 size条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
+     *
+     * @param pageNumber
+     * @param size
+     * @return
+     */
+    List<Topic> listBoutiqueTopics(Integer pageNumber, Integer size);
 }

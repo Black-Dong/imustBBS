@@ -107,4 +107,20 @@ public interface TopicMapper extends Mapper<Topic> {
     @Select("select * from t_topic where title like concat('%',#{title},'%') and public_status = 1")
     @ResultMap(value = "listAndUserAndCategory")
     List<Topic> listLikeTitle(String title);
+
+    /**
+     * 查询置顶帖子列表
+     *
+     * @return
+     */
+    @Select("select * from t_topic where top_status = 1")
+    List<Topic> listTopTopics();
+
+    /**
+     * 查询精品帖子列表
+     *
+     * @return
+     */
+    @Select("select * from t_topic where boutique_status = 1")
+    List<Topic> listBoutiqueTopics();
 }

@@ -49,5 +49,5 @@ public interface ReplyMapper extends Mapper<Reply> {
      * @return
      */
     @Select("select count(id) from t_reply where topic_id = #{id}")
-    Integer selectCountByTopicId(Integer id);
+    Integer selectReplyCountByTopicId(Integer id);
 }

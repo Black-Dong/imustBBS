@@ -62,7 +62,7 @@ public class TopicServiceImpl implements TopicService {
         List<Topic> topics = topicMapper.listAndUserAndCategory();
 
         topics.forEach(topic -> {
-            topic.setReplyCount(replyMapper.selectCountByTopicId(topic.getId()));
+            topic.setReplyCount(replyMapper.selectReplyCountByTopicId(topic.getId()));
         });
         return topics;
     }
@@ -70,7 +70,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic selectAndUserAndCategoryById(Integer id) {
         Topic topic = topicMapper.selectAndUserAndCategoryById(id);
-        topic.setReplyCount(replyMapper.selectCountByTopicId(topic.getId()));
+        topic.setReplyCount(replyMapper.selectReplyCountByTopicId(topic.getId()));
         return topic;
     }
 
@@ -150,7 +150,29 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public List<Topic> listLikeTitle(String title, Integer pageNumber) {
 
-        PageHelper.startPage(pageNumber, 10,"create_time desc");
+        PageHelper.startPage(pageNumber, 10, "create_time desc");
         return topicMapper.listLikeTitle(title);
+    }
+
+    @Override
+    public List<Topic> listTopTopics(Integer pageNumber, Integer size) {
+
+        PageHelper.startPage(1, size, "update_time desc");
+        List<Topic> topTopics = topicMapper.listTopTopics();
+        topTopics.forEach(topic -> {
+            topic.setReplyCount(replyMapper.selectReplyCountByTopicId(topic.getId()));
+        });
+        return topTopics;
+    }
+
+
+    @Override
+    public List<Topic> listBoutiqueTopics(Integer pageNumber, Integer size) {
+        PageHelper.startPage(1, size, "update_time desc");
+        List<Topic> boutiqueTopics = topicMapper.listBoutiqueTopics();
+        boutiqueTopics.forEach(topic -> {
+            topic.setReplyCount(replyMapper.selectReplyCountByTopicId(topic.getId()));
+        });
+        return boutiqueTopics;
     }
 }

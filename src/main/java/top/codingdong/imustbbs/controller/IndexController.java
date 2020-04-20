@@ -7,12 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.CategoryService;
 import top.codingdong.imustbbs.service.TopicService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页控制类
@@ -56,6 +60,32 @@ public class IndexController {
         return "index";
     }
 
+
+    /**
+     * 首页，右侧
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/i_r")
+    public @ResponseBody ResultDTO index_right(Model model) {
+
+        // 置顶的 10条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
+        List<Topic> topTopics = topicService.listTopTopics(1,10);
+
+
+        // 精品的 10条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
+        List<Topic> boutiqueTopics = topicService.listBoutiqueTopics(1,10);
+
+        // 返回数据
+        Map<String, Object> dataMap = new HashMap<>();
+
+        dataMap.put("topTopics", topTopics);
+        dataMap.put("boutiqueTopics", boutiqueTopics);
+        return ResultDTO.success(dataMap);
+    }
+
+
     /**
      * 跳转登录页
      *
@@ -97,7 +127,7 @@ public class IndexController {
     @RequestMapping("/search/{pageNumber}")
     public String search(String title, @PathVariable(name = "pageNumber") Integer pageNumber, Model model) {
 
-        if ("".equals(title)){
+        if ("".equals(title)) {
             return "search";
         }
 
