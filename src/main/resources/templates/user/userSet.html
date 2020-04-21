@@ -39,7 +39,7 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                    <form method="post" action="/user/modifyBasicInformation">
+                    <form id="userBasicInformation" method="post">
                         <input type="hidden" name="userId" th:value="${user?.userId}">
 
                         <div class="layui-form-item">
@@ -54,7 +54,7 @@
                         <div class="layui-form-item">
                             <label for="L_email" class="layui-form-label">邮箱</label>
                             <div class="layui-input-inline">
-                                <input type="text" id="L_email" name="email"  lay-verify="email|required"
+                                <input type="text" id="L_email" name="email" lay-verify="email|required"
                                        autocomplete="off" class="layui-input"
                                        th:value="${user.email}">
                             </div>
@@ -74,12 +74,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="layui-form-item">
-                          <label for="L_city" class="layui-form-label">城市</label>
-                          <div class="layui-input-inline">
-                            <input type="text" id="L_city" name="city" autocomplete="off" value="" class="layui-input">
-                          </div>
-                        </div>-->
                         <div class="layui-form-item layui-form-text">
                             <label for="L_sign" class="layui-form-label">签名</label>
                             <div class="layui-input-block">
@@ -90,13 +84,37 @@
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                            <button class="layui-btn" lay-filter="*" onclick="modifyBasicInformation()">
+                                确认修改
+                            </button>
                         </div>
 
                     </form>
                 </div>
 
-
+                <script>
+                    function modifyBasicInformation() {
+                        let userBasicInformationArray = $("#userBasicInformation").serializeArray();
+                        let userBasicInformation = {};
+                        for (let i = 0; i < userBasicInformationArray.length; i++) {
+                            userBasicInformation[userBasicInformationArray[i].name] = userBasicInformationArray[i].value;
+                        }
+                        $.ajax({
+                            url: "/user/modifyBasicInformation",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(userBasicInformation),
+                            success: function (resultDTO) {
+                                if (resultDTO.status){
+                                    alert(resultDTO.message);
+                                }else {
+                                    alert("修改失败！")
+                                }
+                                window.location.href="/user/manager/1/1"
+                            },
+                        })
+                    }
+                </script>
 
                 <!-- 上传头像 -->
                 <div class="layui-form layui-form-pane layui-tab-item">
@@ -184,20 +202,7 @@
 <script src="/js/imustBBS.js"></script>
 
 <script>
-    layui.cache.page = 'user';
-    layui.cache.user = {
-        username: '游客'
-        , uid: -1
-        , avatar: '../../res/images/avatar/00.jpg'
-        , experience: 83
-        , sex: '男'
-    };
-    layui.config({
-        version: "2.0.0"
-        , base: '../../res/mods/'
-    }).extend({
-        fly: 'index'
-    }).use('fly');
+
 </script>
 
 </body>

@@ -35,6 +35,10 @@ public class ResultDTO<T> {
         return new ResultDTO(true);
     }
 
+    public static ResultDTO success(String message) {
+        return new ResultDTO(true, message);
+    }
+
     public static <T> ResultDTO success(T data) {
         return new ResultDTO(true, data);
     }

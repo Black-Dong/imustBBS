@@ -11,7 +11,9 @@ import top.codingdong.imustbbs.po.User;
 import top.codingdong.imustbbs.service.ReplyService;
 import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
+import top.codingdong.imustbbs.util.Constants;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Result;
 import java.util.List;
 
@@ -60,12 +62,14 @@ public class UserController {
 
 
     @PostMapping("/modifyBasicInformation")
-    public @ResponseBody ResultDTO modifyBasicInformation(User user){
+    @ResponseBody
+    public ResultDTO modifyBasicInformation(@RequestBody User user, HttpSession session){
 
         // 修改用户基本信息，返回修改后的信息
         User modifyUser = userService.modifyBasicInformation(user);
+        session.setAttribute(Constants.CURRENT_USER, modifyUser);
 
-        return ResultDTO.success(modifyUser);
+        return ResultDTO.success("用户基本信息修改成功！");
     }
 
 }
