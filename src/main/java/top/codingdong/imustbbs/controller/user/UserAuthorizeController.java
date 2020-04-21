@@ -61,9 +61,16 @@ public class UserAuthorizeController {
         } else {
             user.setCreateTime(new Date());
             user.setLatelyLoginTime(new Date());
+
+            // 注意lvGrade = 0, isOff = false, roleName = "会员" 都是有默认值的
+            user.setIsOff(false);
+            user.setLvGrade(0);
+            user.setRoleName("会员");
+
             user.setAvatar("http://imust-bbs.oss-cn-beijing.aliyuncs.com/xh.jpg");
             user.setPassword(CryptographyUtil.md5(user.getPassword()));
             user.setSex("保密");
+            
             userService.save(user);
             return ResultDTO.success();
         }

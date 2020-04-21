@@ -96,4 +96,12 @@ public interface UserService {
      * @return
      */
     List<User> listLikeUsername(String searchName);
+
+    /**
+     * 修改用户基本信息，返回修改后的信息
+     *
+     * @param user
+     * @return
+     */
+    User modifyBasicInformation(User user);
 }

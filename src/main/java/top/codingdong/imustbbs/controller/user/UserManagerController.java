@@ -50,6 +50,7 @@ public class UserManagerController {
 
         if (managerId == 1){
             model.addAttribute("activeManager",managerId);
+            model.addAttribute("user",currentUser);
             return "/user/userSet";
         }
 

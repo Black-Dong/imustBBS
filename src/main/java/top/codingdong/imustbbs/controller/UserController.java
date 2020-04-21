@@ -3,9 +3,8 @@ package top.codingdong.imustbbs.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Reply;
 import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.po.User;
@@ -13,6 +12,7 @@ import top.codingdong.imustbbs.service.ReplyService;
 import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
 
+import javax.xml.transform.Result;
 import java.util.List;
 
 /**
@@ -20,6 +20,7 @@ import java.util.List;
  * @date 2020/4/1 15:48
  */
 @Controller
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -39,7 +40,7 @@ public class UserController {
      * @param model
      * @return
      */
-    @GetMapping("/user/detail/{id}")
+    @GetMapping("/detail/{id}")
     public String userHome(@PathVariable Integer id,
                            @RequestParam(required = false, defaultValue = "1") Integer pageNumber,
                            Model model) {
@@ -57,5 +58,14 @@ public class UserController {
         return "/user/userHome";
     }
 
+
+    @PostMapping("/modifyBasicInformation")
+    public @ResponseBody ResultDTO modifyBasicInformation(User user){
+
+        // 修改用户基本信息，返回修改后的信息
+        User modifyUser = userService.modifyBasicInformation(user);
+
+        return ResultDTO.success(modifyUser);
+    }
 
 }

@@ -101,4 +101,10 @@ public class UserServiceImpl implements UserService {
 
         return usersLikeUsername;
     }
+
+    @Override
+    public User modifyBasicInformation(User user) {
+        usermapper.updateByPrimaryKeySelective(user);
+        return usermapper.selectByPrimaryKey(user.getUserId());
+    }
 }

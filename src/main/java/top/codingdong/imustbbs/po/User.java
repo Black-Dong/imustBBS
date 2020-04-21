@@ -58,14 +58,16 @@ public class User implements Serializable {
     @Column(length = 50)
     private String sex;
 
-    @Column
-    private Integer lvGrade = 0;
+    // lvGrade = 0, isOff = false, roleName = "会员" 都是有默认值的
 
     @Column
-    private Boolean isOff = false;
+    private Integer lvGrade;
 
     @Column
-    private String roleName = "会员";
+    private Boolean isOff;
+
+    @Column
+    private String roleName;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -74,6 +76,8 @@ public class User implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date latelyLoginTime;
+
+    private String description;
 
     /**
      * @Transient 表示不是数据库字段
