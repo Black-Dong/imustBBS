@@ -39,7 +39,7 @@
             </ul>
             <div class="layui-tab-content" style="padding: 20px 0;">
                 <div class="layui-form layui-form-pane layui-tab-item layui-show">
-                    <form id="userBasicInformation" method="post">
+                    <form id="userBasicInformationFrom" method="post">
                         <input type="hidden" name="userId" th:value="${user?.userId}">
 
                         <div class="layui-form-item">
@@ -92,31 +92,8 @@
                     </form>
                 </div>
 
-                <script>
-                    function modifyBasicInformation() {
-                        let userBasicInformationArray = $("#userBasicInformation").serializeArray();
-                        let userBasicInformation = {};
-                        for (let i = 0; i < userBasicInformationArray.length; i++) {
-                            userBasicInformation[userBasicInformationArray[i].name] = userBasicInformationArray[i].value;
-                        }
-                        $.ajax({
-                            url: "/user/modifyBasicInformation",
-                            type: "POST",
-                            contentType: "application/json",
-                            data: JSON.stringify(userBasicInformation),
-                            success: function (resultDTO) {
-                                if (resultDTO.status){
-                                    alert(resultDTO.message);
-                                }else {
-                                    alert("修改失败！")
-                                }
-                                window.location.href="/user/manager/1/1"
-                            },
-                        })
-                    }
-                </script>
 
-                <!-- 上传头像 -->
+                <!-- todo:上传头像 -->
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <div class="layui-form-item">
                         <div class="avatar-add">
@@ -130,36 +107,57 @@
                     </div>
                 </div>
 
+                <!-- 修改密码 -->
                 <div class="layui-form layui-form-pane layui-tab-item">
-                    <form action="/user/repass" method="post">
+                    <form method="post" id="modifyPasswordFrom">
                         <div class="layui-form-item">
-                            <label for="L_nowpass" class="layui-form-label">当前密码</label>
+                            <label for="L_nowPassword" class="layui-form-label">当前密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_nowpass" name="nowpass" required lay-verify="required"
+                                <input type="password" id="L_nowPassword" name="nowPassword" required lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_pass" class="layui-form-label">新密码</label>
+                            <label for="L_password" class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_pass" name="pass" required lay-verify="required"
+                                <input type="password" id="L_password" name="password" required lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_repass" class="layui-form-label">确认密码</label>
+                            <label for="L_repassword" class="layui-form-label">确认密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_repass" name="repass" required lay-verify="required"
+                                <input type="password" id="L_repassword" name="repassword" required lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <button class="layui-btn" key="set-mine" lay-filter="*" lay-submit>确认修改</button>
+                            <button class="layui-btn" lay-filter="*" onclick="modifyPassword()">确认修改</button>
                         </div>
                     </form>
                 </div>
-
+                <script>
+                    function modifyPassword() {
+                        let passwordInformationArray = $("#modifyPasswordFrom").serializeArray();
+                        let passwordInformation = {};
+                        for (let i = 0; i < passwordInformationArray.length; i++){
+                            passwordInformation[passwordInformationArray[i].name] = passwordInformationArray[i].value;
+                        }
+                        $.ajax({
+                            url: "/user/repassword",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(passwordInformation),
+                            success: function (resultDTO) {
+                                alert(resultDTO.message);
+                                alert("请重新登录");
+                                $.cookie("user",null);
+                                window.location.href="/user/logout";
+                            }
+                        })
+                    }
+                </script>
                 <!--<div class="layui-form layui-form-pane layui-tab-item">
                   <ul class="app-bind">
                     <li class="fly-msg app-havebind">
@@ -198,12 +196,9 @@
 </div>
 
 <script src="/js/jquery-1.10.2.js"></script>
+<script src="/js/jquery.cookie.js"></script>
 <script src="/fly-layui/layui/layui.all.js"></script>
 <script src="/js/imustBBS.js"></script>
-
-<script>
-
-</script>
 
 </body>
 </html>

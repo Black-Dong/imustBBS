@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import top.codingdong.imustbbs.DTO.RepasswordDTO;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Reply;
 import top.codingdong.imustbbs.po.Topic;
@@ -63,13 +64,22 @@ public class UserController {
 
     @PostMapping("/modifyBasicInformation")
     @ResponseBody
-    public ResultDTO modifyBasicInformation(@RequestBody User user, HttpSession session){
+    public ResultDTO modifyBasicInformation(@RequestBody User user, HttpSession session) {
 
         // 修改用户基本信息，返回修改后的信息
         User modifyUser = userService.modifyBasicInformation(user);
         session.setAttribute(Constants.CURRENT_USER, modifyUser);
 
         return ResultDTO.success("用户基本信息修改成功！");
+    }
+
+    @PostMapping("/repassword")
+    @ResponseBody
+    public ResultDTO repassword(@RequestBody RepasswordDTO repasswordDTO) {
+
+
+
+        return ResultDTO.success("密码修改成功");
     }
 
 }

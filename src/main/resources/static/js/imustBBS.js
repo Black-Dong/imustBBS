@@ -346,7 +346,7 @@ function modifyCategory() {
 /**
  * 添加分类
  */
-function addCategory(){
+function addCategory() {
     let serializeArray = $("#addCategoryForm").serializeArray();
     let addCategoryForm = {};
     for (let i = 0; i < serializeArray.length; i++) {
@@ -372,6 +372,32 @@ function addCategory(){
         }
     })
 }
+
+/**
+ * 修改个人基础信息
+ */
+function modifyBasicInformation() {
+    let userBasicInformationArray = $("#userBasicInformationFrom").serializeArray();
+    let userBasicInformation = {};
+    for (let i = 0; i < userBasicInformationArray.length; i++) {
+        userBasicInformation[userBasicInformationArray[i].name] = userBasicInformationArray[i].value;
+    }
+    $.ajax({
+        url: "/user/modifyBasicInformation",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(userBasicInformation),
+        success: function (resultDTO) {
+            if (resultDTO.status) {
+                alert(resultDTO.message);
+            } else {
+                alert("修改失败！")
+            }
+            window.location.href = "/user/manager/1/1"
+        }
+    })
+}
+
 $(function () {
 
 });
