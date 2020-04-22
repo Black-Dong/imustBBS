@@ -146,17 +146,20 @@
                         <i class="iconfont icon-zan"></i>
                         <em>66</em>
                     </span>-->
-                    <span type="reply"
-                          th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
-                        <a href="#flyReply">
-                            <i class="iconfont icon-svgmoban53"></i>
-                            回复
-                        </a>
-                    </span>
+
+                    <span type="edit">编辑</span>
+                    <span type="del">删除</span>
+<!--                    <span class="jieda-accept" type="accept">采纳</span>-->
+
+
                     <div class="jieda-admin">
-                        <span type="edit">编辑</span>
-                        <span type="del">删除</span>
-                        <!-- <span class="jieda-accept" type="accept">采纳</span> -->
+                        <span type="reply"
+                              th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
+                            <a href="#flyReply">
+                                <i class="iconfont icon-svgmoban53"></i>
+                                回复
+                            </a>
+                        </span>
                     </div>
                 </div>
             </li>

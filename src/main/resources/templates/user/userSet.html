@@ -110,25 +110,29 @@
                 <!-- 修改密码 -->
                 <div class="layui-form layui-form-pane layui-tab-item">
                     <form method="post" id="modifyPasswordFrom">
+                        <input type="hidden" name="userId" th:value="session.currentUser.userId">
                         <div class="layui-form-item">
                             <label for="L_nowPassword" class="layui-form-label">当前密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_nowPassword" name="nowPassword" required lay-verify="required"
+                                <input type="password" id="L_nowPassword" name="nowPassword" required
+                                       lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_password" class="layui-form-label">新密码</label>
+                            <label for="L_newPassword" class="layui-form-label">新密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_password" name="password" required lay-verify="required"
+                                <input type="password" id="L_newPassword" name="newPassword" required
+                                       lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">6到16个字符</div>
                         </div>
                         <div class="layui-form-item">
-                            <label for="L_repassword" class="layui-form-label">确认密码</label>
+                            <label for="L_rePassword" class="layui-form-label">确认密码</label>
                             <div class="layui-input-inline">
-                                <input type="password" id="L_repassword" name="repassword" required lay-verify="required"
+                                <input type="password" id="L_rePassword" name="rePassword" required
+                                       lay-verify="required"
                                        autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -141,19 +145,26 @@
                     function modifyPassword() {
                         let passwordInformationArray = $("#modifyPasswordFrom").serializeArray();
                         let passwordInformation = {};
-                        for (let i = 0; i < passwordInformationArray.length; i++){
+                        for (let i = 0; i < passwordInformationArray.length; i++) {
                             passwordInformation[passwordInformationArray[i].name] = passwordInformationArray[i].value;
                         }
+                        if (passwordInformation.newPassword != passwordInformation.rePassword) {
+                            alert("新密码两次输入不一致！");
+                            return;
+                        }
                         $.ajax({
-                            url: "/user/repassword",
+                            url: "/user/rePassword",
                             type: "POST",
                             contentType: "application/json",
                             data: JSON.stringify(passwordInformation),
                             success: function (resultDTO) {
                                 alert(resultDTO.message);
-                                alert("请重新登录");
-                                $.cookie("user",null);
-                                window.location.href="/user/logout";
+                                if (resultDTO.status) {
+                                    alert("请重新登录");
+                                    $.cookie("user", null);
+                                    window.location.href = "/user/logout";
+                                }
+                                return;
                             }
                         })
                     }

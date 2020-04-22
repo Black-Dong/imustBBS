@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import top.codingdong.imustbbs.DTO.RepasswordDTO;
+import top.codingdong.imustbbs.DTO.RePasswordDTO;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Reply;
 import top.codingdong.imustbbs.po.Topic;
@@ -15,7 +15,6 @@ import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.Constants;
 
 import javax.servlet.http.HttpSession;
-import javax.xml.transform.Result;
 import java.util.List;
 
 /**
@@ -73,13 +72,32 @@ public class UserController {
         return ResultDTO.success("用户基本信息修改成功！");
     }
 
-    @PostMapping("/repassword")
+    /**
+     * 修改密码
+     *
+     * @param repasswordDTO
+     * @return
+     */
+    @PostMapping("/rePassword")
     @ResponseBody
-    public ResultDTO repassword(@RequestBody RepasswordDTO repasswordDTO) {
+    public ResultDTO rePassword(@RequestBody RePasswordDTO repasswordDTO) {
 
+        if ("".equals(repasswordDTO.getNowPassword())) {
+            return ResultDTO.errorOf("请输入原密码！");
+        } else if ("".equals(repasswordDTO.getNewPassword())) {
+            return ResultDTO.errorOf("请输入新密码！");
+        } else if ("".equals(repasswordDTO.getRePassword())) {
+            return ResultDTO.errorOf("请重复输入新密码！");
+        } else if (!repasswordDTO.getNewPassword().equals(repasswordDTO.getRePassword())) {
+            return ResultDTO.errorOf("新密码两次输入不一致！");
+        }
 
+        int flag = userService.rePassword(repasswordDTO);
+        if (flag == 1){
+            return ResultDTO.success("密码修改成功");
+        }
+        return ResultDTO.errorOf("密码错误请重试");
 
-        return ResultDTO.success("密码修改成功");
     }
 
 }

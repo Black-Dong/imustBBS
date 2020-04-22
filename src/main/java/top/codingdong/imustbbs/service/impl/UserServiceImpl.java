@@ -5,9 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import top.codingdong.imustbbs.DTO.RePasswordDTO;
 import top.codingdong.imustbbs.po.User;
 import top.codingdong.imustbbs.mapper.UserMapper;
 import top.codingdong.imustbbs.service.UserService;
+import top.codingdong.imustbbs.util.CryptographyUtil;
 
 import java.util.List;
 
@@ -70,8 +72,8 @@ public class UserServiceImpl implements UserService {
     public List<User> selectAdmins(Integer pageNumber, Integer pageSize) {
         Example example = new Example(User.class);
         example.createCriteria()
-                .andEqualTo("roleName","管理员");
-        PageHelper.startPage(pageNumber,pageSize);
+                .andEqualTo("roleName", "管理员");
+        PageHelper.startPage(pageNumber, pageSize);
         return usermapper.selectByExample(example);
     }
 
@@ -89,6 +91,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 根据传入的用户名，模糊查询用户列表，只查询5个
+     *
      * @param searchName
      * @return
      */
@@ -96,7 +99,7 @@ public class UserServiceImpl implements UserService {
     public List<User> listLikeUsername(String searchName) {
 
 
-        PageHelper.startPage(1,5);
+        PageHelper.startPage(1, 5);
         List<User> usersLikeUsername = usermapper.listLikeUsername(searchName);
 
         return usersLikeUsername;
@@ -106,5 +109,19 @@ public class UserServiceImpl implements UserService {
     public User modifyBasicInformation(User user) {
         usermapper.updateByPrimaryKeySelective(user);
         return usermapper.selectByPrimaryKey(user.getUserId());
+    }
+
+    @Override
+    public int rePassword(RePasswordDTO repasswordDTO) {
+        Example example = new Example(User.class);
+        example.createCriteria()
+                .andEqualTo("userId", repasswordDTO.getUserId())
+                .andEqualTo("password", CryptographyUtil.md5(repasswordDTO.getNowPassword()));
+        User dbUser = usermapper.selectOneByExample(example);
+        if (dbUser != null) {
+            usermapper.modifyPasswordById(dbUser.getUserId(), CryptographyUtil.md5(repasswordDTO.getNewPassword()));
+            return 1;
+        }
+        return 0;
     }
 }

@@ -9,12 +9,14 @@ import lombok.Data;
  * @date 2020/4/21 21:57
  */
 @Data
-public class RepasswordDTO {
+public class RePasswordDTO {
+
+    private Integer userId;
 
     private String nowPassword;
 
-    private String password;
+    private String newPassword;
 
-    private String repassword;
+    private String rePassword;
 
 }

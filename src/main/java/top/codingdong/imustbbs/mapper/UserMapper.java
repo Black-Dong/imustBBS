@@ -36,4 +36,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Select("select * from t_user where username like concat('%',#{searchName},'%')")
     List<User> listLikeUsername(String searchName);
+
+    @Update("update t_user set password = #{newPassword} where user_id = #{userId}")
+    void modifyPasswordById(Integer userId, String newPassword);
 }

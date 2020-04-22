@@ -1,5 +1,6 @@
 package top.codingdong.imustbbs.service;
 
+import top.codingdong.imustbbs.DTO.RePasswordDTO;
 import top.codingdong.imustbbs.po.User;
 
 import java.util.List;
@@ -104,4 +105,6 @@ public interface UserService {
      * @return
      */
     User modifyBasicInformation(User user);
+
+    int rePassword(RePasswordDTO repasswordDTO);
 }
