@@ -373,6 +373,7 @@ function addCategory() {
     })
 }
 
+
 /**
  * 修改个人基础信息
  */
@@ -383,8 +384,8 @@ function modifyBasicInformation() {
         userBasicInformation[userBasicInformationArray[i].name] = userBasicInformationArray[i].value;
     }
     $.ajax({
-        url: "/user/modifyBasicInformation",
         type: "POST",
+        url: "/user/modifyBasicInformation",
         contentType: "application/json",
         data: JSON.stringify(userBasicInformation),
         success: function (resultDTO) {
@@ -393,9 +394,46 @@ function modifyBasicInformation() {
             } else {
                 alert("修改失败！")
             }
-            window.location.href = "/user/manager/1/1"
+        },
+        error: function (resultDTO) {
+            alert(resultDTO.message);
         }
-    })
+    });
+
+    window.location.href = "/user/manager/1/1";
+    return false;
+}
+
+/**
+ * 修改密码
+ * @returns {boolean}
+ */
+function modifyPassword() {
+    let passwordInformationArray = $("#modifyPasswordFrom").serializeArray();
+    let passwordInformation = {};
+    for (let i = 0; i < passwordInformationArray.length; i++) {
+        passwordInformation[passwordInformationArray[i].name] = passwordInformationArray[i].value;
+    }
+    if (passwordInformation.newPassword != passwordInformation.rePassword) {
+        alert("新密码两次输入不一致！");
+        return false;
+    }
+    $.ajax({
+        url: "/user/rePassword",
+        type: "POST",
+        contentType: "application/json",
+        dataType: "text",
+        data: JSON.stringify(passwordInformation),
+        success: function (resultDTO) {
+            alert(resultDTO.message);
+            if (resultDTO.status) {
+                alert("请重新登录");
+                $.cookie("user", null);
+                window.location.href = "/user/logout";
+            }
+        }
+    });
+    return false;
 }
 
 $(function () {

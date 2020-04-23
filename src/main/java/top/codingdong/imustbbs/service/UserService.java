@@ -106,5 +106,11 @@ public interface UserService {
      */
     User modifyBasicInformation(User user);
 
+    /**
+     * 修改密码
+     *
+     * @param repasswordDTO
+     * @return
+     */
     int rePassword(RePasswordDTO repasswordDTO);
 }

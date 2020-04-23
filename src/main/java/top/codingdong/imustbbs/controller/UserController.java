@@ -61,6 +61,13 @@ public class UserController {
     }
 
 
+    /**
+     * 修改基本信息
+     *
+     * @param user
+     * @param session
+     * @return
+     */
     @PostMapping("/modifyBasicInformation")
     @ResponseBody
     public ResultDTO modifyBasicInformation(@RequestBody User user, HttpSession session) {
@@ -93,11 +100,10 @@ public class UserController {
         }
 
         int flag = userService.rePassword(repasswordDTO);
-        if (flag == 1){
+        if (flag == 1) {
             return ResultDTO.success("密码修改成功");
         }
         return ResultDTO.errorOf("密码错误请重试");
-
     }
 
 }
