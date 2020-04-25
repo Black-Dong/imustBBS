@@ -405,6 +405,39 @@ function modifyBasicInformation() {
     return false;
 }
 
+/**
+ * 根据分类id 删除分类
+ * @param categoryId
+ */
+function delCategory(categoryId, categoryName) {
+    layer.confirm('删除 ' + categoryName + ' 分类前，您确定该分类下的帖子都删除了吗？', function (index) {
+        $.ajax({
+            url: "/super/deleteCategory",
+            type: "POST",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(categoryId),
+            success: function (resultDTO) {
+                if (resultDTO.status) {
+                    layer.msg(resultDTO.message, {
+                        time: 1000,
+                        icon: 6,
+                        end: function () {
+                            location.href = "/user/manager/6/1";
+                        }
+                    });
+                    
+                } else {
+                    layer.msg(resultDTO.message, {
+                        time: 1000,
+                        icon: 5,
+                    });
+                }
+            }
+        })
+    })
+
+}
 
 $(function () {
 
@@ -419,10 +452,10 @@ $(function () {
                 url: "/user/rePassword",
                 type: "POST",
                 contentType: "application/json",
-                dataType: "text",
+                dataType: "json",
                 data: JSON.stringify(data.field),
                 success: function (resultDTO) {
-                    resultDTO = JSON.parse(resultDTO)
+                    // resultDTO = JSON.parse(resultDTO)
                     alert(resultDTO.message);
                     if (resultDTO.status) {
                         alert("请重新登录");

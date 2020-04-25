@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.User;
 import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
@@ -22,13 +21,10 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminController {
+public class AdminUserController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    TopicService topicService;
 
     /**
      * 禁用用户
@@ -53,49 +49,13 @@ public class AdminController {
     }
 
     /**
-     * 根据帖子id删除帖子，伪删除（修改帖子状态为不公开）
+     * 根据传入的 searchName 按username精确查询该用户
      *
-     * @param topicId
+     * @param searchName
+     * @param session
+     * @param model
+     * @return
      */
-    @GetMapping("/deleteTopic")
-    @ResponseBody
-    public void deleteTopic(@RequestParam(name = "id") Integer topicId) {
-        topicService.deleteById(topicId);
-        return;
-    }
-
-
-    /**
-     * 修改帖子的置顶状态
-     *
-     * @param topicId
-     * @param topStatus
-     */
-    @GetMapping("/topTopic")
-    @ResponseBody
-    public void topTopic(@RequestParam(name = "id") Integer topicId,
-                         @RequestParam("topStatus") boolean topStatus) {
-
-        topicService.topTopicById(topicId, topStatus);
-        return;
-    }
-
-    /**
-     * 修改帖子的精品状态
-     *
-     * @param topicId
-     * @param boutiqueStatus
-     */
-    @GetMapping("/boutiqueTopic")
-    @ResponseBody
-    public void boutiqueTopic(@RequestParam(name = "id") Integer topicId,
-                              @RequestParam("boutiqueStatus") boolean boutiqueStatus) {
-
-        topicService.boutiqueTopicById(topicId, boutiqueStatus);
-        return;
-    }
-
-
     @GetMapping("/searchLikeUserName/{searchName}")
     public String searchLikeUserName(@PathVariable(name = "searchName") String searchName,
                                      HttpSession session,

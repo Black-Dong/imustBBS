@@ -1,13 +1,18 @@
 package top.codingdong.imustbbs.controller.admin;
 
+import net.sf.jsqlparser.statement.select.Top;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Category;
+import top.codingdong.imustbbs.po.Topic;
 import top.codingdong.imustbbs.service.CategoryService;
+import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
+
+import java.util.List;
 
 /**
  * 超级管理员控制类
@@ -20,10 +25,13 @@ import top.codingdong.imustbbs.service.UserService;
 public class SuperAdminController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
+
+    @Autowired
+    private TopicService topicService;
 
     /**
      * 普通用户授权为管理员
@@ -71,8 +79,8 @@ public class SuperAdminController {
      * @return
      */
     @PostMapping("/modifyCategory")
-    public @ResponseBody
-    ResultDTO modifyCategory(@RequestBody Category category) {
+    @ResponseBody
+    public ResultDTO modifyCategory(@RequestBody Category category) {
 
         return categoryService.updateCategory(category);
     }
@@ -84,12 +92,25 @@ public class SuperAdminController {
      * @return
      */
     @PostMapping("/addCategory")
-    public @ResponseBody
-    ResultDTO addCategory(@RequestBody Category category) {
-        if ("".equals(category.getName()) || category.getName() == null){
+    @ResponseBody
+    public ResultDTO addCategory(@RequestBody Category category) {
+        if ("".equals(category.getName()) || category.getName() == null) {
             return ResultDTO.errorOf("分类名称不能为空");
         }
 
         return categoryService.addCategory(category);
+    }
+
+
+    @PostMapping("/deleteCategory")
+    @ResponseBody
+    public ResultDTO deleteCategoryById(@RequestBody Integer categoryId) {
+
+        if (categoryId == null) {
+            return ResultDTO.errorOf("该分类不存在！！！");
+        }
+
+        return  categoryService.deleteCategoryById(categoryId);
+
     }
 }

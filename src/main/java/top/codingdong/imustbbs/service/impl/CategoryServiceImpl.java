@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.mapper.CategoryMapper;
+import top.codingdong.imustbbs.mapper.TopicMapper;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.service.CategoryService;
 
@@ -23,6 +24,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private TopicMapper topicMapper;
 
     @Override
     public List<Category> selectNavCategory() {
@@ -87,6 +91,18 @@ public class CategoryServiceImpl implements CategoryService {
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return ResultDTO.errorOf("新增失败");
+        }
+    }
+
+
+    @Override
+    public ResultDTO deleteCategoryById(Integer categoryId) {
+        Integer countPublicTopics = topicMapper.countPublicTopicsByCategoryId(categoryId);
+        if (countPublicTopics != 0){
+            return ResultDTO.errorOf("该分类下还有公开的帖子 "+ countPublicTopics + " 个！");
+        }else {
+            categoryMapper.deleteByPrimaryKey(categoryId);
+            return ResultDTO.success("删除成功");
         }
     }
 }

@@ -19,7 +19,7 @@
     </div>
 
     <div class="fly-panel fly-panel-user" pad20>
-        
+
         <div class="layui-tab layui-tab-brief" lay-filter="user">
             <ul class="layui-tab-title" id="LAY_mine">
                 <li data-type="mine-jie" lay-id="index" class="layui-this">
@@ -39,7 +39,7 @@
                             <col width="150">
                             <col width="150">
                             <col width="150">
-                            <col >
+                            <col>
                             <col width="200">
                         </colgroup>
                         <thead>
@@ -63,7 +63,8 @@
                                    class="layui-btn layui-btn-xs">修改分类</a>
 
                                 <button class="layui-btn layui-btn-xs layui-btn-danger"
-                                        th:onclick="delCategory([[${category.id}]])">删除分类</button>
+                                        th:onclick="delCategory([[${category.id}]],[[${category.name}]])">删除分类
+                                </button>
                                 <script>
                                 </script>
                             </td>

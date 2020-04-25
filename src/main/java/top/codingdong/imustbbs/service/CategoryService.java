@@ -36,4 +36,6 @@ public interface CategoryService {
      * @return
      */
     ResultDTO addCategory(Category category);
+
+    ResultDTO deleteCategoryById(Integer categoryId);
 }

@@ -123,4 +123,7 @@ public interface TopicMapper extends Mapper<Topic> {
      */
     @Select("select * from t_topic where boutique_status = 1")
     List<Topic> listBoutiqueTopics();
+
+    @Select("select count(id) from t_topic where public_status = 1 and category_id = #{categoryId}")
+    Integer countPublicTopicsByCategoryId(Integer categoryId);
 }
