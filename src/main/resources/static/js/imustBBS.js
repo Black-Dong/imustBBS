@@ -404,37 +404,6 @@ function modifyBasicInformation() {
     return false;
 }
 
-/**
- * 修改密码
- * @returns {boolean}
- */
-function modifyPassword() {
-    let passwordInformationArray = $("#modifyPasswordFrom").serializeArray();
-    let passwordInformation = {};
-    for (let i = 0; i < passwordInformationArray.length; i++) {
-        passwordInformation[passwordInformationArray[i].name] = passwordInformationArray[i].value;
-    }
-    if (passwordInformation.newPassword != passwordInformation.rePassword) {
-        alert("新密码两次输入不一致！");
-        return false;
-    }
-    $.ajax({
-        url: "/user/rePassword",
-        type: "POST",
-        contentType: "application/json",
-        dataType: "text",
-        data: JSON.stringify(passwordInformation),
-        success: function (resultDTO) {
-            alert(resultDTO.message);
-            if (resultDTO.status) {
-                alert("请重新登录");
-                $.cookie("user", null);
-                window.location.href = "/user/logout";
-            }
-        }
-    });
-    return false;
-}
 
 $(function () {
 
