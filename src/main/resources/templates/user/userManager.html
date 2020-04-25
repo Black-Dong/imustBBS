@@ -184,7 +184,7 @@
                         <tr>
                             <input type="hidden" th:value="${userByUserName.userId}">
                             <td>
-                                <a th:href="@{/user/detail/{userId}(userId=${user.userId})}" th:text="${user.username}" target="_blank">贤心</a>
+                                <a th:href="@{/user/detail/{userId}(userId=${userByUserName?.userId})}" th:text="${userByUserName?.username}" target="_blank">贤心</a>
                             </td>
                             <td th:text="${#dates.format(userByUserName.createTime,'yyyy-MM-dd')}">2016-11-29</td>
                             <td th:text="${#dates.format(userByUserName.createTime,'yyyy-MM-dd')}">2016-11-29</td>

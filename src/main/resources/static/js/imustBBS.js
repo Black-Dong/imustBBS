@@ -343,6 +343,7 @@ function modifyCategory() {
     })
 }
 
+
 /**
  * 添加分类
  */
@@ -406,5 +407,34 @@ function modifyBasicInformation() {
 
 
 $(function () {
+
+    /* layui form表单控制*/
+    layui.use('form', function () {
+        let form = layui.form;
+
+        /* userSet.html */
+        /* 修改密码 */
+        form.on('submit(modifyPassword)', function (data) {
+            $.ajax({
+                url: "/user/rePassword",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "text",
+                data: JSON.stringify(data.field),
+                success: function (resultDTO) {
+                    resultDTO = JSON.parse(resultDTO)
+                    alert(resultDTO.message);
+                    if (resultDTO.status) {
+                        alert("请重新登录");
+                        $.cookie("user", null);
+                        window.location.href = "/user/logout";
+                    }
+                },
+            });
+            return false;
+        });
+
+
+    })
 
 });
