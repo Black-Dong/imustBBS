@@ -426,7 +426,7 @@ function delCategory(categoryId, categoryName) {
                             location.href = "/user/manager/6/1";
                         }
                     });
-                    
+
                 } else {
                     layer.msg(resultDTO.message, {
                         time: 1000,
@@ -441,7 +441,7 @@ function delCategory(categoryId, categoryName) {
 
 $(function () {
 
-    /* layui form表单控制*/
+    /* layui form表单控制 */
     layui.use('form', function () {
         let form = layui.form;
 
@@ -470,4 +470,25 @@ $(function () {
 
     })
 
+
+    /* layui 文件上传 */
+    layui.use('upload', function () {
+        let upload = layui.upload;
+
+        /* userSet.html */
+        /* 上传头像 */
+        let uploadAvatar = upload.render({
+            elem: "#avatarImg",
+            url: "/user/uploadAvatarImg",
+            method: "POST",
+            done: function (resultDTO) {
+                // 上传完毕回调
+                console.log(resultDTO)
+            },
+            error: function () {
+                // 请求异常回调
+            },
+            accept: 'images'
+        });
+    })
 });

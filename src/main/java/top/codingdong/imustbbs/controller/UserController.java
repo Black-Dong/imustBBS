@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.codingdong.imustbbs.DTO.RePasswordDTO;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Reply;
@@ -104,6 +105,15 @@ public class UserController {
             return ResultDTO.success("密码修改成功");
         }
         return ResultDTO.errorOf("密码错误请重试");
+    }
+
+
+    @PostMapping("/uploadAvatarImg")
+    @ResponseBody
+    public ResultDTO uploadAvatarImg(MultipartFile file) {
+
+
+        return ResultDTO.success("上传成功！");
     }
 
 }

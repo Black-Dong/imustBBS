@@ -100,7 +100,8 @@
             <li class="fly-none" th:if="${#lists.isEmpty(dbReplies)}">消灭零回复</li>
 
             <!-- 评论列表 -->
-            <li data-id="111" class="jieda-daan" th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
+            <li data-id="111" class="jieda-daan" style="padding-bottom: 30px"
+                th:if="${!#lists.isEmpty(dbReplies)}" th:each="reply : ${dbReplies}">
                 <a name="item-1111111111"></a>
                 <div class="detail-about detail-about-reply">
                     <a class="fly-avatar"
@@ -147,20 +148,26 @@
                         <em>66</em>
                     </span>-->
 
-                    <span type="edit">编辑</span>
-                    <span type="del">删除</span>
-<!--                    <span class="jieda-accept" type="accept">采纳</span>-->
+<!--                    <span type="edit" th:if="${session.currentUser?.userId == reply.user.userId}">编辑</span>-->
+                    <span type="del" th:if="${session.currentUser?.roleName == '管理员' || session.currentUser?.roleName == '超级管理员'}">删除</span>
+                    <!--                    <span class="jieda-accept" type="accept">采纳</span>-->
 
 
-                    <div class="jieda-admin">
-                        <span type="reply"
-                              th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
-                            <a href="#flyReply">
-                                <i class="iconfont icon-svgmoban53"></i>
-                                回复
-                            </a>
-                        </span>
-                    </div>
+                    <span type="reply" class="float_right" th:if="${session.currentUser != null}"
+                          th:onclick="replyFor([[${reply.id}]],[[${reply.user.userId}]],[[${reply.user.username}]])">
+                        <a href="#flyReply">
+                            <i class="iconfont icon-svgmoban53"></i>
+                            回复
+                        </a>
+                    </span>
+
+                    <span type="reply" class="float_right" th:if="${session.currentUser == null}">
+                        <a href="/login" target="_blank">
+                            <i class="iconfont icon-svgmoban53"></i>
+                            登录后回复
+                        </a>
+                    </span>
+
                 </div>
             </li>
 
