@@ -77,12 +77,14 @@ public class AdminUserController {
         PageInfo pageInfo = PageInfo.of(list);
         model.addAttribute("pageInfo", pageInfo);
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
+        // 当登录 用户为超级管理员 时，添加查询管理列表
         if ("超级管理员".equals(currentUser.getRoleName())) {
             List<User> admins = userService.selectAdmins(1, 10);
             PageInfo<User> pageInfo_admin = PageInfo.of(admins);
             model.addAttribute("pageInfo_admin", pageInfo_admin);
         }
 
+        // 管理栏 激活id
         model.addAttribute("activeManager", 5);
 
         return "/user/userManager";

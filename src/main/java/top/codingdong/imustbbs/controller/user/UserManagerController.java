@@ -48,9 +48,10 @@ public class UserManagerController {
                                Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute(Constants.CURRENT_USER);
 
-        if (managerId == 1){
-            model.addAttribute("activeManager",managerId);
-            model.addAttribute("user",currentUser);
+        // 跳转用户个人信息页
+        if (managerId == 1) {
+            model.addAttribute("activeManager", managerId);
+            model.addAttribute("user", currentUser);
             return "/user/userSet";
         }
 
@@ -58,6 +59,7 @@ public class UserManagerController {
 
         // 我的帖子管理
         if (managerId == 2) {
+            // 此时 list 中存储 帖子列表
             list = topicService.list(pageNumber, 10, currentUser.getUserId());
 
             PageInfo pageInfo = PageInfo.of(list);
