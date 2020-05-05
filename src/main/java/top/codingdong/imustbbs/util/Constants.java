@@ -22,4 +22,17 @@ public class Constants {
 
     /**帖子类型列表*/
     public static final String ALL_TOPIC_TYPE_NAME = "allTopicType";
+
+
+    /**
+     * 头像保存路径
+     */
+    public static final String WINDOWS_PROFILES_PATH = "E:/testFile/icon/";
+    public static final String LINUX_PROFILES_PATH = "/home/testFile/icon/";
+
+
+    public static final String ACCESS_KEY_ID = "LTAI4Fkn5ESZ8K6oZ5zV2nFV";
+    public static final String ACCESS_KEY_SECRET=  "7kzJnEI2SKBPppqZXxfN3OactCGNhg";
+    public static final String END_POINT = "oss-cn-beijing.aliyuncs.com";
+    public static final String BUCKET_NAME = "imust-bbs";
 }

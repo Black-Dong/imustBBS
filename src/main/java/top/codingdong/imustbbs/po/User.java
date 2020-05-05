@@ -51,8 +51,6 @@ public class User implements Serializable {
     @NotEmpty(message = "请输入邮箱地址")
     private String email;
 
-
-    @Column(length = 100)
     private String avatar;
 
     @Column(length = 50)

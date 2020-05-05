@@ -39,4 +39,7 @@ public interface UserMapper extends Mapper<User> {
 
     @Update("update t_user set password = #{newPassword} where user_id = #{userId}")
     void modifyPasswordById(Integer userId, String newPassword);
+
+    @Update("update t_user set avatar = #{avatar} where user_id = #{userId}")
+    void uploadAvatarPath(User currentUser);
 }

@@ -483,12 +483,23 @@ $(function () {
             method: "POST",
             done: function (resultDTO) {
                 // 上传完毕回调
-                console.log(resultDTO)
+                layer.msg(resultDTO.message, {
+                    time: 1000,
+                    icon: 6,
+                    end: function () {
+                        location.href = "/user/manager/1/1";
+                    }
+                });
             },
             error: function () {
                 // 请求异常回调
+                layer.msg(resultDTO.message, {
+                    time: 1000,
+                    icon: 6,
+                });
             },
-            accept: 'images'
+            accept: 'images', //允许上传的文件类型
+            acceptMime: 'image/*'
         });
     })
 });

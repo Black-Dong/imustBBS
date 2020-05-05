@@ -1,6 +1,7 @@
 package top.codingdong.imustbbs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,14 @@ import top.codingdong.imustbbs.service.TopicService;
 import top.codingdong.imustbbs.service.UserService;
 import top.codingdong.imustbbs.util.Constants;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @author Dong
@@ -110,10 +117,23 @@ public class UserController {
 
     @PostMapping("/uploadAvatarImg")
     @ResponseBody
-    public ResultDTO uploadAvatarImg(MultipartFile file) {
+    public ResultDTO uploadAvatarImg(MultipartFile file, HttpServletRequest request) {
+
+        // 从session获取用户信息
+        User currentUser = (User) request.getSession().getAttribute(Constants.CURRENT_USER);
+
+        // 判断用户信息是否为空，null即用户未登录
+        if (currentUser == null) {
+            return ResultDTO.errorOf("用户未登录，不能上传头像");
+        }
+        if (file == null){
+            return ResultDTO.errorOf("文件不能为空");
+        }
+
+        return userService.uploadAvatarImg(file,currentUser);
 
 
-        return ResultDTO.success("上传成功！");
+
     }
 
 }

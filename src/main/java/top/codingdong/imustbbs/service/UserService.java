@@ -1,6 +1,8 @@
 package top.codingdong.imustbbs.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import top.codingdong.imustbbs.DTO.RePasswordDTO;
+import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.User;
 
 import java.util.List;
@@ -113,4 +115,6 @@ public interface UserService {
      * @return
      */
     int rePassword(RePasswordDTO repasswordDTO);
+
+    ResultDTO uploadAvatarImg(MultipartFile file, User currentUser);
 }
