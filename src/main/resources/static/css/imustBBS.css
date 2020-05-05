@@ -2,6 +2,10 @@
     float: right !important;
 }
 
+.height-auto{
+    height: auto !important;
+}
+
 .border_0 {
     border: 0px !important;
 }

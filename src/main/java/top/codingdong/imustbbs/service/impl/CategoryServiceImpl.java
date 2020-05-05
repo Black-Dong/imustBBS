@@ -105,4 +105,10 @@ public class CategoryServiceImpl implements CategoryService {
             return ResultDTO.success("删除成功");
         }
     }
+
+    @Override
+    public List<Category> selectALLCategory() {
+
+        return categoryMapper.selectAll();
+    }
 }

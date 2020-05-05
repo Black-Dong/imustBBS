@@ -10,17 +10,8 @@
                 <a href="#" th:onclick="topicsByCategoryId([[${category.id}]])"
                    th:text="${category.name}"></a>
             </li>
-            <li class="layui-form-item" th:if="${moreCagegorys != null}">
-                <!--                <a href="javascript:;">更多分类</a>-->
-                <select name="categoryId" id="selectCategoryId"
-                        class="border_0" onchange="selectCategoryId()">
-                    <option selected disabled hidden>更多分类</option>
-                    <option th:each="category : ${moreCagegorys}"
-                            th:value="${category.id}"
-                            th:text="${category.name}"
-                            th:selected="${category.id == activeCategory ? 'true':'false'}"
-                            class="border_0"></option>
-                </select>
+            <li class="layui-form-item">
+                <a href="/moreCategorys/0/1">更多分类</a>
             </li>
             <script>
                 function selectCategoryId() {
@@ -31,7 +22,7 @@
 
                 function topicsByCategoryId(categoryId) {
                     window.location.href = "/category/" + categoryId + "/1";
-                    if(categoryId > 5){
+                    if (categoryId > 5) {
                         selectCategoryId.css("color", "blue");
                     }
                 }
@@ -51,6 +42,32 @@
                 <button type="submit" class="fly-search searchBtn"><i class="layui-icon" lay-submit></i></button>
             </form>
         </div>
+
+    </div>
+</div>
+
+
+
+
+
+<div th:fragment="navication_moreCategorys" class="fly-panel fly-column height-auto">
+    <div class="layui-container">
+        <ul class="layui-clear">
+            <li th:each="category : ${categories}"
+                th:class="${activeCategory == category.id ? 'layui-hide-xs layui-this':'layui-hide-xs'}">
+                <a href="#" th:onclick="topicsByCategoryId([[${category.id}]])"
+                   th:text="${category.name}"></a>
+            </li>
+
+            <script>
+                function topicsByCategoryId(categoryId) {
+                    window.location.href = "/moreCategorys/" + categoryId + "/1";
+                }
+            </script>
+
+            <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li>
+
+        </ul>
 
     </div>
 </div>

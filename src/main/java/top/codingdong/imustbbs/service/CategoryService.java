@@ -11,7 +11,12 @@ import java.util.List;
  */
 public interface CategoryService {
 
+    /**
+     * 查找nav上的分类 ：5个
+     * @return
+     */
     List<Category> selectNavCategory();
+
 
     List<Category> selectAll();
 
@@ -37,5 +42,18 @@ public interface CategoryService {
      */
     ResultDTO addCategory(Category category);
 
+    /**
+     * 根据id删除分类
+     *
+     * @param categoryId
+     * @return
+     */
     ResultDTO deleteCategoryById(Integer categoryId);
+
+    /**
+     * 查询所有分类
+     *
+     * @return
+     */
+    List<Category> selectALLCategory();
 }

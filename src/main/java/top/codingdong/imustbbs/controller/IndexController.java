@@ -4,10 +4,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import top.codingdong.imustbbs.DTO.ResultDTO;
 import top.codingdong.imustbbs.po.Category;
 import top.codingdong.imustbbs.po.Topic;
@@ -67,15 +64,16 @@ public class IndexController {
      * @param model
      * @return
      */
-    @GetMapping("/i_r")
-    public @ResponseBody ResultDTO index_right(Model model) {
+    @GetMapping("/index_right")
+    public @ResponseBody
+    ResultDTO index_right(Model model) {
 
         // 置顶的 10条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
-        List<Topic> topTopics = topicService.listTopTopics(1,10);
+        List<Topic> topTopics = topicService.listTopTopics(1, 10);
 
 
         // 精品的 10条帖子信息 按时间倒序 作为首页右侧置顶帖子列表
-        List<Topic> boutiqueTopics = topicService.listBoutiqueTopics(1,10);
+        List<Topic> boutiqueTopics = topicService.listBoutiqueTopics(1, 10);
 
         // 返回数据
         Map<String, Object> dataMap = new HashMap<>();
@@ -140,5 +138,38 @@ public class IndexController {
         model.addAttribute("pageInfo", pageInfo);
 
         return "search";
+    }
+
+    /**
+     * @param
+     * @return
+     * @Description 跳转更多分类
+     * @author Dong
+     * @date 2020/5/5 14:32
+     */
+    @GetMapping("/moreCategorys/{id}/{pageNum}")
+    public String moreCategorys(@PathVariable Integer id, Model model,
+                                @PathVariable Integer pageNum,
+                                @RequestParam(defaultValue = "10") Integer pageSize) {
+
+        // 查询所有分类名称
+        List<Category> categories = categoryService.selectALLCategory();
+        model.addAttribute("categories", categories);
+
+        List<Topic> topics = null;
+        if (id != 0){
+            // 当前激活的分类id
+            model.addAttribute("activeCategory", id);
+
+            // 根据分类id查询 该分类 下的所有帖子
+            topics = topicService.listAndUserAndCategoryByCategoryId(pageNum, pageSize, id);
+
+            // 将贴子放入PageInfo返回
+            PageInfo<Topic> pageInfo = PageInfo.of(topics);
+            model.addAttribute("pageInfo", pageInfo);
+        }
+
+
+        return "moreCategorys";
     }
 }
