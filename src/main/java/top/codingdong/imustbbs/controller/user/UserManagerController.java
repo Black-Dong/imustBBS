@@ -52,7 +52,7 @@ public class UserManagerController {
         if (managerId == 1) {
             model.addAttribute("activeManager", managerId);
             model.addAttribute("user", currentUser);
-            return "/user/userSet";
+            return "user/userSet";
         }
 
         List list = null;
@@ -66,7 +66,7 @@ public class UserManagerController {
             model.addAttribute("pageInfo", pageInfo);
 
             model.addAttribute("activeManager", managerId);
-            return "/user/myTopicManager";
+            return "user/myTopicManager";
         }
 
         // 用户管理
@@ -83,7 +83,7 @@ public class UserManagerController {
             }
 
             model.addAttribute("activeManager", managerId);
-            return "/user/userManager";
+            return "user/userManager";
         }
 
         // 分类管理
@@ -94,9 +94,9 @@ public class UserManagerController {
             model.addAttribute("pageInfo", pageInfo);
 
             model.addAttribute("activeManager", managerId);
-            return "/user/categoryManager";
+            return "user/categoryManager";
         }
 
-        return "/user/myTopicManager";
+        return "user/myTopicManager";
     }
 }

@@ -65,7 +65,7 @@ public class UserController {
         model.addAttribute("topics", dbTopics);
         model.addAttribute("replies", dbReplies);
 
-        return "/user/userHome";
+        return "user/userHome";
     }
 
 

@@ -10,10 +10,10 @@
 
 </head>
 <body>
-<div th:replace="/common/header :: header"></div>
+<div th:replace="common/header :: header"></div>
 
 <div class="layui-container fly-marginTop fly-user-main">
-    <ul th:replace="/common/manager-left :: user-nav"></ul>
+    <ul th:replace="common/manager-left :: user-nav"></ul>
     <div class="site-tree-mobile layui-hide">
         <i class="layui-icon">&#xe602;</i>
     </div>
@@ -73,7 +73,7 @@
                     </table>
 
                     <!-- 分页 -->
-                    <div th:replace="/common/pagination :: pagination_manager(${pageInfo})"></div>
+                    <div th:replace="common/pagination :: pagination_manager(${pageInfo})"></div>
 
                     <div id="LAY_page"></div>
                 </div>

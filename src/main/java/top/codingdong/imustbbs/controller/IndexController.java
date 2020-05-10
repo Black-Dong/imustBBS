@@ -91,7 +91,7 @@ public class IndexController {
      */
     @GetMapping("/login")
     public String login() {
-        return "/user/login";
+        return "user/login";
     }
 
     /**
@@ -101,7 +101,7 @@ public class IndexController {
      */
     @GetMapping("/register")
     public String register() {
-        return "/user/register";
+        return "user/register";
     }
 
     /**
@@ -111,7 +111,7 @@ public class IndexController {
      */
     @GetMapping("/findPassword")
     public String findPassword() {
-        return "/user/findPassword";
+        return "user/findPassword";
     }
 
 

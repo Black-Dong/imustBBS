@@ -69,7 +69,7 @@ public class SuperAdminController {
                                  Model model) {
         Category category = categoryService.selectById(id);
         model.addAttribute("category", category);
-        return "/user/editCategory";
+        return "user/editCategory";
     }
 
     /**

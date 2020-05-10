@@ -55,7 +55,7 @@ public class UserTopicController {
     public String publishTopic(Model model) {
         List<Category> categories = categoryService.selectAll();
         model.addAttribute("categorys", categories);
-        return "/user/publishTopic";
+        return "user/publishTopic";
     }
 
     /**
@@ -163,6 +163,6 @@ public class UserTopicController {
         List<Category> categories = categoryService.selectAll();
         model.addAttribute("categorys", categories);
 
-        return "/user/editTopic";
+        return "user/editTopic";
     }
 }

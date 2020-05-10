@@ -87,7 +87,7 @@ public class AdminUserController {
         // 管理栏 激活id
         model.addAttribute("activeManager", 5);
 
-        return "/user/userManager";
+        return "user/userManager";
     }
 
 }

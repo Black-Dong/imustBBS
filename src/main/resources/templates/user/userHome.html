@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/fly-layui/css/global.css">
 </head>
 <body style="margin-top: 65px;">
-<div th:replace="/common/header :: header"></div>
+<div th:replace="common/header :: header"></div>
 
 <div class="fly-home fly-panel" style="background-image: url();">
     <img th:src="${user?.avatar}" th:alt="${user?.username}">
@@ -87,7 +87,7 @@
     </div>
 </div>
 
-<div th:replace="/common/footer :: footer"></div>
+<div th:replace="common/footer :: footer"></div>
 
 <script src="/js/jquery-1.10.2.js"></script>
 <script src="/fly-layui/layui/layui.all.js"></script>
