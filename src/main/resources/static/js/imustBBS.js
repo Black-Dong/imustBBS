@@ -379,29 +379,8 @@ function addCategory() {
  * 修改个人基础信息
  */
 function modifyBasicInformation() {
-    let userBasicInformationArray = $("#userBasicInformationFrom").serializeArray();
-    let userBasicInformation = {};
-    for (let i = 0; i < userBasicInformationArray.length; i++) {
-        userBasicInformation[userBasicInformationArray[i].name] = userBasicInformationArray[i].value;
-    }
-    $.ajax({
-        type: "POST",
-        url: "/user/modifyBasicInformation",
-        contentType: "application/json",
-        data: JSON.stringify(userBasicInformation),
-        success: function (resultDTO) {
-            if (resultDTO.status) {
-                alert(resultDTO.message);
-            } else {
-                alert("修改失败！")
-            }
-        },
-        error: function (resultDTO) {
-            alert(resultDTO.message);
-        }
-    });
 
-    window.location.href = "/user/manager/1/1";
+
     return false;
 }
 
@@ -501,5 +480,46 @@ $(function () {
             accept: 'images', //允许上传的文件类型
             acceptMime: 'image/*'
         });
-    })
+    });
+
+
+    /* layui form表单控制 */
+    layui.use('form', function () {
+        let form = layui.form;
+
+        /* userSet.html */
+        /* 修改个人基础信息 */
+        form.on('submit(userBasicInformation)', function (data) {
+            $.ajax({
+                url: "/user/modifyBasicInformation",
+                type: "POST",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(data.field),
+                success: function (resultDTO) {
+                    if (resultDTO.status) {
+                        layer.msg(resultDTO.message, {
+                            time: 1000,
+                            icon: 6,
+                            end: function () {
+                                location.href = "/user/manager/1/1";
+                            }
+                        });
+                    } else {
+                        layer.msg("修改失败！", {
+                            time: 1000,
+                            icon: 6,
+                            end: function () {
+                                location.href = "/user/manager/1/1";
+                            }
+                        });
+                    }
+                },
+                error: function (resultDTO) {
+                    alert(resultDTO.message);
+                }
+            });
+            return false;
+        });
+    });
 });

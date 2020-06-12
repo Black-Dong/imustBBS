@@ -90,7 +90,7 @@
 
 <!-- 搜索分页 -->
 <div th:fragment="pagination_search(pageInfo)" style="border-top: 1px dotted #e2e2e2; text-align: center;"
-     th:if="${pageInfo?.list != null}">
+     th:if="${pageInfo?.list != null && #lists.size(pageInfo?.list) > 0}">
     <!--     th:if="${pageInfo?.list != null && pageInfo?.total > 10}">-->
     <div class="laypage-main">
         <a th:if="${pageInfo.pageNum - 2 > 1}" href="#"
